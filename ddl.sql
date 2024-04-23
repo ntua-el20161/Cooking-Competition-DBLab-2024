@@ -31,7 +31,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- ER UPDATES:
 -- recipe also many to one with ingredient for the basic ingredient relationship
 -- Cook many to many relationship with national cuisine
--- meal type table 
+-- meal type table (?)
 -- many to many ingredient nutritional info
 -- na kanoyme table gia tags h oxi?
 
@@ -53,7 +53,7 @@ CREATE TABLE recipe (
     preparation_mins INT NOT NULL,
     cooking_mins INT NOT NULL,
     -- total_time INT AS (preparation_mins + cooking_mins),
-    -- category varchar(50) NOT NULL,
+    category varchar(50) NOT NULL,
     national_cuisine_id INT NOT NULL,
     basic_ingredient_id INT NOT NULL,
     PRIMARY KEY(recipe_id)
@@ -122,7 +122,7 @@ END;
 
 CREATE TABLE food_group(
     food_group_id INT NOT NULL,
-    title VARCHAR(100) NOT NULL,
+    title VARCHAR(50) NOT NULL,
     small_description VARCHAR(300) NOT NULL,
     PRIMARY KEY (food_group_id)
 );
@@ -139,6 +139,34 @@ CREATE TABLE ingredient (
 
 ALTER TABLE recipe 
 ADD CONSTRAINT FOREIGN KEY (basic_ingredient_id) REFERENCES ingredient(ingredient_id);
+
+CREATE TRIGGER update_recipe_category
+BEFORE INSERT ON recipe
+FOR EACH ROW
+BEGIN
+    DECLARE food_group_name VARCHAR(50);
+
+    -- Fetch the food group name for the basic ingredient
+    SELECT fg.title INTO food_group_name
+    FROM food_group fg
+    INNER JOIN ingredient i ON fg.food_group_id = i.food_group_id
+    WHERE i.ingredient_id = NEW.basic_ingredient_id;
+
+    -- Update the category column based on the food group name
+    CASE 
+        WHEN food_group_name == "vegetables" THEN SET NEW.category = "vegetarian"
+        WHEN food_group_name == "red meat" THEN SET NEW.category = "meat"
+        WHEN food_group_name == "milk and dairy products" THEN SET NEW.category = "dairy"
+        WHEN food_group_name == "grains(pasta, bread, rice) and potatoes" THEN SET NEW.category = "grains"
+        WHEN food_group_name == "fruits" THEN SET NEW.category = "fruits"
+        WHEN food_group_name == "legumes" THEN SET NEW.category = "legumes"
+        WHEN food_group_name == "seafood" THEN SET NEW.category = "seafood"
+        WHEN food_group_name == "eggs" THEN SET NEW.category = "eggs"
+        WHEN food_group_name == "white meat" THEN SET NEW.category = "meat"
+        WHEN food_group_name == "fats, oils, nuts" THEN SET NEW.category = "oily"
+        ELSE SET NEW.category = "other"
+    END;
+END;
 
 CREATE TABLE recipe_ingredient(
     recipe_id INT NOT NULL,
@@ -270,3 +298,4 @@ CREATE TABLE image (
     image_url VARCHAR(20) NOT NULL,
     PRIMARY KEY (image_id)
 );
+
