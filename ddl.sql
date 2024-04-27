@@ -8,6 +8,7 @@ USE cooking_show;
 -- meal type table (?)
 -- many to many ingredient nutritional info
 -- na kanoyme table gia tags h oxi?
+-- add season attribute to episode
 
 CREATE TABLE app_user (
     app_user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,  
@@ -242,6 +243,7 @@ CREATE TABLE cook_recipe (
 CREATE TABLE episode (
     episode_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     episode_number INT NOT NULL CHECK(episode_number > 0),
+    season INT NOT NULL CHECK(season > 0),
     PRIMARY KEY(episode_id)
 );
 
@@ -293,7 +295,7 @@ BEGIN
         SELECT ec.national_cuisine_id
         FROM episode_cuisine ec
         INNER JOIN episode e ON ec.episode_id = e.episode_id
-        WHERE e.episode_number = episode_no
+        WHERE e.episode_number = episode_no AND e.season = season_no
     );
 
     UPDATE national_cuisine
@@ -302,7 +304,7 @@ BEGIN
         SELECT ec.national_cuisine_id
         FROM episode_cuisine ec
         INNER JOIN episode e ON ec.episode_id = e.episode_id
-        WHERE e.episode_number = episode_no
+        WHERE e.episode_number = episode_no AND e.season = season_no
     );
 END;
 //
@@ -310,9 +312,41 @@ DELIMITER ;
 
 -- This is a procedure that will be used to assign 10 random national cuisines to an episode
 DELIMITER //
-CREATE PROCEDURE episode_national_cuisine_assignments (episode_no INT) 
+CREATE PROCEDURE proc_episode_assignments (episode_no INT, season_no INT) 
 BEGIN
-    INSERT INTO episode_cuisine(episode_id, national_cuisine_id)
+    CREATE LOCAL TEMPORARY TABLE episode_assignments (
+        episode_assignments_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+        episode_id INT UNSIGNED NOT NULL,
+        national_cuisine_id INT UNSIGNED NOT NULL,
+        cook_id INT UNSIGNED NOT NULL,
+        recipe_id INT UNSIGNED NOT NULL,
+        PRIMARY KEY (episode_assignments_id)
+    );
+
+    INSERT INTO episode_assignments(episode_id, national_cuisine_id, cook_id, recipe_id)
+    SELECT e.episode_id, nc.national_cuisine_id, cnc.cook_id, r.recipe_id
+    FROM episode e
+    CROSS JOIN (
+        SELECT national_cuisine_id
+        FROM national_cuisine
+        WHERE episode_count <= 3
+    ) AS nc
+    INNER JOIN (
+        SELECT cnc_temp.cook_id, cnc_temp.national_cuisine_id
+        FROM cook_national_cuisine cnc_temp
+        INNER JOIN cook c ON c.cook_id = cnc_temp.cook_id
+        WHERE c.episode_count <= 3
+    ) AS cnc ON cnc.national_cuisine_id = nc.national_cuisine_id
+    INNER JOIN (
+        SELECT r_temp.recipe_id
+        FROM recipe r_temp
+        WHERE r_temp.episode_count <= 3
+    ) AS r ON r.national_cuisine_id = nc.national_cuisine_id
+    WHERE e.episode_number = episode_no AND e.season = season_no    -- maybe move this at the start of the query
+    ORDER BY RAND()
+    LIMIT 10;
+
+    /*INSERT INTO episode_cuisine(episode_id, national_cuisine_id)
     SELECT e.episode_id, nc.national_cuisine_id
     FROM episode e
     CROSS JOIN (
@@ -322,11 +356,35 @@ BEGIN
         ORDER BY RAND()
         LIMIT 10
     ) AS nc
-    WHERE e.episode_number = episode_no;
-
+    WHERE e.episode_number = episode_no AND e.season = season_no;
+    */
     CALL increment_reset_episode_count(episode_no);
 END;
 //
 DELIMITER ;
 
+/*
+DELIMITER //
+CREATE PROCEDURE episode_cook_assignments (episode_no INT, season_no INT) 
+BEGIN   
+    INSERT INTO episode_cook(episode_id, cook_id)
+    SELECT e.episode_id, c.cook_id
+    FROM episode e
+    CROSS JOIN (
+        SELECT c.cook_id
+        FROM cook c
+        INNER JOIN cook_national_cuisine cnc 
+        ON c.cook_id = cnc.cook_id
+        INNER JOIN episode_cuisine ec
+        ON cnc.national_cuisine_id = ec.national_cuisine_id
+        INNER JOIN episode e
+        ON ec.episode_id = e.episode_id
+        WHERE e.episode_number = episode_no AND e.season = season_no AND c.episode_count <= 3
+        ORDER BY RAND()
+        LIMIT 10
+    ) AS c
+END;
+// 
+DELIMITER ;
 
+*/
