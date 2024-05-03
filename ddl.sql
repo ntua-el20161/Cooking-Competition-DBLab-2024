@@ -10,7 +10,6 @@ USE cooking_show;
 -- add season attribute to episode
 -- many to many recipe-episode
 -- episode count se national cuisine, cook, recipe
--- is_judge relationship attribute sto episode_cook
 
 -- paradoxh: kathe mageiras mporei na ektelesei kathe syntagh ths ethnikhs kouzinas sthn opoia eidikeuetai
 
@@ -203,15 +202,15 @@ CREATE TABLE recipe_recipe_theme (
 );
 
 CREATE TABLE cook (
-    cook_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    first_name VARCHAR(30) NOT NULL,
-    last_name VARCHAR(30) NOT NULL,
-    phone_number VARCHAR(15) NOT NULL UNIQUE,
-    birthdate DATE NOT NULL,
-    age INT NOT NULL,
-    yrs_of_exp INT NOT NULL,
-    episode_count INT CHECK(episode_count BETWEEN 0 AND 3),
-    cook_rank VARCHAR(20) NOT NULL CHECK (cook_rank in('A cook', 'B cook', 'C cook', 'Chef Asssistant', 'Chef')),
+    cook_id INT UNSIGNED AUTO_INCREMENT,
+    first_name VARCHAR(30), -- NOT NULL,
+    last_name VARCHAR(30), -- NOT NULL,
+    phone_number VARCHAR(15), -- NOT NULL UNIQUE,
+    birthdate DATE, -- NOT NULL,
+    age INT, -- NOT NULL,
+    yrs_of_exp INT, -- NOT NULL,
+    episode_count INT, -- CHECK(episode_count BETWEEN 0 AND 3),
+    cook_row_num VARCHAR(20), -- NOT NULL CHECK (cook_row_num in('A cook', 'B cook', 'C cook', 'Chef Assistant', 'Chef')),
     PRIMARY KEY (cook_id)
 );
 
@@ -234,71 +233,49 @@ CREATE TABLE cook_recipe (
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-CREATE TABLE episode (
-    episode_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    episode_number INT NOT NULL CHECK(episode_number > 0),
-    season INT NOT NULL CHECK(season > 0),
-    PRIMARY KEY(episode_id)
-);
-
-CREATE TABLE episode_cook (
-    episode_id INT UNSIGNED NOT NULL,
+CREATE TABLE cook_cuisine_assignment (
+    cca_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     cook_id INT UNSIGNED NOT NULL,
-    is_judge BOOLEAN NOT NULL,
-    PRIMARY KEY (episode_id, cook_id),
-    CONSTRAINT FOREIGN KEY (episode_id) REFERENCES episode(episode_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT FOREIGN KEY (cook_id) REFERENCES cook(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
-CREATE TABLE episode_recipe (
-    episode_id INT UNSIGNED NOT NULL,
-    recipe_id INT UNSIGNED NOT NULL,
-    PRIMARY KEY (episode_id, recipe_id),
-    CONSTRAINT FOREIGN KEY (episode_id) REFERENCES episode(episode_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
-CREATE TABLE episode_cuisine (
-    episode_id INT UNSIGNED NOT NULL,
     national_cuisine_id INT UNSIGNED NOT NULL,
-    PRIMARY KEY (episode_id, national_cuisine_id),
-    CONSTRAINT FOREIGN KEY (episode_id) REFERENCES episode(episode_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    episode_number INT UNSIGNED NOT NULL,
+    season_number INT UNSIGNED NOT NULL,
+    PRIMARY KEY (cca_id),
+    CONSTRAINT FOREIGN KEY (cook_id) REFERENCES cook(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (national_cuisine_id) REFERENCES national_cuisine(national_cuisine_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+CREATE TABLE recipe_assignment (
+    cra_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    recipe_id INT UNSIGNED NOT NULL,
+    episode_number INT UNSIGNED NOT NULL,
+    season_number INT UNSIGNED NOT NULL,
+    PRIMARY KEY (cra_id),
+    CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE judge_assignment (
+    judge_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    episode_number INT UNSIGNED NOT NULL,
+    season_number INT UNSIGNED NOT NULL,
+    cook_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (judge_id),
+    FOREIGN KEY (cook_id) REFERENCES cook(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE 
+);
+
+-- maybe check cook_id and judge_id are not the same
 CREATE TABLE rating (
     rating_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    rating_value INT NOT NULL CHECK (rating_value BETWEEN 1 AND 5),
     cook_id INT UNSIGNED NOT NULL,
-    episode_id INT UNSIGNED NOT NULL,
     judge_id INT UNSIGNED NOT NULL,
+    episode_number INT UNSIGNED NOT NULL,
+    season_number INT UNSIGNED NOT NULL,
     PRIMARY KEY (rating_id),
     CONSTRAINT FOREIGN KEY (cook_id) REFERENCES cook(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT FOREIGN KEY (episode_id) REFERENCES episode(episode_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT FOREIGN KEY (judge_id) REFERENCES cook(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT FOREIGN KEY (judge_id) REFERENCES judge_assignment(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-CREATE TABLE cook_cuisine_assignment (
-    cook_id INT UNSIGNED NOT NULL,
-    national_cuisine_id INT UNSIGNED NOT NULL,
-    episode_number INT UNSIGNED NOT NULL,
-    season_number INT UNSIGNED NOT NULL,
-    PRIMARY KEY (cook_id, national_cuisine_id),
-    CONSTRAINT FOREIGN KEY (cook_id) REFERENCES cook(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT FOREIGN KEY (national_cuisine_id) REFERENCES national_cuisine(national_cuisine_id) ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
-CREATE TABLE cook_recipe_assignment (
-    cook_id INT UNSIGNED NOT NULL,
-    recipe_id INT UNSIGNED NOT NULL,
-    episode_number INT UNSIGNED NOT NULL,
-    season_number INT UNSIGNED NOT NULL,
-    PRIMARY KEY (cook_id, recipe_id),
-    CONSTRAINT FOREIGN KEY (cook_id) REFERENCES cook(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
-CREATE INDEX idx_rating_rating ON rating(rating);
+CREATE INDEX idx_rating_rating ON rating(rating_value);
 
 CREATE TABLE image (
     image_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -306,6 +283,23 @@ CREATE TABLE image (
     image_description VARCHAR(200) NOT NULL,
     PRIMARY KEY (image_id)
 );
+
+-- mesos oros aksiologhsewn ana mageira
+CREATE VIEW cook_mean_rating AS
+SELECT c.cook_id, AVG(r.rating_value) as mean_rating
+FROM cook c
+INNER JOIN rating r ON c.cook_id = r.cook_id
+GROUP BY c.cook_id;
+
+-- mesos oros ana ethnikh kouzina
+CREATE VIEW national_cuisine_mean_rating AS
+SELECT nc.national_cuisine_id, AVG(r.rating_value) as mean_rating
+FROM national_cuisine nc
+INNER JOIN cook_cuisine_assignment cca ON nc.national_cuisine_id = cca.national_cuisine_id
+INNER JOIN rating r ON cca.cook_id = r.cook_id AND cca.episode_number = r.episode_number AND cca.season_number = r.season_number
+GROUP BY nc.national_cuisine_id;
+
+-- 
 
 -- This is a procedure that will be used to increment the episode count for the national cuisine used in episode number episode_no
 -- and reset the episode count for the rest of the national cuisines
@@ -316,10 +310,9 @@ BEGIN
     SET episode_count = 
     CASE 
     WHEN national_cuisine_id IN (
-        SELECT ec.national_cuisine_id
-        FROM episode_cuisine ec
-        INNER JOIN episode e ON ec.episode_id = e.episode_id
-        WHERE e.episode_number = episode_no AND e.season = season_no
+        SELECT cca.national_cuisine_id
+        FROM cook_cuisine_assignment cca
+        WHERE cca.episode_number = episode_no AND cca.season_number = season_no
     )
     THEN episode_count + 1
     ELSE 0
@@ -335,10 +328,9 @@ BEGIN
     SET episode_count = 
     CASE 
     WHEN cook_id IN (
-        SELECT ec.cook_id
-        FROM episode_cook ec
-        INNER JOIN episode e ON ec.episode_id = e.episode_id
-        WHERE e.episode_number = episode_no AND e.season = season_no
+        SELECT cca.cook_id
+        FROM cook_cuisine_assignment cca
+        WHERE cca.episode_number = episode_no AND cca.season_number = season_no
     )
     THEN episode_count + 1
     ELSE 0
@@ -354,10 +346,9 @@ BEGIN
     SET episode_count = 
     CASE 
     WHEN recipe_id IN (
-        SELECT er.recipe_id
-        FROM episode_recipe er
-        INNER JOIN episode e ON er.episode_id = e.episode_id
-        WHERE e.episode_number = episode_no AND e.season = season_no
+        SELECT cra.recipe_id
+        FROM cook_recipe_assignment cra
+        WHERE cra.episode_number = episode_no AND cra.season_number = season_no
     )
     THEN episode_count + 1
     ELSE 0
@@ -399,7 +390,8 @@ BEGIN
             INNER JOIN cook c ON c.cook_id = cnc_temp.cook_id
             WHERE c.episode_count <= 3
         ) AS cnc
-    ) AS cnc ON nc.national_cuisine_id = cnc.national_cuisine_id;
+    ) AS cnc ON cnc.national_cuisine_id = nc.national_cuisine_id;
+
 
     OPEN cursor_list;
     a_loop: LOOP 
@@ -427,37 +419,46 @@ BEGIN
     END LOOP;
     CLOSE cursor_list;
 
-    INSERT INTO cook_recipe_assignment(cook_id, recipe_id, episode_number, season_number) 
-    SELECT cra.cook_id, cra.recipe_id, episode_no, season_no 
+    INSERT INTO cook_recipe_assignment (recipe_id, episode_number, season_number) 
+    SELECT cra.recipe_id, episode_no, season_no 
     FROM (
-        SELECT cr.cook_id, r.recipe_id, ROW_NUMBER() OVER (PARTITION BY r.recipe_id ORDER BY RAND()) AS rank
+        SELECT cr.cook_id, r.recipe_id, ROW_NUMBER() OVER (PARTITION BY cr.cook_id ORDER BY RAND()) AS row_num
         FROM (
             -- filter out the recipes that have been used in more than 3 episodes
             SELECT r.recipe_id
             FROM recipe r
             WHERE r.episode_count <= 3 
         ) AS r
-        INNER JOIN (
-            -- filter out the recipes that do not belong to the national cuisines assigned to the episode
-            SELECT national_cuisine_id
-            FROM cook_cuisine_assignment
-            WHERE episode_number = episode_no AND season_number = season_no
-        ) AS cca ON r.national_cuisine_id = cca.national_cuisine_id
         INNER JOIN cook_recipe cr ON cr.recipe_id = r.recipe_id
         INNER JOIN (
-            SELECT cook_id
+            SELECT cook_id, national_cuisine_id
             FROM cook_cuisine_assignment
             WHERE episode_number = episode_no AND season_number = season_no
-        ) AS cca1 ON cr.cook_id = cca1.cook_id
+        ) AS cca ON r.national_cuisine_id = cca.national_cuisine_id AND cr.cook_id = cca.cook_id
     ) as cra
-    WHERE cra.rank = 1;
+    WHERE cra.row_num = 1;
+
+    INSERT INTO judge_assignment(cook_id, episode_number, season_number)
+    SELECT c.cook_id, episode_no, season_no
+    FROM (
+        SELECT cook_id
+        FROM cook
+        WHERE episode_count <= 3
+        ORDER BY RAND()
+    ) as c
+    WHERE c.cook_id NOT IN (
+        SELECT cook_id
+        FROM cook_cuisine_assignment
+        WHERE episode_number = episode_no AND season_number = season_no
+    )
+    LIMIT 3;
 
     CALL national_cuisine_episode_count(episode_no, season_no);
+    CALL cook_episode_count(episode_no, season_no);
+    CALL recipe_episode_count(episode_no, season_no);
 
     DROP TEMPORARY TABLE temp_cook_national_cuisine;
 END;
 //
 DELIMITER ;
-
-
 
