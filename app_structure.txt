@@ -1,0 +1,13 @@
+my_app/
+│
+├── backend/
+│   ├── app.py          # Backend Python code (Flask or Django)
+│   ├── models.py       # Database models (if using Flask)
+│   ├── ddl.sql         
+│   └── templates/      # HTML templates 
+│
+├── frontend/
+│   ├── index.html      # Main HTML file
+│   └── styles.css      # CSS styles
+│
+└── setup_database.py   # Python script to execute ddl.sql and set up the database
