@@ -583,3 +583,22 @@ END;
 //
 DELIMITER ;
 
+
+-- First attempt at a procedure to find cooks under 30 with the most recipes
+-- todo: check if this is correct
+DELIMITER //
+
+
+CREATE PROCEDURE find_cooks_with_most_recipes_under_30()
+BEGIN
+    -- Select cook information along with recipe count
+    SELECT c.cook_id, c.first_name, c.last_name, c.age, COUNT(r.recipe_id) AS recipe_count
+    FROM cook c
+    LEFT JOIN recipe r ON c.cook_id = r.cook_id
+    WHERE c.age < 30
+    GROUP BY c.cook_id, c.first_name, c.last_name, c.age
+    ORDER BY recipe_count DESC; -- Order by recipe count in descending order
+END //
+
+DELIMITER ;
+
