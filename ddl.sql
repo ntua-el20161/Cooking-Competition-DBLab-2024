@@ -10,8 +10,7 @@ USE cooking_show;
 -- add season attribute to episode
 -- many to many recipe-episode
 -- episode count se national cuisine, cook, recipe
-
--- paradoxh: kathe mageiras mporei na ektelesei kathe syntagh ths ethnikhs kouzinas sthn opoia eidikeuetai
+-- recipe: serving_size, servings attributes
 
 CREATE TABLE app_user (
     app_user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,  
@@ -29,11 +28,12 @@ CREATE TABLE recipe (
     small_description VARCHAR(300),
     meal_type VARCHAR(200),
     tips VARCHAR(200),
-    tags VARCHAR(200), 
     preparation_mins INT UNSIGNED NOT NULL,
     cooking_mins INT UNSIGNED NOT NULL,
     -- total_time INT AS (preparation_mins + cooking_mins),
     category VARCHAR(50) NOT NULL,
+    serving_size_in_grams INT UNSIGNED NOT NULL,
+    servings INT UNSIGNED NOT NULL,
     episode_count INT CHECK(episode_count BETWEEN 0 AND 3),
     national_cuisine_id INT UNSIGNED NOT NULL,
     basic_ingredient_id INT UNSIGNED NOT NULL,
@@ -41,6 +41,13 @@ CREATE TABLE recipe (
 );
 
 CREATE INDEX idx_recipe_title ON recipe(title);
+
+CREATE TABLE recipe_tag(
+    recipe_id INT UNSIGNED NOT NULL,
+    tag VARCHAR(20) NOT NULL,
+    PRIMARY KEY(recipe_id, tag),
+    CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
 
 -- cooking gear
 CREATE TABLE gear(
@@ -203,14 +210,14 @@ CREATE TABLE recipe_recipe_theme (
 
 CREATE TABLE cook (
     cook_id INT UNSIGNED AUTO_INCREMENT,
-    first_name VARCHAR(30), -- NOT NULL,
-    last_name VARCHAR(30), -- NOT NULL,
-    phone_number VARCHAR(15), -- NOT NULL UNIQUE,
-    birthdate DATE, -- NOT NULL,
-    age INT, -- NOT NULL,
-    yrs_of_exp INT, -- NOT NULL,
-    episode_count INT, -- CHECK(episode_count BETWEEN 0 AND 3),
-    cook_row_num VARCHAR(20), -- NOT NULL CHECK (cook_row_num in('A cook', 'B cook', 'C cook', 'Chef Assistant', 'Chef')),
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(30) NOT NULL,
+    phone_number VARCHAR(15) NOT NULL UNIQUE,
+    birthdate DATE NOT NULL,
+    age INT NOT NULL,
+    yrs_of_exp INT NOT NULL,
+    episode_count INT CHECK(episode_count BETWEEN 0 AND 3),
+    cook_rank VARCHAR(20) NOT NULL CHECK (cook_rank in('A cook', 'B cook', 'C cook', 'Chef Assistant', 'Chef')),
     PRIMARY KEY (cook_id)
 );
 
@@ -288,14 +295,24 @@ CREATE TABLE image (
     PRIMARY KEY (image_id)
 );
 
--- mesos oros aksiologhsewn ana mageira
+CREATE VIEW total_nutritional_info AS
+SELECT r.recipe_id, (r.servings*ni.fats) AS fats, (r.servings*ni.carbohydrates) AS carbohydrates, (r.servings*ni.protein) AS protein
+FROM recipe r
+INNER JOIN nutritional_info ni ON r.recipe_id = ni.recipe_id; 
+
+CREATE VIEW cook_episode_count AS
+SELECT c.cook_id, c.first_name, c.last_name, COUNT(*) as episode_count
+FROM cook c
+INNER JOIN cook_cuisine_assignment cca ON c.cook_id = cca.cook_id;
+    
+-- 3.1: mesos oros aksiologhsewn ana mageira
 CREATE VIEW cook_mean_rating AS
 SELECT c.cook_id, AVG(r.rating_value) as mean_rating
 FROM cook c
 INNER JOIN rating r ON c.cook_id = r.cook_id
 GROUP BY c.cook_id;
 
--- mesos oros ana ethnikh kouzina
+-- 3.1: mesos oros aksiologhsewn ana ethnikh kouzina
 CREATE VIEW national_cuisine_mean_rating AS
 SELECT nc.national_cuisine_id, AVG(r.rating_value) as mean_rating
 FROM national_cuisine nc
@@ -304,6 +321,86 @@ INNER JOIN episode e ON cca.episode_id = e.episode_id
 INNER JOIN rating r ON cca.cook_id = r.cook_id AND r.episode_id = e.episode_id
 GROUP BY nc.national_cuisine_id;
 
+-- 3.3
+CREATE VIEW young_cooks_with_most_recipes AS
+SELECT c.cook_id, c.first_name, c.last_name, COUNT(*) as recipe_count
+FROM cook c
+INNER JOIN cook_recipe cr ON c.cook_id = cr.cook_id
+WHERE c.age < 30
+ORDER BY recipe_count DESC
+LIMIT 10;
+
+-- 3.4
+CREATE VIEW never_selected_as_judge AS
+SELECT c.cook_id, c.first_name, c.last_name
+FROM cook c
+WHERE c.cook_id NOT IN (
+    SELECT ja.cook_id
+    FROM judge_assignment ja
+);
+
+-- 3.5 (lathos)
+CREATE VIEW judges_with_equal_episodes AS
+SELECT c.cook_id, c.first_name, c.last_name, c.age, c.yrs_of_exp, c.cook_rank, COUNT(*) as episode_count
+FROM cook c
+INNER JOIN judge_assignment ja ON c.cook_id = ja.cook_id
+GROUP BY c.cook_id
+HAVING COUNT(*) = 3;
+
+-- 3.6
+CREATE VIEW most_used_tag_combinations AS 
+SELECT rt1.tag, rt2.tag, COUNT(*) AS appearance_count
+FROM recipe_tag rt1
+JOIN recipe_tag rt2 ON rt1.recipe_id = rt2.recipe_id AND rt1.tag < rt2.tag
+GROUP BY rt1.tag, rt2.tag
+ORDER BY appearance_count DESC
+LIMIT 3;
+
+-- 3.6 alternative with force index
+/*
+SELECT rt1.tag, rt2.tag, COUNT(*) AS appearance_count
+FROM recipe_tag rt1
+JOIN recipe_tag rt2 ON rt1.recipe_id = rt2.recipe_id AND rt1.tag < rt2.tag
+FORCE INDEX FOR GROUP BY rt1.tag, rt2.tag
+ORDER BY appearance_count DESC
+LIMIT 3;
+*/
+
+-- 3.7
+CREATE VIEW five_less_than_the_most AS
+SELECT c.cook_id, c.first_name, c.last_name, c.episode_count
+FROM cook_episode_count c
+WHERE (SELECT MAX(episode_count) FROM cook_episode_count) - c.episode_count >= 5;
+
+-- 3.9
+CREATE VIEW mean_carbs_per_year AS
+SELECT AVG(r.servings*ni.carbohydrates) as mean_carbs_per_year, e.season_number AS yr
+FROM nutritional_info ni
+INNER JOIN recipe r ON ni.recipe_id = r.recipe_id
+INNER JOIN recipe_assignment ra ON r.recipe_id = ra.recipe_id
+INNER JOIN episode e ON ra.episode_id = e.episode_id
+GROUP BY e.season_number;
+
+-- 3.10 
+
+-- 3.14
+CREATE VIEW theme_with_most_appearances AS
+SELECT rt.recipe_theme_id, rt.title, COUNT(*) as appearance_count
+FROM recipe_theme rt
+INNER JOIN recipe_recipe_theme rrt ON rt.recipe_theme_id = rrt.recipe_theme_id
+INNER JOIN recipe_assignment ra ON rrt.recipe_id = ra.recipe_id;
+
+-- 3.15
+CREATE VIEW never_used_food_groups AS
+SELECT food_group_id, title
+FROM food_group 
+WHERE food_group_id NOT IN (
+    SELECT DISTINCT fd.food_group_id
+    FROM recipe_assignment r
+    INNER JOIN recipe_ingredient ri ON r.recipe_id = ri.recipe_id
+    INNER JOIN ingredient i ON ri.ingredient_id = i.ingredient_id
+    INNER JOIN food_group fd ON i.food_group_id = fd.food_group_id
+);
 
 -- This is a procedure that will be used to increment the episode count for the national cuisine used in episode number episode_no
 -- and reset the episode count for the rest of the national cuisines
