@@ -26,7 +26,6 @@ CREATE TABLE recipe (
     difficulty INT NOT NULL CHECK(difficulty BETWEEN 1 AND 5),
     title VARCHAR(100) NOT NULL UNIQUE,
     small_description VARCHAR(300),
-    meal_type VARCHAR(200),
     tips VARCHAR(200),
     preparation_mins INT UNSIGNED NOT NULL,
     cooking_mins INT UNSIGNED NOT NULL,
@@ -42,12 +41,20 @@ CREATE TABLE recipe (
 
 CREATE INDEX idx_recipe_title ON recipe(title);
 
+CREATE TABLE recipe_meal_type(
+    recipe_id INT UNSIGNED NOT NULL,
+    meal_type VARCHAR(20) NOT NULL,
+    PRIMARY KEY(recipe_id, meal_type),
+    CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
 CREATE TABLE recipe_tag(
     recipe_id INT UNSIGNED NOT NULL,
     tag VARCHAR(20) NOT NULL,
     PRIMARY KEY(recipe_id, tag),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+CREATE INDEX idx_recipe_tag ON recipe_tag(tag);
 
 -- cooking gear
 CREATE TABLE gear(
@@ -109,7 +116,7 @@ CREATE TABLE ingredient (
     ingredient_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     title VARCHAR(100) NOT NULL UNIQUE,
     kcal_per_100 INT NOT NULL CHECK(kcal_per_100 >= 0),
-    food_group_id INT UNSIGNED NOT NULL, 
+    food_group_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (ingredient_id),
     CONSTRAINT FOREIGN KEY (food_group_id) REFERENCES food_group(food_group_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -154,6 +161,7 @@ CREATE TABLE recipe_ingredient(
     recipe_id INT UNSIGNED NOT NULL,
     ingredient_id INT UNSIGNED NOT NULL,
     quantity VARCHAR(50),
+    estimated_grams INT UNSIGNED NOT NULL,
     PRIMARY KEY (recipe_id, ingredient_id),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -296,30 +304,47 @@ CREATE TABLE image (
 );
 
 CREATE VIEW total_nutritional_info AS
-SELECT r.recipe_id, (r.servings*ni.fats) AS fats, (r.servings*ni.carbohydrates) AS carbohydrates, (r.servings*ni.protein) AS protein
+SELECT r.recipe_id, SUM(ri.estimated_grams*i.kcal_per_100/100)/r.servings AS calories, ni.fats, ni.carbohydrates, ni.protein
 FROM recipe r
-INNER JOIN nutritional_info ni ON r.recipe_id = ni.recipe_id; 
+INNER JOIN nutritional_info ni ON r.recipe_id = ni.recipe_id
+INNER JOIN recipe_ingredient ri ON r.recipe_id = ri.recipe_id
+INNER JOIN ingredient i ON ri.ingredient_id = i.ingredient_id;
 
 CREATE VIEW cook_episode_count AS
 SELECT c.cook_id, c.first_name, c.last_name, COUNT(*) as episode_count
 FROM cook c
 INNER JOIN cook_cuisine_assignment cca ON c.cook_id = cca.cook_id;
+
+-- this is created for 3.13 query
+CREATE VIEW cook_rank_numeric AS
+SELECT cook_id, cook_rank,
+    CASE 
+        WHEN cook_rank = 'A cook' THEN 1
+        WHEN cook_rank = 'B cook' THEN 2
+        WHEN cook_rank = 'C cook' THEN 3
+        WHEN cook_rank = 'Chef Assistant' THEN 4
+        WHEN cook_rank = 'Chef' THEN 5
+    END AS rank_numeric
+FROM cook;
     
 -- 3.1: mesos oros aksiologhsewn ana mageira
 CREATE VIEW cook_mean_rating AS
-SELECT c.cook_id, AVG(r.rating_value) as mean_rating
+SELECT c.first_name, c.last_name, AVG(r.rating_value) as mean_rating
 FROM cook c
 INNER JOIN rating r ON c.cook_id = r.cook_id
-GROUP BY c.cook_id;
+GROUP BY c.first_name, c.last_name;
 
 -- 3.1: mesos oros aksiologhsewn ana ethnikh kouzina
 CREATE VIEW national_cuisine_mean_rating AS
-SELECT nc.national_cuisine_id, AVG(r.rating_value) as mean_rating
+SELECT nc.cuisine_name, AVG(r.rating_value) as mean_rating
 FROM national_cuisine nc
 INNER JOIN cook_cuisine_assignment cca ON nc.national_cuisine_id = cca.national_cuisine_id
 INNER JOIN episode e ON cca.episode_id = e.episode_id
 INNER JOIN rating r ON cca.cook_id = r.cook_id AND r.episode_id = e.episode_id
-GROUP BY nc.national_cuisine_id;
+GROUP BY nc.cuisine_name;
+
+-- 3.2
+
 
 -- 3.3
 CREATE VIEW young_cooks_with_most_recipes AS
@@ -339,17 +364,19 @@ WHERE c.cook_id NOT IN (
     FROM judge_assignment ja
 );
 
--- 3.5 (lathos)
+-- 3.5
 CREATE VIEW judges_with_equal_episodes AS
-SELECT c.cook_id, c.first_name, c.last_name, c.age, c.yrs_of_exp, c.cook_rank, COUNT(*) as episode_count
-FROM cook c
-INNER JOIN judge_assignment ja ON c.cook_id = ja.cook_id
-GROUP BY c.cook_id
-HAVING COUNT(*) = 3;
+SELECT j.cook_id, j.first_name, j.last_name, e.season_number, COUNT(*) as episode_count
+FROM judge_assignment ja
+INNER JOIN episode e ON ja.episode_id = e.episode_id
+INNER JOIN cook j ON ja.cook_id = j.cook_id
+GROUP BY ja.cook_id, e.season_number
+HAVING COUNT(*) > 3
+ORDER BY episode_count DESC;
 
 -- 3.6
 CREATE VIEW most_used_tag_combinations AS 
-SELECT rt1.tag, rt2.tag, COUNT(*) AS appearance_count
+SELECT rt1.tag AS tag_1, rt2.tag AS tag_2, COUNT(*) AS appearance_count
 FROM recipe_tag rt1
 JOIN recipe_tag rt2 ON rt1.recipe_id = rt2.recipe_id AND rt1.tag < rt2.tag
 GROUP BY rt1.tag, rt2.tag
@@ -358,7 +385,8 @@ LIMIT 3;
 
 -- 3.6 alternative with force index
 /*
-SELECT rt1.tag, rt2.tag, COUNT(*) AS appearance_count
+CREATE VIEW most_used_tag_combinations_alt AS
+SELECT rt1.tag AS tag_1, rt2.tag AS tag_2, COUNT(*) AS appearance_count
 FROM recipe_tag rt1
 JOIN recipe_tag rt2 ON rt1.recipe_id = rt2.recipe_id AND rt1.tag < rt2.tag
 FORCE INDEX FOR GROUP BY rt1.tag, rt2.tag
@@ -372,6 +400,26 @@ SELECT c.cook_id, c.first_name, c.last_name, c.episode_count
 FROM cook_episode_count c
 WHERE (SELECT MAX(episode_count) FROM cook_episode_count) - c.episode_count >= 5;
 
+-- 3.8
+CREATE VIEW episode_with_most_gear AS
+SELECT e.episode_id, e.episode_number, e.season_number, COUNT(*) as total_gear
+FROM episode e
+INNER JOIN recipe_assignment ra ON e.episode_id = ra.episode_id
+INNER JOIN recipe_gear rg ON ra.recipe_id = rg.recipe_id
+GROUP BY e.episode_id
+ORDER BY total_gear DESC
+LIMIT 1;
+
+-- 3.8 alternative
+CREATE VIEW episode_with_most_gear_alt AS
+SELECT e.episode_id, e.episode_number, e.season_number, COUNT(*) as total_gear
+FROM episode e
+INNER JOIN recipe_assignment ra ON e.episode_id = ra.episode_id
+INNER JOIN recipe_gear rg ON ra.recipe_id = rg.recipe_id
+GROUP BY e.episode_id
+ORDER BY total_gear DESC
+LIMIT 1;
+
 -- 3.9
 CREATE VIEW mean_carbs_per_year AS
 SELECT AVG(r.servings*ni.carbohydrates) as mean_carbs_per_year, e.season_number AS yr
@@ -381,7 +429,51 @@ INNER JOIN recipe_assignment ra ON r.recipe_id = ra.recipe_id
 INNER JOIN episode e ON ra.episode_id = e.episode_id
 GROUP BY e.season_number;
 
--- 3.10 
+-- 3.10
+
+
+-- 3.11 
+CREATE VIEW top_rating_judges AS
+SELECT tr.judge_first_name, tr.judge_last_name, tr.cook_first_name, tr.cook_last_name , tr.total_rating
+FROM (
+    SELECT r.judge_id, j.first_name AS judge_first_name, j.last_name AS judge_last_name , r.cook_id, c.first_name AS cook_first_name, c.last_name AS cook_last_name, SUM(r.rating_value) AS total_rating
+    FROM rating r
+    INNER JOIN cook j ON j.cook_id = r.judge_id
+    INNER JOIN cook c ON c.cook_id = r.cook_id
+    GROUP BY r.judge_id, r.cook_id
+    ORDER BY total_rating DESC
+    LIMIT 5
+) AS tr;
+
+-- 3.12
+CREATE VIEW hardest_recipes_episode AS
+SELECT e.episode_id, e.episode_number, e.season_number, SUM(r.difficulty) AS total_difficulty
+FROM episode e
+INNER JOIN recipe_assignment ra ON e.episode_id = ra.episode_id
+INNER JOIN recipe r ON ra.recipe_id = r.recipe_id
+GROUP BY e.episode_id
+ORDER BY total_difficulty DESC
+LIMIT 1;
+
+-- 3.13
+CREATE VIEW lowest_total_rank_episode AS
+SELECT episode_id, episode_number, season_number, SUM(rank_numeric) AS total_rank
+FROM (
+    SELECT e.episode_id, e.episode_number, e.season_number, c.cook_id, crn.rank_numeric
+    FROM episode e
+    INNER JOIN cook_cuisine_assignment cca ON e.episode_id = cca.episode_id
+    INNER JOIN cook c ON cca.cook_id = c.cook_id
+    INNER JOIN cook_rank_numeric crn ON c.cook_id = crn.cook_id
+    UNION ALL
+    SELECT e.episode_id, e.episode_number, e.season_number, j.cook_id, jrn.rank_numeric
+    FROM episode e
+    INNER JOIN judge_assignment ja ON e.episode_id = ja.episode_id
+    INNER JOIN cook j ON ja.cook_id = j.cook_id
+    INNER JOIN cook_rank_numeric jrn ON j.cook_id = jrn.cook_id
+) AS combined_assignments
+GROUP BY episode_id
+ORDER BY total_rank ASC
+LIMIT 1;
 
 -- 3.14
 CREATE VIEW theme_with_most_appearances AS
