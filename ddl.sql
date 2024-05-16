@@ -40,6 +40,7 @@ CREATE TABLE recipe (
 );
 
 CREATE INDEX idx_recipe_title ON recipe(title);
+CREATE INDEX idx_recipe_category ON recipe(servings);
 
 CREATE TABLE recipe_meal_type(
     recipe_id INT UNSIGNED NOT NULL,
@@ -47,6 +48,7 @@ CREATE TABLE recipe_meal_type(
     PRIMARY KEY(recipe_id, meal_type),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
 CREATE TABLE recipe_tag(
     recipe_id INT UNSIGNED NOT NULL,
     tag VARCHAR(20) NOT NULL,
@@ -54,7 +56,7 @@ CREATE TABLE recipe_tag(
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-CREATE INDEX idx_recipe_tag ON recipe_tag(tag);
+CREATE INDEX idx_recipe_tag_tag ON recipe_tag(tag);
 
 -- cooking gear
 CREATE TABLE gear(
@@ -63,8 +65,6 @@ CREATE TABLE gear(
     instructions VARCHAR(300) NOT NULL,
     PRIMARY KEY(gear_id)
 );
-
-CREATE INDEX idx_gear_title ON gear(title);
 
 CREATE TABLE recipe_gear(
     recipe_id INT UNSIGNED NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE recipe_gear(
 CREATE TABLE step (
     step_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     small_description VARCHAR(200) NOT NULL,
-    ordering INT UNSIGNED NOT NULL ,
+    ordering INT UNSIGNED DEFAULT 0,
     recipe_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (step_id),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -174,7 +174,6 @@ CREATE TABLE nutritional_info (
     fats INT NOT NULL CHECK(fats >= 0),
     carbohydrates INT NOT NULL CHECK(carbohydrates >= 0),
     protein INT NOT NULL CHECK(protein >= 0),
-    -- calories INT CHECK(calories >= 0),
     PRIMARY KEY (nutritional_info_id),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -195,6 +194,7 @@ CREATE TABLE national_cuisine(
 );
 
 CREATE INDEX idx_national_cuisine_cuisine_name ON national_cuisine(cuisine_name);
+CREATE INDEX idx_national_cuisine_episode_count ON national_cuisine(episode_count);
 
 ALTER TABLE recipe
 ADD CONSTRAINT FOREIGN KEY (national_cuisine_id) REFERENCES national_cuisine(national_cuisine_id) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -231,6 +231,7 @@ CREATE TABLE cook (
 
 CREATE INDEX idx_cook_first_name ON cook(first_name);
 CREATE INDEX idx_cook_last_name ON cook(last_name);
+CREATE INDEX idx_cook_episode_count ON cook(episode_count);
 
 CREATE TABLE cook_national_cuisine(
     cook_id INT UNSIGNED NOT NULL,
@@ -254,6 +255,9 @@ CREATE TABLE episode (
     season_number INT UNSIGNED NOT NULL,
     PRIMARY KEY (episode_id)
 );
+
+CREATE INDEX idx_episode_episode_number ON episode(episode_number);
+CREATE INDEX idx_episode_season_number ON episode(season_number);
 
 CREATE TABLE cook_cuisine_assignment (
     cook_id INT UNSIGNED NOT NULL,
@@ -343,8 +347,47 @@ INNER JOIN episode e ON cca.episode_id = e.episode_id
 INNER JOIN rating r ON cca.cook_id = r.cook_id AND r.episode_id = e.episode_id
 GROUP BY nc.cuisine_name;
 
--- 3.2
+-- 3.2 review
+DELIMITER //
+CREATE PROCEDURE cuisine_year_cook_participations (IN season_no INT, IN cuisine_name VARCHAR(30))
+BEGIN
+    CREATE TEMPORARY TABLE temp (
+        cook_id INT UNSIGNED NOT NULL,
+        national_cuisine_id INT UNSIGNED NOT NULL,
+        participated INT DEFAULT 0
+    );
 
+    INSERT INTO temp(cook_id, national_cuisine_id)
+    SELECT c.cook_id, nc.national_cuisine_id
+    FROM national_cuisine nc
+    INNER JOIN cook_national_cuisine cnc ON nc.national_cuisine_id = cnc.national_cuisine_id
+    WHERE nc.cuisine_name = cuisine_name;
+
+    UPDATE temp
+    SET participated = 1
+    WHERE cook_id IN (
+        SELECT cook_id
+        FROM cook_cuisine_assignment cca
+        INNER JOIN (
+            SELECT e.episode_id
+            FROM episode e
+            WHERE e.season_number = season_no
+        ) AS e ON cca.episode_id = e.episode_id
+        INNER JOIN (
+            SELECT national_cuisine_id
+            FROM national_cuisine
+            WHERE cuisine_name = cuisine_name
+        )AS nc ON cca.national_cuisine_id = nc.national_cuisine_id    
+    );
+
+    SELECT cuisine_name, season_no, c.cook_first_name, c.cook_last_name, t.participated
+    FROM temp t
+    INNER JOIN cook c ON t.cook_id = c.cook_id;
+
+    DROP TEMPORARY TABLE temp;
+END;
+//
+DELIMITER ;
 
 -- 3.3
 CREATE VIEW young_cooks_with_most_recipes AS
@@ -422,7 +465,7 @@ LIMIT 1;
 
 -- 3.9
 CREATE VIEW mean_carbs_per_year AS
-SELECT AVG(r.servings*ni.carbohydrates) as mean_carbs_per_year, e.season_number AS yr
+SELECT AVG(r.servings*ni.carbohydrates) AS mean_carbs_per_year, e.season_number AS yr
 FROM nutritional_info ni
 INNER JOIN recipe r ON ni.recipe_id = r.recipe_id
 INNER JOIN recipe_assignment ra ON r.recipe_id = ra.recipe_id
@@ -430,7 +473,22 @@ INNER JOIN episode e ON ra.episode_id = e.episode_id
 GROUP BY e.season_number;
 
 -- 3.10
+CREATE VIEW cuisine_yearly_participations AS
+SELECT nc.cuisine_name, e.season_number, COUNT(*) as episode_count
+FROM national_cuisine nc
+INNER JOIN cook_cuisine_assignment cca ON nc.national_cuisine_id = cca.national_cuisine_id
+INNER JOIN episode e ON cca.episode_id = e.episode_id
+GROUP BY nc.cuisine_name, e.season_number
+HAVING COUNT(*) > 3
+ORDER BY episode_count DESC;
 
+CREATE VIEW cuisine_two_year_participations AS
+SELECT cyp1.cuisine_name, COUNT(*) as episode_count
+FROM cuisine_yearly_participations cyp1
+INNER JOIN cuisine_yearly_participations cyp2 ON cyp1.cuisine_name = cyp2.cuisine_name
+WHERE cyp1.season_number = cyp2.season_number - 1
+GROUP BY cyp1.cuisine_name, cyp1.season_number, cyp2.season_number
+ORDER BY episode_count DESC;    
 
 -- 3.11 
 CREATE VIEW top_rating_judges AS
@@ -568,6 +626,14 @@ BEGIN
             national_cuisine_id INT UNSIGNED NOT NULL,
             episode_id INT UNSIGNED NOT NULL
     );
+
+    IF episode_no = 1
+    THEN (
+        UPDATE national_cuisine SET episode_count = 0;
+        UPDATE cook SET episode_count = 0;
+        UPDATE recipe SET episode_count = 0;
+    )
+    END IF;
 
     INSERT INTO temp_cook_national_cuisine(cook_id, national_cuisine_id, episode_id)
     SELECT cnc.cook_id, nc.national_cuisine_id, e.episode_id
