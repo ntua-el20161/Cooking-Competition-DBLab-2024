@@ -170,8 +170,76 @@ def generate_dummy_cuisines(num_cuisines):
         data = (cuisine_name, episode_count)
         execute_query(conn, query, data)
 
+
+# Function to generate dummy data for ingredients
+def generate_dummy_ingredients(num_ingredients):
+    # Sample ingredients data with titles, kcal_per_100, and corresponding food group names
+    ingredients_data = [
+        ("Apple", 52, 10), ("Banana", 89, 10), ("Carrot", 41, 10), ("Spinach", 23, 10),
+        ("Rice", 130, 9), ("Bread", 265, 9), ("Milk", 42, 6), ("Cheese", 402, 6),
+        ("Chicken Breast", 165, 7), ("Salmon", 208, 8), ("Lettuce", 15, 10),
+        ("Tomato", 18, 10), ("Onion", 40, 10), ("Potato", 77, 10), ("Broccoli", 34, 10),
+        ("Egg", 155, 6), ("Beef", 250, 7), ("Shrimp", 99, 8), ("Pasta", 131, 9),
+        ("Olive Oil", 884, 5), ("Lemon", 29, 1), ("Garlic", 149, 1), ("Honey", 304, 4),
+        ("Cucumber", 15, 10), ("Avocado", 160, 10), ("Yogurt", 61, 6), ("Oats", 389, 9),
+        ("Cabbage", 25, 10), ("Green Beans", 31, 10), ("Bell Pepper", 31, 10),
+        ("Lime", 30, 1), ("Pineapple", 50, 10), ("Strawberry", 32, 10), ("Blueberry", 57, 10),
+        ("Kiwi", 61, 10), ("Peach", 39, 10), ("Grapes", 69, 10), ("Watermelon", 30, 10),
+        ("Cherry", 50, 10), ("Mango", 60, 10), ("Pear", 57, 10), ("Pumpkin", 26, 10),
+        ("Zucchini", 17, 10), ("Corn", 86, 10), ("Artichoke", 47, 10), ("Asparagus", 20, 10),
+        ("Celery", 16, 10), ("Beetroot", 43, 10), ("Cauliflower", 25, 10), ("Radish", 16, 10),
+        ("Eggplant", 25, 10), ("Green Onion", 32, 10), ("Sweet Potato", 86, 10), ("Squash", 45, 10),
+        ("Turnip", 28, 10), ("Parsnip", 75, 10), ("Rutabaga", 35, 10), ("Leek", 61, 10),
+        ("Swiss Chard", 19, 10), ("Kale", 35, 10), ("Arugula", 25, 10), ("Collard Greens", 33, 10),
+        ("Mustard Greens", 27, 10), ("Endive", 17, 10), ("Chard", 19, 10), ("Iceberg Lettuce", 14, 10),
+        ("Romaine Lettuce", 17, 10), ("Feta Cheese", 264, 6), ("Parmesan Cheese", 420, 6),
+        ("Brie Cheese", 334, 6), ("Gouda Cheese", 356, 6), ("Cheddar Cheese", 402, 6),
+        ("Mozzarella Cheese", 280, 6), ("Almonds", 579, 10), ("Walnuts", 654, 10), ("Cashews", 553, 10), ("Peanuts", 567, 10),
+        ("Pistachios", 562, 10), ("Brazil Nuts", 656, 10),
+        ("Pecans", 691, 10), ("Macadamia Nuts", 718, 10), ("Sunflower Seeds", 584, 10),
+        ("Pumpkin Seeds", 559, 10), ("Chia Seeds", 486, 10), ("Flaxseeds", 534, 10),
+        ("Quinoa", 120, 9), ("Barley", 354, 9), ("Buckwheat", 343, 9), ("Millet", 378, 9),
+        ("Sorghum", 329, 9), ("Amaranth", 371, 9), ("Triticale", 339, 9), ("Spelt", 338, 9),
+        ("Teff", 367, 9), ("Farro", 329, 9), ("Rye", 338, 9), ("Couscous", 112, 9),
+        ("Semolina", 360, 9), ("Wild Rice", 357, 9), ("Popcorn", 375, 9), ("White Beans", 337, 10),
+        ("Black Beans", 341, 10), ("Kidney Beans", 337, 10), ("Lentils", 116, 10),
+        ("Chickpeas", 164, 10), ("Soybeans", 173, 10), ("Edamame", 122, 10), ("Tofu", 145, 10),
+        ("Tempeh", 193, 10), ("Seitan", 370, 10), ("Textured Vegetable Protein", 341, 10),
+        ("Soy Milk", 33, 6), ("Almond Milk", 15, 6), ("Coconut Milk", 230, 6),
+        ("Oat Milk", 45, 6), ("Rice Milk", 47, 6), ("Cashew Milk", 22, 6),
+        ("Hemp Milk", 46, 6), ("Hazelnut Milk", 28, 6), ("Pea Milk", 40, 6),
+        ("Sunflower Milk", 50, 6), ("Banana Milk", 89, 6), ("Avocado Oil", 884, 5),
+        ("Coconut Oil", 862, 5), ("Peanut Oil", 884, 5), ("Sesame Oil", 884, 5),
+        ("Canola Oil", 884, 5), ("Sunflower Oil", 884, 5), ("Grapeseed Oil", 884, 5),
+        ("Flaxseed Oil", 884, 5), ("Hempseed Oil", 884, 5), ("Rice Bran Oil", 884, 5),
+        ("Walnut Oil", 884, 5), ("Macadamia Oil", 884, 5), ("Safflower Oil", 884, 5), ("Coconut", 354, 10),
+        ("Sesame Seeds", 573, 10), ("Hemp Seeds", 553, 10), ("Poppy Seeds", 525, 10),
+        ("Wheatberries", 339, 9), ("Brown Rice", 111, 9), ("Black Rice", 347, 9), ("Basmati Rice", 121, 9),
+        ("Jasmine Rice", 130, 9), ("Arborio Rice", 97, 9), ("Carnaroli Rice", 121, 9), ("Sushi Rice", 135, 9),
+        ("Long-Grain Rice", 130, 9), ("Short-Grain Rice", 130, 9), ("White Rice", 130, 9), ("Pearled Barley", 354, 9),
+        ("Whole Wheat Pasta", 124, 9), ("Brown Rice Pasta", 124, 9), ("Quinoa Pasta", 131, 9), ("Chickpea Pasta", 164, 9),
+        ("Lentil Pasta", 107, 9), ("Soybean Pasta", 173, 9), ("Edamame Pasta", 122, 9), ("Buckwheat Pasta", 143, 9),
+        ("Spaghetti Squash", 31, 10), ("Zucchini Noodles", 17, 10), ("Carrot Noodles", 41, 10), ("Butternut Squash Noodles", 45, 10),
+        ("Sweet Potato Noodles", 86, 10), ("Red Lentil Pasta", 107, 9), ("Black Bean Pasta", 341, 9),
+        ("Shirataki Noodles", 2, 10), ("Kelp Noodles", 6, 10), ("Miracle Noodles", 3, 10), ("Tofu Shirataki Noodles", 40, 10),
+        ("Soba Noodles", 99, 9), ("Udon Noodles", 140, 9), ("Rice Noodles", 192, 9), ("Pad Thai Noodles", 192, 9),
+        ("Glass Noodles", 181, 9), ("Egg Noodles", 138, 9), ("Ramen Noodles", 188, 9), ("Somen Noodles", 132, 9),
+        ("Wonton Noodles", 200, 9), ("Lo Mein Noodles", 211, 9), ("Fettuccine", 357, 9), ("Tagliatelle", 364, 9), ("Pappardelle", 384, 9), ("Rigatoni", 357, 9), ("Farfalle", 360, 9), ("Cavatappi", 357, 9),
+        ("Gemelli", 357, 9), ("Conchiglie", 357, 9), ("Tortellini", 384, 9), ("Rotini", 357, 9),
+        ("Orzo", 357, 9), ("Ditalini", 357, 9), ("Acini de Pepe", 357, 9), ("Cannelloni", 357, 9),
+        ("Manicotti", 357, 9), ("Lasagna", 357, 9), ("Ravioli", 384, 9), ("Stuffed Shells", 357, 9),
+        ("Macaroni", 357, 9), ("Penne", 357, 9), ("Spaghetti", 357, 9)]
+
+
+    query = "INSERT INTO ingredient (title, kcal_per_100, food_group_id) VALUES (%s, %s, %s)"
+    for ingredient_data in ingredients_data:
+        execute_query(conn, query, ingredient_data)
+
+
+
+
 # Delete existing data and reset auto-increment for all tables
-tables = ["cook", "gear", "food_group", "national_cuisine", "app_user"]
+tables = ["cook", "gear", "ingredient", "food_group", "national_cuisine", "app_user"]
 for table in tables:
     delete_existing_data(table)
     reset_auto_increment(table)
@@ -182,6 +250,7 @@ insert_gear_data(gear_data)
 generate_dummy_food_groups(food_group_data)
 generate_dummy_cuisines(28)  # Generate 28 dummy cuisines
 generate_dummy_users(50)  # Generate 50 dummy users
+generate_dummy_ingredients(100)  # Generate data for about 100 ingredients
 
 print("Dummy data inserted successfully into all tables.")
 
