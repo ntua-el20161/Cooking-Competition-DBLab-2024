@@ -1,5 +1,6 @@
 import mysql.connector
 import random
+import string
 from datetime import datetime, timedelta
 from itertools import product
 
@@ -33,6 +34,40 @@ def reset_auto_increment(table_name):
 def delete_existing_data(table_name):
     query = f"DELETE FROM {table_name}"
     execute_query(conn, query)
+
+# Function to generate random usernames and passwords
+def generate_random_string(length):
+    letters = string.ascii_letters + string.digits
+    return ''.join(random.choice(letters) for i in range(length))
+
+# Function to generate dummy data for app_user table
+def generate_dummy_users(num_users):
+    usernames = set()
+    roles = ['cook', 'admin']
+
+    # Ensure at least one admin
+    admin_generated = False
+
+    query = "INSERT INTO app_user (app_username, password, role) VALUES (%s, %s, %s)"
+
+    for i in range(num_users):
+        while True:
+            username = generate_random_string(8)
+            if username not in usernames:
+                usernames.add(username)
+                break
+
+        password = generate_random_string(10)
+
+        # Ensure only one admin
+        if not admin_generated:
+            role = random.choice(roles)
+            if(role == 'admin'): admin_generated = True
+        else:
+            role = 'cook'
+
+        data = (username, password, role)
+        execute_query(conn, query, data)
 
 # Function to generate dummy data for cook table
 def generate_dummy_cooks(num_cooks):
@@ -136,7 +171,7 @@ def generate_dummy_cuisines(num_cuisines):
         execute_query(conn, query, data)
 
 # Delete existing data and reset auto-increment for all tables
-tables = ["cook", "gear", "food_group", "national_cuisine"]
+tables = ["cook", "gear", "food_group", "national_cuisine", "app_user"]
 for table in tables:
     delete_existing_data(table)
     reset_auto_increment(table)
@@ -146,8 +181,10 @@ generate_dummy_cooks(100)  # Generate 100 dummy cooks
 insert_gear_data(gear_data)
 generate_dummy_food_groups(food_group_data)
 generate_dummy_cuisines(28)  # Generate 28 dummy cuisines
+generate_dummy_users(50)  # Generate 50 dummy users
 
 print("Dummy data inserted successfully into all tables.")
 
 # Close the connection when done
 conn.close()
+
