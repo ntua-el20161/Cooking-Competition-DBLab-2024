@@ -22,14 +22,14 @@ CREATE TABLE app_user (
 
 CREATE TABLE recipe (
     recipe_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    is_dessert BOOLEAN NOT NULL,    --0 h 1 an einai glyko h oxi
+    is_dessert BOOLEAN NOT NULL,    -- 0 h 1 an einai glyko h oxi
     difficulty INT NOT NULL CHECK(difficulty BETWEEN 1 AND 5),
     title VARCHAR(100) NOT NULL UNIQUE,
     small_description VARCHAR(300),
     tips VARCHAR(200),  -- ena string xwrismeno me komata pou tha exei mexri 3 tips
     preparation_mins INT UNSIGNED NOT NULL,
     cooking_mins INT UNSIGNED NOT NULL,
-    category VARCHAR(50), --valto NULL giati tha ginei update apo trigger 
+    category VARCHAR(50), -- valto NULL giati tha ginei update apo trigger 
     serving_size_in_grams INT UNSIGNED NOT NULL,    -- posa grammaria einai mia merida (oti noumero thes)
     servings INT UNSIGNED NOT NULL,     -- meta thn ektelesh twn vhmatwn pou leei sthn ekfwnhsh prokyptoun servings (oti noumero thes)
     episode_count INT CHECK(episode_count BETWEEN 0 AND 3), -- 0 
@@ -306,7 +306,9 @@ CREATE TABLE rating (
 
 CREATE INDEX idx_rating_rating ON rating(rating_value);
 
-CREATE TRIGGER different_cook_judge AS
+DELIMITER //
+
+CREATE TRIGGER different_cook_judge
 BEFORE INSERT ON rating
 FOR EACH ROW
 BEGIN
@@ -315,6 +317,8 @@ BEGIN
         SET MESSAGE_TEXT = 'Cook and judge cannot be the same person';
     END IF;
 END;
+//
+DELIMITER ;
 
 CREATE TABLE image (
     image_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -632,7 +636,7 @@ END;
 DELIMITER ;
 
 DELIMITER //
-CREATE PROCEDURE episode_assignments (episode_no INT, season_no INT) 
+CREATE PROCEDURE episode_assignments (IN episode_no INT, season_no INT) 
 BEGIN
     DECLARE done INT DEFAULT FALSE;
     DECLARE cur_cook INT; 
@@ -647,12 +651,10 @@ BEGIN
             episode_id INT UNSIGNED NOT NULL
     );
 
-    IF episode_no = 1
-    THEN (
-        UPDATE national_cuisine SET episode_count = 0;
-        UPDATE cook SET episode_count = 0;
-        UPDATE recipe SET episode_count = 0;
-    )
+    IF episode_no = 1 THEN 
+    UPDATE national_cuisine SET episode_count = 0;
+    UPDATE cook SET episode_count = 0;
+    UPDATE recipe SET episode_count = 0;
     END IF;
 
     INSERT INTO temp_cook_national_cuisine(cook_id, national_cuisine_id, episode_id)
