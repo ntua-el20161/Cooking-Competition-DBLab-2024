@@ -22,35 +22,36 @@ CREATE TABLE app_user (
 
 CREATE TABLE recipe (
     recipe_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    is_dessert BOOLEAN NOT NULL,
+    is_dessert BOOLEAN NOT NULL,    --0 h 1 an einai glyko h oxi
     difficulty INT NOT NULL CHECK(difficulty BETWEEN 1 AND 5),
     title VARCHAR(100) NOT NULL UNIQUE,
     small_description VARCHAR(300),
-    tips VARCHAR(200),
+    tips VARCHAR(200),  -- ena string xwrismeno me komata pou tha exei mexri 3 tips
     preparation_mins INT UNSIGNED NOT NULL,
     cooking_mins INT UNSIGNED NOT NULL,
-    -- total_time INT AS (preparation_mins + cooking_mins),
-    category VARCHAR(50) NOT NULL,
-    serving_size_in_grams INT UNSIGNED NOT NULL,
-    servings INT UNSIGNED NOT NULL,
-    episode_count INT CHECK(episode_count BETWEEN 0 AND 3),
-    national_cuisine_id INT UNSIGNED NOT NULL,
-    basic_ingredient_id INT UNSIGNED NOT NULL,
+    category VARCHAR(50), --valto NULL giati tha ginei update apo trigger 
+    serving_size_in_grams INT UNSIGNED NOT NULL,    -- posa grammaria einai mia merida (oti noumero thes)
+    servings INT UNSIGNED NOT NULL,     -- meta thn ektelesh twn vhmatwn pou leei sthn ekfwnhsh prokyptoun servings (oti noumero thes)
+    episode_count INT CHECK(episode_count BETWEEN 0 AND 3), -- 0 
+    national_cuisine_id INT UNSIGNED NOT NULL, -- to id ths ethnikhs kouzinas pou anhkei h syntagh
+    basic_ingredient_id INT UNSIGNED NOT NULL,  -- to id tou basikou yliou ths syntaghs
     PRIMARY KEY(recipe_id)
 );
 
 CREATE INDEX idx_recipe_title ON recipe(title);
 CREATE INDEX idx_recipe_category ON recipe(servings);
 
+-- morfh geumatos ths syntaghs (prwino, mesimeriano, bradino, klp)
 CREATE TABLE recipe_meal_type(
-    recipe_id INT UNSIGNED NOT NULL,
-    meal_type VARCHAR(20) NOT NULL,
+    recipe_id INT UNSIGNED NOT NULL,    -- id syntaghs pou einai tetoiou typou geumatos
+    meal_type VARCHAR(20) NOT NULL, -- onoma tou meal type
     PRIMARY KEY(recipe_id, meal_type),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+-- tag ths syntaghs
 CREATE TABLE recipe_tag(
-    recipe_id INT UNSIGNED NOT NULL,
+    recipe_id INT UNSIGNED NOT NULL,    
     tag VARCHAR(20) NOT NULL,
     PRIMARY KEY(recipe_id, tag),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -77,14 +78,14 @@ CREATE TABLE recipe_gear(
 CREATE TABLE step (
     step_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     small_description VARCHAR(200) NOT NULL,
-    ordering INT UNSIGNED DEFAULT 0,
+    ordering INT UNSIGNED DEFAULT 0, -- vale times analoga me thn seira twn vhmatwn (1o vhma 1, 2o vhma 2, klp) alla ta xeirizetai kai trigger an apla ta valeis insert me th seira kai valeis null auto to pedio
     recipe_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (step_id),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- trigger to automatically assign ordering for the recipe steps
--- ensuring the ordering is of the steps is consecutive
+-- ensuring the ordering of the steps is consecutive
 DELIMITER //
 CREATE TRIGGER step_ordering
 BEFORE INSERT ON step
@@ -115,7 +116,7 @@ CREATE INDEX idx_food_group_title ON food_group(title);
 CREATE TABLE ingredient (
     ingredient_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     title VARCHAR(100) NOT NULL UNIQUE,
-    kcal_per_100 INT NOT NULL CHECK(kcal_per_100 >= 0),
+    kcal_per_100 INT NOT NULL CHECK(kcal_per_100 >= 0),     -- thermides ana 100 g
     food_group_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (ingredient_id),
     CONSTRAINT FOREIGN KEY (food_group_id) REFERENCES food_group(food_group_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -160,8 +161,8 @@ DELIMITER ;
 CREATE TABLE recipe_ingredient(
     recipe_id INT UNSIGNED NOT NULL,
     ingredient_id INT UNSIGNED NOT NULL,
-    quantity VARCHAR(50),
-    estimated_grams INT UNSIGNED NOT NULL,
+    quantity VARCHAR(50),       -- posothta pou xrhsimopoieitai apo to sygkekrimeno yliko pou den einai safws orismenh (px ligo aleuri, mia koutalia klp)
+    estimated_grams INT UNSIGNED NOT NULL,  -- posa grammaria peripou einai auth h posothta pou xrhsimopoieitai
     PRIMARY KEY (recipe_id, ingredient_id),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -189,7 +190,7 @@ CREATE TABLE ingredient_nutritional_info (
 CREATE TABLE national_cuisine(
     national_cuisine_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     cuisine_name VARCHAR(30) NOT NULL UNIQUE,
-    episode_count INT CHECK(episode_count BETWEEN 0 AND 3),
+    episode_count INT CHECK(episode_count BETWEEN 0 AND 3), -- 0
     PRIMARY KEY(national_cuisine_id)
 );
 
@@ -201,7 +202,7 @@ ADD CONSTRAINT FOREIGN KEY (national_cuisine_id) REFERENCES national_cuisine(nat
 
 CREATE TABLE recipe_theme (
     recipe_theme_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    title VARCHAR(30) NOT NULL UNIQUE,
+    title VARCHAR(30) NOT NULL UNIQUE,      -- thematikh enothta syntaghs (pasxalinh, xristougenniatikh, klp)
     small_description VARCHAR(300) NOT NULL,
     PRIMARY KEY (recipe_theme_id)
 );
@@ -249,16 +250,19 @@ CREATE TABLE cook_recipe (
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+-- 5 sezon apo 10 epeisodia h kathe mia 
+-- kathe zeugos epeisodio sezon prepei na einai monadiko px s1e1, s1e2, s1e3, klp
 CREATE TABLE episode (
     episode_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    episode_number INT UNSIGNED NOT NULL,
-    season_number INT UNSIGNED NOT NULL,
+    episode_number INT UNSIGNED NOT NULL,   -- 1-10  
+    season_number INT UNSIGNED NOT NULL,    -- 1-5
     PRIMARY KEY (episode_id)
 );
 
 CREATE INDEX idx_episode_episode_number ON episode(episode_number);
 CREATE INDEX idx_episode_season_number ON episode(season_number);
 
+-- gemizei automata
 CREATE TABLE cook_cuisine_assignment (
     cook_id INT UNSIGNED NOT NULL,
     national_cuisine_id INT UNSIGNED NOT NULL,
@@ -269,6 +273,7 @@ CREATE TABLE cook_cuisine_assignment (
     CONSTRAINT FOREIGN KEY (episode_id) REFERENCES episode(episode_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+-- gemizei automata
 CREATE TABLE recipe_assignment (
     recipe_id INT UNSIGNED NOT NULL,
     episode_id INT UNSIGNED NOT NULL,
@@ -277,6 +282,7 @@ CREATE TABLE recipe_assignment (
     CONSTRAINT FOREIGN KEY (episode_id) REFERENCES episode(episode_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+-- gemizei automata
 CREATE TABLE judge_assignment (
     cook_id INT UNSIGNED NOT NULL,
     episode_id INT UNSIGNED NOT NULL,
@@ -285,7 +291,7 @@ CREATE TABLE judge_assignment (
     FOREIGN KEY (episode_id) REFERENCES episode(episode_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
--- maybe check cook_id and judge_id are not the same
+-- asto pros to parwn
 CREATE TABLE rating (
     rating_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     rating_value INT NOT NULL CHECK (rating_value BETWEEN 1 AND 5),
@@ -300,12 +306,26 @@ CREATE TABLE rating (
 
 CREATE INDEX idx_rating_rating ON rating(rating_value);
 
+CREATE TRIGGER different_cook_judge AS
+BEFORE INSERT ON rating
+FOR EACH ROW
+BEGIN
+    IF NEW.cook_id = NEW.judge_id THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Cook and judge cannot be the same person';
+    END IF;
+END;
+
 CREATE TABLE image (
     image_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     image_url VARCHAR(20) NOT NULL,
     image_description VARCHAR(200) NOT NULL,
     PRIMARY KEY (image_id)
 );
+
+CREATE VIEW recipe_total_time AS
+SELECT r.recipe_id, r.title, r.preparation_mins + r.cooking_mins AS total_time
+FROM recipe r;
 
 CREATE VIEW total_nutritional_info AS
 SELECT r.recipe_id, SUM(ri.estimated_grams*i.kcal_per_100/100)/r.servings AS calories, ni.fats, ni.carbohydrates, ni.protein
