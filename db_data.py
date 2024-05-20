@@ -348,6 +348,19 @@ def get_gear_ids():
     result = cursor.fetchall()
     return [row[0] for row in result]
 
+def get_recipe_theme_ids():
+    cursor = conn.cursor()
+    cursor.execute("SELECT recipe_theme_id FROM recipe_theme")
+    result = cursor.fetchall()
+    return [row[0] for row in result]
+
+
+def get_ingredient_ids():
+    cursor = conn.cursor()
+    cursor.execute("SELECT ingredient_id FROM ingredient")
+    result = cursor.fetchall()
+    return [row[0] for row in result]
+
 # Generate and insert dummy data for recipe_meal_type table
 
 meal_types = ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert", "Brunch", "Supper"]
@@ -386,9 +399,64 @@ def generate_recipe_tag_data(recipe_ids, tags):
                 data = (recipe_id, tag)
                 execute_query(conn, query, data)
 
+def generate_recipe_theme_data():
+    themes = [
+        ("Summer", "Refreshing and vibrant meals perfect for grilling and outdoor dining. Think grilled meats and seafood, salads with seasonal fruits, and chilled desserts."),
+        ("Winter", "Rich and decadent meals that bring warmth and comfort. Think roasts, braises, cheesy dishes, and chocolate desserts."),
+        ("New Year's Eve", "Finger foods and appetizers for celebratory gatherings. Think dips, canapés, mini quiches, and sparkling beverages."),
+        ("Valentine's Day", "Romantic and elegant dishes perfect for a date night in. Think steak dinners, pasta with creamy sauces, and decadent desserts like chocolate lava cake."),
+        ("St. Patrick's Day", "Traditional Irish fare with a focus on potatoes, cabbage, and corned beef. Think corned beef and cabbage, shepherd's pie, and Irish soda bread."),
+        ("Thanksgiving", "Classic American dishes for a bountiful feast. Think turkey, mashed potatoes, stuffing, cranberry sauce, and pumpkin pie."),
+        ("Kwanzaa", "Dishes from the African diaspora that celebrate African American heritage. Think black-eyed peas, collard greens, jambalaya, and sweet potato pie."),
+        ("Birthday Party", "Fun and festive dishes that cater to all ages. Think pizzas, burgers, finger foods, and colorful desserts."),
+        ("Game Day", "Comfort food classics perfect for cheering on your favorite team. Think wings, nachos, chili, and dips."),
+        ("Movie Night", "Cozy and easy snacks perfect for curling up on the couch. Think popcorn, nachos, candy, and homemade pizzas."),
+        ("Decade Dinners", "Take a trip down memory lane with recipes popular during a specific decade."),
+        ("Color-Coded Feasts", "Create a visually stunning meal by using ingredients of a particular color palette."),
+        ("Breakfast for Dinner", "Break tradition and enjoy your favorite breakfast dishes for an evening meal.")
+    ]
+
+    query = "INSERT INTO recipe_theme (title, small_description) VALUES (%s, %s)"
+    for theme in themes:
+        execute_query(conn, query, theme)
+
+
+def generate_recipe_recipe_theme_data():
+    recipe_ids = get_recipe_ids()  # Retrieve recipe IDs
+    theme_ids = get_recipe_theme_ids()  # Retrieve recipe theme IDs
+    query = "INSERT INTO recipe_recipe_theme (recipe_theme_id, recipe_id) VALUES (%s, %s)"
+
+    for recipe_id in recipe_ids:
+        num_themes = random.randint(1, 2)  # Randomly choose 1 or 2 themes for each recipe
+        selected_themes = random.sample(theme_ids, num_themes)  # Ensure unique themes for the recipe
+
+        for theme_id in selected_themes:
+            data = (theme_id, recipe_id)
+            execute_query(conn, query, data)
+
+
+def generate_recipe_ingredient_data(recipe_ids):
+    ingredient_ids = get_ingredient_ids()  # Retrieve ingredient IDs
+    quantity_descriptions = [
+        "A little bit", "A small amount", "A pinch", "A big amount", "A generous amount", "A large quantity",
+        "A small spoon", "A few drops", "A drizzle", "A handful", "A moderate amount", "Enough to comfortably hold in your hand",
+        "A splash", "A small amount", "Just enough to coat/moisten", "Enough to cover the top", "A generous layer", "An even coating"
+    ]
+    query = "INSERT INTO recipe_ingredient (recipe_id, ingredient_id, quantity, estimated_grams) VALUES (%s, %s, %s, %s)"
+
+    for recipe_id in recipe_ids:
+        num_ingredients = random.randint(4, 15)
+        selected_ingredients = random.sample(ingredient_ids, num_ingredients)
+        for ingredient_id in selected_ingredients:
+            quantity = random.choice(quantity_descriptions)
+            estimated_grams = random.randint(30, 400)
+            data = (recipe_id, ingredient_id, quantity, estimated_grams)
+            execute_query(conn, query, data)
+
+
 
 # Delete existing data and reset auto-increment for all tables
-tables = ["recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user"]
+tables = ["recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme"]
 
 for table in tables:
     delete_existing_data(table)
@@ -412,7 +480,9 @@ gear_ids = get_gear_ids()
 generate_recipe_meal_type_data(recipe_ids, meal_types)
 generate_recipe_gear_data(gear_ids)
 generate_recipe_tag_data(recipe_ids, tags)
-
+generate_recipe_theme_data()
+generate_recipe_recipe_theme_data()
+generate_recipe_ingredient_data(recipe_ids)
 
 print("Dummy data inserted successfully into all tables.")
 
