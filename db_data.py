@@ -117,7 +117,67 @@ gear_data = [
     ("Kitchen Scale", "Use for precise measurement of ingredients."),
     ("Can Opener", "Use to open cans."),
     ("Kitchen Shears", "Use for cutting herbs, vegetables, and meat."),
-    ("Potato Masher", "Use for mashing cooked potatoes or other vegetables.")
+    ("Potato Masher", "Use for mashing cooked potatoes or other vegetables."),
+    ("Salad Spinner", "Use for drying washed salad greens."),
+    ("Pizza Cutter", "Use for cutting pizza."),
+    ("Ice Cream Scoop", "Use for scooping ice cream."),
+    ("Wine Opener", "Use to open wine bottles."),
+    ("Citrus Juicer", "Use for juicing citrus fruits."),
+    ("Garlic Press", "Use for mincing garlic."),
+    ("Ladle", "Use for serving soups and sauces."),
+    ("Corkscrew", "Use for opening wine bottles."),
+    ("Mortar and Pestle", "Use for grinding spices and herbs."),
+    ("Cookie Cutter", "Use for cutting cookie dough."),
+    ("Basting Brush", "Use for applying marinades."),
+    ("Pot Holder", "Use to protect hands from hot pots and pans."),
+    ("Ice Cube Tray", "Use for making ice cubes."),
+    ("Egg Separator", "Use for separating egg whites and yolks."),
+    ("Vegetable Peeler", "Use for peeling vegetables."),
+    ("Meat Tenderizer", "Use for tenderizing meat."),
+    ("Cheese Slicer", "Use for slicing cheese."),
+    ("Egg Slicer", "Use for slicing hard-boiled eggs."),
+    ("Cake Tester", "Use for testing if cakes are done."),
+    ("Funnels", "Use for transferring liquids."),
+    ("Pie Weights", "Use for blind baking pie crusts."),
+    ("Candy Thermometer", "Use for making candy."),
+    ("Corn Holders", "Use for eating corn on the cob."),
+    ("Apple Corer", "Use for coring apples."),
+    ("Avocado Slicer", "Use for slicing and pitting avocados."),
+    ("Biscuit Cutter", "Use for cutting biscuit dough."),
+    ("Nutcracker", "Use for cracking nuts."),
+    ("Pasta Fork", "Use for serving pasta."),
+    ("Paring Knife", "Use for intricate cutting tasks."),
+    ("Utility Knife", "Use for general cutting tasks."),
+    ("Bread Knife", "Use for slicing bread."),
+    ("Filleting Knife", "Use for filleting fish."),
+    ("Carving Knife", "Use for carving meats."),
+    ("Cheese Knife", "Use for cutting cheese."),
+    ("Butter Knife", "Use for spreading butter."),
+    ("Cake Server", "Use for serving cake."),
+    ("Sushi Mat", "Use for rolling sushi."),
+    ("Bread Box", "Use for storing bread."),
+    ("Salt and Pepper Grinder", "Use for grinding salt and pepper."),
+    ("Coffee Grinder", "Use for grinding coffee beans."),
+    ("Tea Infuser", "Use for brewing loose leaf tea."),
+    ("Muffin Pan", "Use for baking muffins."),
+    ("Cake Pan", "Use for baking cakes."),
+    ("Pie Pan", "Use for baking pies."),
+    ("Casserole Dish", "Use for baking casseroles."),
+    ("Roasting Pan", "Use for roasting meats."),
+    ("Springform Pan", "Use for baking cheesecakes."),
+    ("Bundt Pan", "Use for baking bundt cakes."),
+    ("Loaf Pan", "Use for baking bread loaves."),
+    ("Soufflé Dish", "Use for baking soufflés."),
+    ("Tart Pan", "Use for baking tarts."),
+    ("Quiche Pan", "Use for baking quiches."),
+    ("Bain Marie", "Use for gentle cooking or keeping food warm."),
+    ("Food Processor", "Use for chopping and blending ingredients."),
+    ("Blender", "Use for blending smoothies and soups."),
+    ("Stand Mixer", "Use for mixing dough and batters."),
+    ("Hand Mixer", "Use for mixing smaller batches of ingredients."),
+    ("Toaster", "Use for toasting bread."),
+    ("Toaster Oven", "Use for baking and toasting."),
+    ("Microwave", "Use for quick heating and cooking.")
 ]
 
 # Function to insert gear data into the database
@@ -281,6 +341,13 @@ def get_recipe_ids():
     result = cursor.fetchall()
     return [row[0] for row in result]
 
+
+def get_gear_ids():
+    cursor = conn.cursor()
+    cursor.execute("SELECT gear_id FROM gear")
+    result = cursor.fetchall()
+    return [row[0] for row in result]
+
 # Generate and insert dummy data for recipe_meal_type table
 
 meal_types = ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert", "Brunch", "Supper"]
@@ -293,10 +360,20 @@ def generate_recipe_meal_type_data(recipe_ids, meal_types):
             data = (recipe_id, meal_type)
             execute_query(conn, query, data)
 
+def generate_recipe_gear_data(recipe_ids):
+    gear_ids = get_gear_ids()  # Retrieve gear IDs
+    query = "INSERT INTO recipe_gear (recipe_id, gear_id) VALUES (%s, %s)"
+    for recipe_id in recipe_ids:
+        num_gears = random.randint(5, 15)
+        random.shuffle(gear_ids)
+        selected_gears = gear_ids[:num_gears]
+        for gear_id in selected_gears:
+            data = (recipe_id, gear_id)
+            execute_query(conn, query, data)
 
 
 # Delete existing data and reset auto-increment for all tables
-tables = ["recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user"]
+tables = ["recipe_gear", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user"]
 
 for table in tables:
     delete_existing_data(table)
@@ -314,9 +391,11 @@ generate_dummy_ingredients(100)  # Generate data for about 100 ingredients
 generate_dummy_recipes_from_json('recipes.json')
 # Retrieve existing recipe IDs
 recipe_ids = get_recipe_ids()
+gear_ids = get_gear_ids()
 
 # Populate the recipe_meal_type table with new data
 generate_recipe_meal_type_data(recipe_ids, meal_types)
+generate_recipe_gear_data(gear_ids)
 
 
 
