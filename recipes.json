@@ -4,790 +4,790 @@
     "description": "Classic Italian pasta dish made with spaghetti, eggs, pancetta, Parmesan cheese, and black pepper.",
     "is_dessert": 0,
     "national_cuisine": "Italian",
-    "main_ingredient": "Spaghetti"
+    "main_ingredient": "210"
   },
   {
     "name": "General Tso's Chicken",
     "description": "Popular Chinese dish featuring crispy fried chicken pieces tossed in a sweet and tangy sauce made with soy sauce, ginger, garlic, and chili peppers.",
     "is_dessert": 0,
     "national_cuisine": "Chinese",
-    "main_ingredient": "Chicken"
+    "main_ingredient": "9"
   },
   {
     "name": "Sushi Rolls",
     "description": "Traditional Japanese dish consisting of vinegared rice, seaweed, and various fillings such as raw fish, avocado, and cucumber, rolled together and sliced into bite-sized pieces.",
     "is_dessert": 0,
     "national_cuisine": "Japanese",
-    "main_ingredient": "Rice"
+    "main_ingredient": "5"
   },
   {
     "name": "Tacos al Pastor",
     "description": "Authentic Mexican street food made with marinated pork cooked on a vertical rotisserie, served in corn tortillas with pineapple, onion, and cilantro.",
     "is_dessert": 0,
     "national_cuisine": "Mexican",
-    "main_ingredient": "Pork"
+    "main_ingredient": "13"
   },
   {
     "name": "Chicken Tikka Masala",
     "description": "Iconic Indian curry dish featuring marinated chicken pieces cooked in a rich and creamy tomato-based sauce flavored with various spices such as garam masala, turmeric, and cumin.",
     "is_dessert": 0,
     "national_cuisine": "Indian",
-    "main_ingredient": "Chicken"
+    "main_ingredient": "9"
   },
   {
     "name": "Ratatouille",
     "description": "A classic French Provencal vegetable stew made with eggplant, zucchini, bell peppers, onions, garlic, and tomatoes, simmered in olive oil and seasoned with herbs like thyme and basil.",
     "is_dessert": 0,
     "national_cuisine": "French",
-    "main_ingredient": "Eggplant"
+    "main_ingredient": "58"
   },
   {
     "name": "Pad Thai",
     "description": "Famous Thai stir-fried noodle dish made with rice noodles, shrimp or chicken, tofu, eggs, bean sprouts, and peanuts, all tossed in a tangy and slightly sweet sauce made with tamarind paste, fish sauce, and lime juice.",
     "is_dessert": 0,
     "national_cuisine": "Thai",
-    "main_ingredient": "Rice noodles"
+    "main_ingredient": "182"
   },
   {
     "name": "Paella",
     "description": "Traditional Spanish rice dish cooked in a wide, shallow pan, featuring a flavorful combination of saffron-infused rice, seafood such as shrimp and mussels, chicken, chorizo, and vegetables like bell peppers and peas.",
     "is_dessert": 0,
     "national_cuisine": "Spanish",
-    "main_ingredient": "Rice"
+    "main_ingredient": "5"
   },
   {
     "name": "Moussaka",
     "description": "A classic Greek baked dish made with layers of eggplant, minced meat (usually lamb or beef), onions, tomatoes, and a creamy béchamel sauce, seasoned with Mediterranean herbs like oregano and cinnamon.",
     "is_dessert": 0,
     "national_cuisine": "Greek",
-    "main_ingredient": "Eggplant"
+    "main_ingredient": "58"
   },
   {
     "name": "Kebabs",
     "description": "Popular Turkish grilled meat dish made with skewered pieces of marinated lamb, beef, or chicken, often served with rice or bread and accompanied by grilled vegetables and yogurt sauce.",
     "is_dessert": 0,
     "national_cuisine": "Turkish",
-    "main_ingredient": "Lamb"
+    "main_ingredient": "230"
   },
   {
     "name": "Risotto ai Funghi",
     "description": "Classic Italian creamy rice dish cooked with Arborio rice, mushrooms, onions, garlic, white wine, and Parmesan cheese.",
     "is_dessert": 0,
     "national_cuisine": "Italian",
-    "main_ingredient": "Rice"
+    "main_ingredient": "5"
   },
   {
     "name": "Peking Duck",
     "description": "Signature Chinese dish of roast duck with crispy skin, typically served with thin pancakes, spring onions, cucumbers, and hoisin sauce.",
     "is_dessert": 0,
     "national_cuisine": "Chinese",
-    "main_ingredient": "Duck"
+    "main_ingredient": "217"
   },
   {
     "name": "Ramen",
     "description": "Japanese noodle soup consisting of wheat noodles served in a flavorful broth, topped with ingredients like sliced pork, seaweed, bamboo shoots, and a boiled egg.",
     "is_dessert": 0,
     "national_cuisine": "Japanese",
-    "main_ingredient": "Wheat noodles"
+    "main_ingredient": "161"
   },
   {
     "name": "Chiles en Nogada",
     "description": "Traditional Mexican dish consisting of poblano peppers stuffed with a mixture of ground meat, fruits, and spices, topped with a creamy walnut sauce and pomegranate seeds.",
     "is_dessert": 0,
     "national_cuisine": "Mexican",
-    "main_ingredient": "Peppers"
+    "main_ingredient": "214"
   },
   {
     "name": "Butter Chicken",
     "description": "Popular Indian curry dish made with tender chicken pieces cooked in a creamy tomato-based sauce flavored with butter, cream, and a blend of spices.",
     "is_dessert": 0,
     "national_cuisine": "Indian",
-    "main_ingredient": "Chicken"
+    "main_ingredient": "9"
   },
   {
     "name": "Coq au Vin",
     "description": "Classic French dish of chicken braised in red wine with mushrooms, onions, bacon, and garlic, typically served with mashed potatoes or crusty bread.",
     "is_dessert": 0,
     "national_cuisine": "French",
-    "main_ingredient": "Chicken"
+    "main_ingredient": "9"
   },
   {
     "name": "Green Curry",
     "description": "Thai curry dish made with green curry paste, coconut milk, chicken or fish, eggplant, bamboo shoots, and Thai basil, offering a balance of spicy, sweet, and savory flavors.",
     "is_dessert": 0,
     "national_cuisine": "Thai",
-    "main_ingredient": "Green curry paste"
+    "main_ingredient": "219"
   },
   {
     "name": "Gazpacho",
     "description": "Refreshing Spanish cold soup made with ripe tomatoes, cucumbers, bell peppers, onions, garlic, olive oil, vinegar, and bread, blended to a smooth consistency and served chilled.",
     "is_dessert": 0,
     "national_cuisine": "Spanish",
-    "main_ingredient": "Tomatoes"
+    "main_ingredient": "19"
   },
   {
     "name": "Lahmacun",
     "description": "Turkish flatbread topped with a spiced mixture of minced meat (typically lamb or beef), tomatoes, onions, and parsley, baked until crispy and served with lemon wedges.",
     "is_dessert": 0,
     "national_cuisine": "Turkish",
-    "main_ingredient": "Meat"
+    "main_ingredient": "10"
   },
   {
     "name": "Caprese Salad",
     "description": "Classic Italian salad made with fresh tomatoes, mozzarella cheese, basil leaves, olive oil, and balsamic vinegar.",
     "is_dessert": 0,
     "national_cuisine": "Italian",
-    "main_ingredient": "Tomatoes"
+    "main_ingredient": "19"
   },
   {
     "name": "Kung Pao Chicken",
     "description": "Spicy Chinese stir-fry dish made with diced chicken, peanuts, vegetables, and chili peppers, flavored with soy sauce, garlic, and ginger.",
     "is_dessert": 0,
     "national_cuisine": "Chinese",
-    "main_ingredient": "Chicken"
+    "main_ingredient": "9"
   },
   {
     "name": "Tempura",
     "description": "Japanese dish consisting of battered and deep-fried seafood and vegetables, served with a dipping sauce like tentsuyu.",
     "is_dessert": 0,
     "national_cuisine": "Japanese",
-    "main_ingredient": "Seafood"
+    "main_ingredient": "16"
   },
   {
     "name": "Tamales",
     "description": "Traditional Mexican dish made of masa dough filled with various meats, cheeses, or vegetables, wrapped in corn husks and steamed.",
     "is_dessert": 0,
     "national_cuisine": "Mexican",
-    "main_ingredient": "Masa Dough"
+    "main_ingredient": "218"
   },
   {
     "name": "Biryani",
     "description": "Fragrant Indian rice dish cooked with basmati rice, spices, and a choice of meat, such as chicken, lamb, or shrimp.",
     "is_dessert": 0,
     "national_cuisine": "Indian",
-    "main_ingredient": "Basmati Rice"
+    "main_ingredient": "151"
   },
   {
     "name": "Croissant",
     "description": "Buttery French pastry made with layered dough, rolled and folded several times, then baked until golden brown and flaky.",
     "is_dessert": 0,
     "national_cuisine": "French",
-    "main_ingredient": "Butter"
+    "main_ingredient": "172"
   },
   {
     "name": "Tom Yum Soup",
     "description": "Spicy Thai soup made with lemongrass, galangal, kaffir lime leaves, chili peppers, lime juice, fish sauce, and shrimp or chicken.",
     "is_dessert": 0,
     "national_cuisine": "Thai",
-    "main_ingredient": "Shrimp"
+    "main_ingredient": "25"
   },
   {
     "name": "Tzatziki",
     "description": "Greek dip made with strained yogurt, cucumbers, garlic, olive oil, lemon juice, and fresh dill or mint.",
     "is_dessert": 0,
     "national_cuisine": "Greek",
-    "main_ingredient": "Yogurt"
+    "main_ingredient": "33"
   },
   {
     "name": "Baklava",
     "description": "Turkish dessert made with layers of phyllo dough, chopped nuts, and sweet syrup or honey, often flavored with cinnamon and cloves.",
     "is_dessert": 1,
     "national_cuisine": "Turkish",
-    "main_ingredient": "Nuts"
+    "main_ingredient": "82"
   },
   {
     "name": "Tiramisu",
     "description": "Classic Italian dessert made with layers of coffee-soaked ladyfingers, mascarpone cheese, cocoa powder, and sometimes flavored with liquor like Marsala or rum.",
     "is_dessert": 1,
     "national_cuisine": "Italian",
-    "main_ingredient": "Ladyfingers"
+    "main_ingredient": "213"
   },
   {
     "name": "Mooncake",
     "description": "Traditional Chinese pastry filled with sweet bean paste, lotus seed paste, or salted egg yolk, often eaten during the Mid-Autumn Festival.",
     "is_dessert": 1,
     "national_cuisine": "Chinese",
-    "main_ingredient": "Beans"
+    "main_ingredient": "109"
   },
   {
     "name": "Mochi",
     "description": "Japanese rice cake made of glutinous rice pounded into a paste and molded into various shapes, often filled with sweet fillings like red bean paste or ice cream.",
     "is_dessert": 1,
     "national_cuisine": "Japanese",
-    "main_ingredient": "Rice"
+    "main_ingredient": "5"
   },
   {
     "name": "Churros",
     "description": "Popular Mexican dessert consisting of fried dough pastry, often dusted with cinnamon sugar and served with chocolate sauce or dulce de leche for dipping.",
     "is_dessert": 1,
     "national_cuisine": "Mexican",
-    "main_ingredient": "Flour"
+    "main_ingredient": "221"
   },
   {
     "name": "Gulab Jamun",
     "description": "Indian dessert made of deep-fried milk solids soaked in sugar syrup, flavored with cardamom, rose water, or saffron.",
     "is_dessert": 1,
     "national_cuisine": "Indian",
-    "main_ingredient": "Milk Solids"
+    "main_ingredient": "232"
   },
   {
     "name": "Mango Sticky Rice",
     "description": "Thai dessert made with sticky rice, ripe mango slices, and coconut milk, often flavored with sugar and a pinch of salt.",
     "is_dessert": 1,
     "national_cuisine": "Thai",
-    "main_ingredient": "Mango"
+    "main_ingredient": "47"
   },
   {
     "name": "Tarta de Santiago",
     "description": "Spanish almond cake from the region of Galicia, made with ground almonds, sugar, eggs, and lemon zest, typically decorated with the cross of Saint James on top.",
     "is_dessert": 1,
     "national_cuisine": "Spanish",
-    "main_ingredient": "Almonds"
+    "main_ingredient": "81"
   },
   {
     "name": "Loukoumades",
     "description": "Greek doughnut-like dessert made of deep-fried dough soaked in honey syrup and often sprinkled with cinnamon or chopped nuts.",
     "is_dessert": 1,
     "national_cuisine": "Greek",
-    "main_ingredient": "Flour"
+    "main_ingredient": "221"
   },
   {
     "name": "Empanadas",
     "description": "Argentinian pastry filled with a variety of ingredients such as beef, chicken, ham and cheese, or vegetables, then baked or fried until golden brown.",
     "is_dessert": 0,
     "national_cuisine": "Argentinian",
-    "main_ingredient": "Dough"
+    "main_ingredient": "218"
   },
   {
     "name": "Feijoada",
     "description": "Traditional Brazilian stew made with black beans, pork or beef, sausage, and spices, served with rice, collard greens, and orange slices.",
     "is_dessert": 0,
     "national_cuisine": "Brazilian",
-    "main_ingredient": "Beans"
+    "main_ingredient": "110"
   },
   {
     "name": "Jerk Chicken",
     "description": "Caribbean dish of marinated and grilled chicken, seasoned with a blend of spices including allspice, Scotch bonnet peppers, thyme, and garlic.",
     "is_dessert": 0,
     "national_cuisine": "Caribbean",
-    "main_ingredient": "Chicken"
+    "main_ingredient": "9"
   },
   {
     "name": "Doro Wat",
     "description": "Ethiopian spicy chicken stew made with chicken legs or thighs simmered in berbere spice blend, onions, garlic, ginger, and Ethiopian butter (niter kibbeh).",
     "is_dessert": 0,
     "national_cuisine": "Ethiopian",
-    "main_ingredient": "Chicken"
+    "main_ingredient": "9"
   },
   {
     "name": "Nasi Lemak",
     "description": "Malaysian national dish made with fragrant rice cooked in coconut milk, served with anchovies, peanuts, hard-boiled eggs, cucumber slices, and spicy sambal sauce.",
     "is_dessert": 0,
     "national_cuisine": "Malaysian",
-    "main_ingredient": "Coconut Rice"
+    "main_ingredient": "107"
   },
   {
     "name": "Asado",
     "description": "Argentinian barbecue featuring various cuts of beef, pork, and sausages grilled over an open flame, often served with chimichurri sauce and grilled vegetables.",
     "is_dessert": 0,
     "national_cuisine": "Argentinian",
-    "main_ingredient": "Beef"
+    "main_ingredient": "24"
   },
   {
     "name": "Milhojas",
     "description": "Argentinian dessert made with layers of puff pastry filled with dulce de leche and pastry cream, topped with powdered sugar or a caramel glaze.",
     "is_dessert": 1,
     "national_cuisine": "Argentinian",
-    "main_ingredient": "Puff Pastry"
+    "main_ingredient": "215"
   },
   {
     "name": "Moqueca",
     "description": "Brazilian fish stew made with coconut milk, tomatoes, onions, peppers, and spices, traditionally cooked in a clay pot.",
     "is_dessert": 0,
     "national_cuisine": "Brazilian",
-    "main_ingredient": "Fish"
+    "main_ingredient": "16"
   },
   {
     "name": "Brigadeiro",
     "description": "Brazilian chocolate truffle made with condensed milk, cocoa powder, butter, and chocolate sprinkles, rolled into balls and coated in more sprinkles.",
     "is_dessert": 1,
     "national_cuisine": "Brazilian",
-    "main_ingredient": "Milk"
+    "main_ingredient": "7"
   },
   {
     "name": "Callaloo",
     "description": "Caribbean dish made with leafy greens such as taro or amaranth, cooked with coconut milk, okra, onions, garlic, and often flavored with thyme and Scotch bonnet peppers.",
     "is_dessert": 0,
     "national_cuisine": "Caribbean",
-    "main_ingredient": "Leafy Greens"
+    "main_ingredient": "231"
   },
   {
     "name": "Coconut Bread Pudding",
     "description": "Caribbean dessert made with coconut milk-soaked bread, eggs, sugar, and spices like cinnamon and nutmeg, baked until golden and served warm.",
     "is_dessert": 1,
     "national_cuisine": "Caribbean",
-    "main_ingredient": "Coconut Milk"
+    "main_ingredient": "122"
   },
   {
     "name": "Injera",
     "description": "Ethiopian sourdough flatbread made from teff flour, used as a staple food in Ethiopian and Eritrean cuisine, often served with various stews and dishes.",
     "is_dessert": 0,
     "national_cuisine": "Ethiopian",
-    "main_ingredient": "Flour"
+    "main_ingredient": "221"
   },
   {
     "name": "Dabo Kolo",
     "description": "Ethiopian crunchy snack made from spiced dough that's rolled into small balls and fried until golden brown, often enjoyed with coffee or tea.",
     "is_dessert": 0,
     "national_cuisine": "Ethiopian",
-    "main_ingredient": "Flour"
+    "main_ingredient": "221"
   },
   {
     "name": "Kuih Lapis",
     "description": "Malaysian layered steamed cake made with rice flour, coconut milk, and pandan leaves, creating a colorful and fragrant dessert often served during festive occasions.",
     "is_dessert": 1,
     "national_cuisine": "Malaysian",
-    "main_ingredient": "Rice Flour"
+    "main_ingredient": "227"
   },
   {
     "name": "Cendol",
     "description": "Malaysian dessert consisting of shaved ice topped with green rice flour jelly strands, coconut milk, palm sugar syrup, and red beans.",
     "is_dessert": 1,
     "national_cuisine": "Malaysian",
-    "main_ingredient": "Coconut Milk"
+    "main_ingredient": "122"
   },
   {
     "name": "Poutine",
     "description": "Canadian comfort food made with French fries topped with cheese curds and smothered in gravy, creating a rich and savory dish.",
     "is_dessert": 0,
     "national_cuisine": "Canadian",
-    "main_ingredient": "Potatoes"
+    "main_ingredient": "21"
   },
   {
     "name": "Butter Tarts",
     "description": "Canadian dessert consisting of a flaky pastry shell filled with a sweet mixture of butter, sugar, syrup, and sometimes raisins or pecans.",
     "is_dessert": 1,
     "national_cuisine": "Canadian",
-    "main_ingredient": "Butter"
+    "main_ingredient": "172"
   },
   {
     "name": "Tagine",
     "description": "Moroccan slow-cooked stew made with meat (such as lamb, chicken, or beef), vegetables, dried fruits, and aromatic spices, cooked in a cone-shaped clay pot called a tagine.",
     "is_dessert": 0,
     "national_cuisine": "Moroccan",
-    "main_ingredient": "Meat"
+    "main_ingredient": "10"
   },
   {
     "name": "Couscous with Seven Vegetables",
     "description": "Moroccan dish featuring fluffy couscous served with a flavorful stew made from seven different vegetables, such as carrots, turnips, zucchini, and chickpeas.",
     "is_dessert": 0,
     "national_cuisine": "Moroccan",
-    "main_ingredient": "Couscous"
+    "main_ingredient": "104"
   },
   {
     "name": "Pho",
     "description": "Vietnamese noodle soup made with clear broth, rice noodles, and various toppings such as thinly sliced beef or chicken, bean sprouts, fresh herbs, and lime.",
     "is_dessert": 0,
     "national_cuisine": "Vietnamese",
-    "main_ingredient": "Rice"
+    "main_ingredient": "5"
   },
   {
     "name": "Banh Mi",
     "description": "Vietnamese sandwich made with a crispy baguette filled with a variety of ingredients such as grilled pork, pate, pickled vegetables, cucumber, cilantro, and chili sauce.",
     "is_dessert": 0,
     "national_cuisine": "Vietnamese",
-    "main_ingredient": "Pork"
+    "main_ingredient": "13"
   },
   {
     "name": "Nanaimo Bars",
     "description": "Canadian dessert bars consisting of three layers: a crumbly chocolate base, a custard-flavored middle layer, and a chocolate ganache topping.",
     "is_dessert": 1,
     "national_cuisine": "Canadian",
-    "main_ingredient": "Chocolate"
+    "main_ingredient": "216"
   },
   {
     "name": "Bannock",
     "description": "Canadian bread made from flour, baking powder, and water or milk, often fried or baked and served as a simple and versatile staple food.",
     "is_dessert": 0,
     "national_cuisine": "Canadian",
-    "main_ingredient": "Flour"
+    "main_ingredient": "221"
   },
   {
     "name": "Couscous Royale",
     "description": "Moroccan dish featuring fluffy couscous served with a variety of meats such as lamb, chicken, and merguez sausage, along with vegetables and chickpeas.",
     "is_dessert": 0,
     "national_cuisine": "Moroccan",
-    "main_ingredient": "Couscous"
+    "main_ingredient": "104"
   },
   {
     "name": "Pastilla",
     "description": "Moroccan savory and sweet pie made with layers of thin pastry filled with shredded chicken, almonds, eggs, and aromatic spices, then baked until golden.",
     "is_dessert": 0,
     "national_cuisine": "Moroccan",
-    "main_ingredient": "Chicken"
+    "main_ingredient": "9"
   },
   {
     "name": "Borscht",
     "description": "Russian beet soup made with beets, cabbage, potatoes, carrots, onions, and sometimes meat, flavored with dill and sour cream.",
     "is_dessert": 0,
     "national_cuisine": "Russian",
-    "main_ingredient": "Beets"
+    "main_ingredient": "225"
   },
   {
     "name": "Pierogi",
     "description": "Polish dumplings filled with various ingredients such as mashed potatoes, cheese, meat, or sauerkraut, boiled or fried and served with sour cream or butter.",
     "is_dessert": 0,
     "national_cuisine": "Polish",
-    "main_ingredient": "Dough"
+    "main_ingredient": "218"
   },
   {
     "name": "Lamingtons",
     "description": "Australian dessert consisting of squares of sponge cake coated in a layer of chocolate sauce and desiccated coconut, often served with tea or coffee.",
     "is_dessert": 1,
     "national_cuisine": "Australian",
-    "main_ingredient": "Sponge"
+    "main_ingredient": "220"
   },
   {
     "name": "Meat Pie",
     "description": "Australian savory pie filled with minced meat (usually beef), gravy, and sometimes onions or mushrooms, encased in a flaky pastry crust.",
     "is_dessert": 0,
     "national_cuisine": "Australian",
-    "main_ingredient": "Meat"
+    "main_ingredient": "10"
   },
   {
     "name": "Hummus",
     "description": "Lebanese dip made from cooked, mashed chickpeas blended with tahini, olive oil, lemon juice, garlic, and spices, served with pita bread or vegetables.",
     "is_dessert": 0,
     "national_cuisine": "Lebanese",
-    "main_ingredient": "Chickpeas"
+    "main_ingredient": "113"
   },
   {
     "name": "Shawarma",
     "description": "Lebanese street food consisting of roasted meat (often chicken, beef, or lamb) shaved from a vertical rotisserie and served in a pita wrap with vegetables and sauce.",
     "is_dessert": 0,
     "national_cuisine": "Lebanese",
-    "main_ingredient": "Meat"
+    "main_ingredient": "10"
   },
   {
     "name": "Lomo Saltado",
     "description": "Peruvian stir-fry dish made with marinated strips of beef, onions, tomatoes, and peppers, seasoned with soy sauce, vinegar, and spices, served with rice and potatoes.",
     "is_dessert": 0,
     "national_cuisine": "Peruvian",
-    "main_ingredient": "Beef"
+    "main_ingredient": "24"
   },
   {
     "name": "Pelmeni",
     "description": "Russian dumplings filled with minced meat (typically pork, beef, or a combination), onions, and spices, boiled and served with sour cream or butter.",
     "is_dessert": 0,
     "national_cuisine": "Russian",
-    "main_ingredient": "Dough"
+    "main_ingredient": "218"
   },
   {
     "name": "Olivier Salad",
     "description": "Russian salad made with boiled potatoes, carrots, peas, pickles, eggs, and mayonnaise, often served as a side dish during celebrations and holidays.",
     "is_dessert": 0,
     "national_cuisine": "Russian",
-    "main_ingredient": "Potatoes"
+    "main_ingredient": "21"
   },
   {
     "name": "Bigos",
     "description": "Polish hunter's stew made with sauerkraut, fresh cabbage, various meats (such as pork, beef, and sausage), mushrooms, and spices, simmered until flavorful.",
     "is_dessert": 0,
     "national_cuisine": "Polish",
-    "main_ingredient": "Sauerkraut"
+    "main_ingredient": "212"
   },
   {
     "name": "Pączki",
     "description": "Polish filled doughnuts made with enriched dough, filled with jam or custard, deep-fried until golden, and dusted with powdered sugar.",
     "is_dessert": 1,
     "national_cuisine": "Polish",
-    "main_ingredient": "Dough"
+    "main_ingredient": "218"
   },
   {
     "name": "Anzac Biscuits",
     "description": "Australian sweet biscuits made with rolled oats, coconut, golden syrup, flour, sugar, and butter, with a chewy texture and a hint of caramel flavor.",
     "is_dessert": 1,
     "national_cuisine": "Australian",
-    "main_ingredient": "Oats"
+    "main_ingredient": "34"
   },
   {
     "name": "Tim Tam",
     "description": "Australian chocolate biscuit made from two layers of chocolate malted biscuit separated by a light chocolate cream filling, coated in chocolate.",
     "is_dessert": 1,
     "national_cuisine": "Australian",
-    "main_ingredient": "Chocolate"
+    "main_ingredient": "216"
   },
   {
     "name": "Köttbullar",
     "description": "Swedish meatballs made with ground meat (usually a mix of beef and pork), onions, breadcrumbs, and spices, served with lingonberry sauce and mashed potatoes.",
     "is_dessert": 0,
     "national_cuisine": "Swedish",
-    "main_ingredient": "Meat"
+    "main_ingredient": "10"
   },
   {
     "name": "Gravlax",
     "description": "Swedish dish of thinly sliced raw salmon cured with salt, sugar, and dill, traditionally served as an appetizer with mustard-dill sauce on dark bread.",
     "is_dessert": 0,
     "national_cuisine": "Swedish",
-    "main_ingredient": "Salmon"
+    "main_ingredient": "15"
   },
   {
     "name": "Bunny Chow",
     "description": "South African dish consisting of a hollowed-out loaf of bread filled with curry (usually chicken or mutton), originating from the Indian community in Durban.",
     "is_dessert": 0,
     "national_cuisine": "South African",
-    "main_ingredient": "Curry"
+    "main_ingredient": "211"
   },
   {
     "name": "Bobotie",
     "description": "South African dish of spiced minced meat (typically beef or lamb) baked with an egg-based topping, flavored with curry powder, chutney, and dried fruit.",
     "is_dessert": 0,
     "national_cuisine": "South African",
-    "main_ingredient": "Meat"
+    "main_ingredient": "10"
   },
   {
     "name": "Fish and Chips",
     "description": "British dish consisting of deep-fried fish (usually cod or haddock) served with thick-cut chips (French fries) and mushy peas, often accompanied by tartar sauce and malt vinegar.",
     "is_dessert": 0,
     "national_cuisine": "British",
-    "main_ingredient": "Fish"
+    "main_ingredient": "16"
   },
   {
     "name": "Shepherd's Pie",
     "description": "British savory pie made with minced meat (traditionally lamb or mutton) cooked with vegetables and gravy, topped with mashed potatoes and baked until golden brown.",
     "is_dessert": 0,
     "national_cuisine": "British",
-    "main_ingredient": "Meat"
+    "main_ingredient": "10"
   },
   {
     "name": "Tarte Tatin",
     "description": "French upside-down caramelized apple tart, made by baking apples with sugar and butter underneath a layer of pastry, then flipping it before serving.",
     "is_dessert": 1,
     "national_cuisine": "French",
-    "main_ingredient": "Apples"
+    "main_ingredient": "1"
   },
   {
     "name": "Margherita Pizza",
     "description": "Classic Italian pizza topped with tomato sauce, fresh mozzarella cheese, basil leaves, and a drizzle of olive oil, baked in a wood-fired oven until the crust is crispy and the cheese is melted and bubbly.",
     "is_dessert": 0,
     "national_cuisine": "Italian",
-    "main_ingredient": "Tomatoes"
+    "main_ingredient": "19"
   },
   {
     "name": "Bouillabaisse",
     "description": "French seafood stew originating from Provence, made with various fish, shellfish, tomatoes, saffron, garlic, and herbs, served with crusty bread and rouille sauce.",
     "is_dessert": 0,
     "national_cuisine": "French",
-    "main_ingredient": "Seafood"
+    "main_ingredient": "16"
   },
   {
     "name": "Crème Brûlée",
     "description": "French dessert consisting of rich custard topped with a layer of caramelized sugar, created by broiling or torching the sugar until it forms a crispy crust.",
     "is_dessert": 1,
     "national_cuisine": "French",
-    "main_ingredient": "Custard"
+    "main_ingredient": "228"
   },
   {
     "name": "Gambas al Ajillo",
     "description": "Spanish tapas dish of shrimp cooked in olive oil with garlic, red pepper flakes, and sometimes white wine, served sizzling hot with crusty bread for dipping.",
     "is_dessert": 0,
     "national_cuisine": "Spanish",
-    "main_ingredient": "Shrimp"
+    "main_ingredient": "25"
   },
   {
     "name": "Churros con Chocolate",
     "description": "Spanish dessert consisting of fried dough pastry (churros) dusted with cinnamon sugar, served with a thick hot chocolate dipping sauce for dipping.",
     "is_dessert": 1,
     "national_cuisine": "Spanish",
-    "main_ingredient": "Dough"
+    "main_ingredient": "218"
   },
   {
     "name": "Osso Buco",
     "description": "Italian dish of braised veal shanks cooked with white wine, broth, tomatoes, onions, carrots, celery, garlic, and gremolata (a mixture of lemon zest, garlic, and parsley), traditionally served with risotto milanese.",
     "is_dessert": 0,
     "national_cuisine": "Italian",
-    "main_ingredient": "Veal"
+    "main_ingredient": "12"
   },
   {
     "name": "Torta della Nonna",
     "description": "Italian dessert meaning 'Grandmother's cake,' consisting of two layers of flaky pastry filled with creamy custard, topped with pine nuts and powdered sugar, then baked until golden brown.",
     "is_dessert": 1,
     "national_cuisine": "Italian",
-    "main_ingredient": "Pastry"
+    "main_ingredient": "224"
   },
   {
     "name": "Hamburger",
     "description": "Classic American sandwich consisting of a grilled or fried beef patty served on a bun, often topped with lettuce, tomato, onion, pickles, cheese, and condiments like ketchup and mustard.",
     "is_dessert": 0,
     "national_cuisine": "American",
-    "main_ingredient": "Beef"
+    "main_ingredient": "24"
   },
   {
     "name": "Macaroni and Cheese",
     "description": "Comfort food dish made with cooked macaroni pasta and a creamy cheese sauce, baked until bubbly and golden on top.",
     "is_dessert": 0,
     "national_cuisine": "American",
-    "main_ingredient": "Macaroni Pasta"
+    "main_ingredient": "208"
   },
   {
     "name": "Apple Pie",
     "description": "Iconic American dessert made with a flaky pastry crust filled with sliced apples, sugar, cinnamon, and sometimes other spices, baked until the apples are tender and the crust is golden brown.",
     "is_dessert": 1,
     "national_cuisine": "American",
-    "main_ingredient": "Apples"
+    "main_ingredient": "1"
   },
   {
     "name": "BBQ Ribs",
     "description": "American barbecue dish featuring pork or beef ribs coated in a flavorful dry rub or barbecue sauce, slow-cooked until tender and smoky.",
     "is_dessert": 0,
     "national_cuisine": "American",
-    "main_ingredient": "Pork"
+    "main_ingredient": "13"
   },
   {
     "name": "Pecan Pie",
     "description": "Southern American dessert made with a filling of pecans, sugar, eggs, butter, and sometimes bourbon or molasses, baked in a pie crust until set.",
     "is_dessert": 1,
     "national_cuisine": "American",
-    "main_ingredient": "Pecans"
+    "main_ingredient": "87"
   },
   {
     "name": "Buffalo Wings",
     "description": "American appetizer made with chicken wings coated in a spicy sauce made from hot sauce, butter, and other seasonings, typically served with celery sticks and blue cheese dressing.",
     "is_dessert": 0,
     "national_cuisine": "American",
-    "main_ingredient": "Chicken Wings "
+    "main_ingredient": "14"
   },
   {
     "name": "Fried Chicken",
     "description": "Southern American dish of chicken pieces coated in seasoned flour or batter and deep-fried until crispy and golden brown.",
     "is_dessert": 0,
     "national_cuisine": "American",
-    "main_ingredient": "Chicken"
+    "main_ingredient": "9"
   },
   {
     "name": "New York Cheesecake",
     "description": "Rich and creamy dessert made with a dense, smooth mixture of cream cheese, sugar, eggs, and vanilla, baked in a graham cracker crust and often topped with fruit or sour cream.",
     "is_dessert": 1,
     "national_cuisine": "American",
-    "main_ingredient": "Cream Cheese"
+    "main_ingredient": "226"
   },
   {
     "name": "Clam Chowder",
     "description": "Classic American soup made with clams, potatoes, onions, celery, and sometimes bacon, cooked in a creamy broth flavored with herbs and spices.",
     "is_dessert": 0,
     "national_cuisine": "American",
-    "main_ingredient": "Clams"
+    "main_ingredient": "17"
   },
   {
     "name": "Chocolate Chip Cookies",
     "description": "Popular American dessert made with a dough of butter, sugar, flour, eggs, and chocolate chips, baked until soft and chewy or crisp and crunchy, depending on preference.",
     "is_dessert": 1,
     "national_cuisine": "American",
-    "main_ingredient": "Chocolate Chips and Butter"
+    "main_ingredient": "216"
   },
   {
     "name": "Southern Fried Catfish",
     "description": "Southern American dish of catfish fillets coated in seasoned cornmeal or flour and deep-fried until crispy and golden brown, often served with hush puppies and coleslaw.",
     "is_dessert": 0,
     "national_cuisine": "American",
-    "main_ingredient": "Catfish"
+    "main_ingredient": "223"
   },
   {
     "name": "Key Lime Pie",
     "description": "Florida specialty dessert made with a tangy filling of key lime juice, sweetened condensed milk, and egg yolks, baked in a graham cracker crust and topped with whipped cream or meringue.",
     "is_dessert": 1,
     "national_cuisine": "American",
-    "main_ingredient": "Lime"
+    "main_ingredient": "38"
   },
   {
     "name": "Lasagna Bolognese",
     "description": "Classic Italian pasta dish consisting of layers of flat pasta sheets, Bolognese sauce (made with ground meat and tomato sauce), béchamel sauce, and cheese, baked until bubbly and golden brown.",
     "is_dessert": 0,
     "national_cuisine": "Italian",
-    "main_ingredient": "Pasta"
+    "main_ingredient": "26"
   },
   {
     "name": "Mapo Tofu",
     "description": "Spicy and flavorful Chinese dish made with soft tofu cubes cooked in a spicy chili bean paste-based sauce with minced meat (usually pork or beef), fermented black beans, garlic, ginger, and Sichuan peppercorns, garnished with green onions.",
     "is_dessert": 0,
     "national_cuisine": "Chinese",
-    "main_ingredient": "Tofu"
+    "main_ingredient": "116"
   },
   {
     "name": "Okonomiyaki",
     "description": "Japanese savory pancake made with a batter of flour, grated yam, eggs, shredded cabbage, and various toppings such as thinly sliced pork belly, seafood, green onions, and bonito flakes, drizzled with okonomiyaki sauce and Japanese mayonnaise.",
     "is_dessert": 0,
     "national_cuisine": "Japanese",
-    "main_ingredient": "Flour"
+    "main_ingredient": "221"
   },
   {
     "name": "Enchiladas Verdes",
     "description": "Mexican dish of rolled corn tortillas filled with shredded chicken, cheese, and onion, topped with a green chili sauce made with tomatillos, green chilies, cilantro, and garlic, then baked until heated through.",
     "is_dessert": 0,
     "national_cuisine": "Mexican",
-    "main_ingredient": "Corn Tortillas"
+    "main_ingredient": "222"
   },
   {
     "name": "Paneer Tikka Masala",
     "description": "Indian vegetarian curry dish made with marinated paneer (Indian cottage cheese) cubes, cooked in a rich and creamy tomato-based sauce flavored with spices such as garam masala, turmeric, and cumin.",
     "is_dessert": 0,
     "national_cuisine": "Indian",
-    "main_ingredient": "Paneer"
+    "main_ingredient": "229"
   },
   {
     "name": "Boeuf Bourguignon",
     "description": "French beef stew made with tender chunks of beef, bacon, onions, carrots, and mushrooms, slow-cooked in red wine until the meat is fork-tender and the flavors are rich and aromatic.",
     "is_dessert": 0,
     "national_cuisine": "French",
-    "main_ingredient": "Beef"
+    "main_ingredient": "24"
   },
   {
     "name": "Pad See Ew",
     "description": "Thai stir-fried noodle dish made with wide rice noodles, Chinese broccoli (gai lan), egg, and your choice of protein (such as chicken, beef, or tofu), all tossed in a sweet and savory soy-based sauce.",
     "is_dessert": 0,
     "national_cuisine": "Thai",
-    "main_ingredient": "Rice Noodles"
+    "main_ingredient": "182"
   },
   {
     "name": "Tortilla Española",
     "description": "Spanish omelette made with thinly sliced potatoes, onions, and eggs, cooked in olive oil until golden and firm, served hot or cold as a tapas dish or light meal.",
     "is_dessert": 0,
     "national_cuisine": "Spanish",
-    "main_ingredient": "Potatoes"
+    "main_ingredient": "21"
   },
   {
     "name": "İskender Kebab",
     "description": "Turkish dish consisting of thinly sliced döner kebab meat (usually lamb or beef) served over pieces of pita bread and generously topped with tomato sauce, melted butter, and yogurt.",
     "is_dessert": 0,
     "national_cuisine": "Turkish",
-    "main_ingredient": "Kebab"
+    "main_ingredient": "11"
   },
   {
     "name": "Couscous with Lamb Tagine",
     "description": "Moroccan dish featuring couscous, a traditional North African grain, served with a flavorful lamb tagine made with tender chunks of lamb, vegetables, and Moroccan spices, such as cumin, coriander, and cinnamon.",
     "is_dessert": 0,
     "national_cuisine": "Moroccan",
-    "main_ingredient": "Couscous"
+    "main_ingredient": "104"
   },
   {
     "name": "Phở",
     "description": "Vietnamese noodle soup made with flavorful beef broth, rice noodles, thinly sliced beef or chicken, and a variety of fresh herbs and condiments such as bean sprouts, lime wedges, and chili peppers.",
     "is_dessert": 0,
     "national_cuisine": "Vietnamese",
-    "main_ingredient": "Rice Noodles"
+    "main_ingredient": "182"
   },
   {
     "name": "Bibimbap",
     "description": "Korean mixed rice dish topped with assorted vegetables, meat (such as beef or chicken), a fried egg, and spicy gochujang (red chili paste), served with a side of kimchi (fermented vegetables) and sometimes seaweed.",
     "is_dessert": 0,
     "national_cuisine": "Korean",
-    "main_ingredient": "Rice"
+    "main_ingredient": "5"
   },
   {
     "name": "Ceviche",
     "description": "Peruvian dish of fresh raw fish marinated in citrus juices (such as lime or lemon) and mixed with onions, cilantro, chili peppers, and other seasonings, served cold as an appetizer or light meal.",
     "is_dessert": 0,
     "national_cuisine": "Peruvian",
-    "main_ingredient": "Fish"
+    "main_ingredient": "16"
   }
 ]
