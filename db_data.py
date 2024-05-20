@@ -274,10 +274,30 @@ def generate_dummy_recipes_from_json(json_file):
         execute_query(conn, query, data)
 
 
+# Retrieve existing recipe IDs
+def get_recipe_ids():
+    cursor = conn.cursor()
+    cursor.execute("SELECT recipe_id FROM recipe")
+    result = cursor.fetchall()
+    return [row[0] for row in result]
+
+# Generate and insert dummy data for recipe_meal_type table
+
+meal_types = ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert", "Brunch", "Supper"]
+def generate_recipe_meal_type_data(recipe_ids, meal_types):
+    query = "INSERT INTO recipe_meal_type (recipe_id, meal_type) VALUES (%s, %s)"
+    for recipe_id in recipe_ids:
+        # Randomly choose exactly 2 meal types for each recipe
+        chosen_meal_types = random.sample(meal_types, 2)
+        for meal_type in chosen_meal_types:
+            data = (recipe_id, meal_type)
+            execute_query(conn, query, data)
+
 
 
 # Delete existing data and reset auto-increment for all tables
-tables = ["cook", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe"]
+tables = ["recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user"]
+
 for table in tables:
     delete_existing_data(table)
     reset_auto_increment(table)
@@ -292,6 +312,13 @@ generate_dummy_cuisines(30)  # Generate 29 dummy cuisines
 generate_dummy_users(50)  # Generate 50 dummy users
 generate_dummy_ingredients(100)  # Generate data for about 100 ingredients
 generate_dummy_recipes_from_json('recipes.json')
+# Retrieve existing recipe IDs
+recipe_ids = get_recipe_ids()
+
+# Populate the recipe_meal_type table with new data
+generate_recipe_meal_type_data(recipe_ids, meal_types)
+
+
 
 print("Dummy data inserted successfully into all tables.")
 
