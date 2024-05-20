@@ -1,6 +1,7 @@
 import mysql.connector
 import random
 import string
+import json
 from datetime import datetime, timedelta
 from itertools import product
 
@@ -153,7 +154,7 @@ cuisine_names = [
     "Thai", "Spanish", "Greek", "Turkish", "Moroccan", "Vietnamese",
     "Korean", "Brazilian", "Peruvian", "Ethiopian", "Lebanese", "Russian",
     "Caribbean", "German", "British", "Argentinian", "Indonesian",
-    "Malaysian", "Swedish", "Polish", "Australian", "South African"
+    "Malaysian", "Swedish", "Polish", "Australian", "South African", "Canadian", "American"
 ]
 
 # Function to generate dummy data for national_cuisine table
@@ -177,7 +178,7 @@ def generate_dummy_ingredients(num_ingredients):
     ingredients_data = [
         ("Apple", 52, 10), ("Banana", 89, 10), ("Carrot", 41, 10), ("Spinach", 23, 10),
         ("Rice", 130, 9), ("Bread", 265, 9), ("Milk", 42, 6), ("Cheese", 402, 6),
-        ("Chicken Breast", 165, 7), ("Salmon", 208, 8), ("Lettuce", 15, 10),
+        ("Chicken", 165, 7), ("Meat", 180, 7), ("Kebab", 215, 7), ("Veal", 170, 7), ("Pork", 220, 7), ("Chicken Wings", 165, 7), ("Salmon", 208, 8), ("Fish", 208, 8), ("Clam", 208, 8), ("Lettuce", 15, 10),
         ("Tomato", 18, 10), ("Onion", 40, 10), ("Potato", 77, 10), ("Broccoli", 34, 10),
         ("Egg", 155, 6), ("Beef", 250, 7), ("Shrimp", 99, 8), ("Pasta", 131, 9),
         ("Olive Oil", 884, 5), ("Lemon", 29, 1), ("Garlic", 149, 1), ("Honey", 304, 4),
@@ -201,7 +202,7 @@ def generate_dummy_ingredients(num_ingredients):
         ("Quinoa", 120, 9), ("Barley", 354, 9), ("Buckwheat", 343, 9), ("Millet", 378, 9),
         ("Sorghum", 329, 9), ("Amaranth", 371, 9), ("Triticale", 339, 9), ("Spelt", 338, 9),
         ("Teff", 367, 9), ("Farro", 329, 9), ("Rye", 338, 9), ("Couscous", 112, 9),
-        ("Semolina", 360, 9), ("Wild Rice", 357, 9), ("Popcorn", 375, 9), ("White Beans", 337, 10),
+        ("Semolina", 360, 9), ("Wild Rice", 357, 9), ("Coconut Rice", 357, 9), ("Popcorn", 375, 9), ("White Beans", 337, 10),
         ("Black Beans", 341, 10), ("Kidney Beans", 337, 10), ("Lentils", 116, 10),
         ("Chickpeas", 164, 10), ("Soybeans", 173, 10), ("Edamame", 122, 10), ("Tofu", 145, 10),
         ("Tempeh", 193, 10), ("Seitan", 370, 10), ("Textured Vegetable Protein", 341, 10),
@@ -217,9 +218,9 @@ def generate_dummy_ingredients(num_ingredients):
         ("Wheatberries", 339, 9), ("Brown Rice", 111, 9), ("Black Rice", 347, 9), ("Basmati Rice", 121, 9),
         ("Jasmine Rice", 130, 9), ("Arborio Rice", 97, 9), ("Carnaroli Rice", 121, 9), ("Sushi Rice", 135, 9),
         ("Long-Grain Rice", 130, 9), ("Short-Grain Rice", 130, 9), ("White Rice", 130, 9), ("Pearled Barley", 354, 9),
-        ("Whole Wheat Pasta", 124, 9), ("Brown Rice Pasta", 124, 9), ("Quinoa Pasta", 131, 9), ("Chickpea Pasta", 164, 9),
+        ("Whole Wheat Pasta", 124, 9), ("Wheat Noodles", 124, 9), ("Brown Rice Pasta", 124, 9), ("Quinoa Pasta", 131, 9), ("Chickpea Pasta", 164, 9),
         ("Lentil Pasta", 107, 9), ("Soybean Pasta", 173, 9), ("Edamame Pasta", 122, 9), ("Buckwheat Pasta", 143, 9),
-        ("Spaghetti Squash", 31, 10), ("Zucchini Noodles", 17, 10), ("Carrot Noodles", 41, 10), ("Butternut Squash Noodles", 45, 10),
+        ("Spaghetti Squash", 31, 10), ("Zucchini Noodles", 17, 10), ("Carrot Noodles", 41, 10), ("Butter", 45, 10),
         ("Sweet Potato Noodles", 86, 10), ("Red Lentil Pasta", 107, 9), ("Black Bean Pasta", 341, 9),
         ("Shirataki Noodles", 2, 10), ("Kelp Noodles", 6, 10), ("Miracle Noodles", 3, 10), ("Tofu Shirataki Noodles", 40, 10),
         ("Soba Noodles", 99, 9), ("Udon Noodles", 140, 9), ("Rice Noodles", 192, 9), ("Pad Thai Noodles", 192, 9),
@@ -228,7 +229,13 @@ def generate_dummy_ingredients(num_ingredients):
         ("Gemelli", 357, 9), ("Conchiglie", 357, 9), ("Tortellini", 384, 9), ("Rotini", 357, 9),
         ("Orzo", 357, 9), ("Ditalini", 357, 9), ("Acini de Pepe", 357, 9), ("Cannelloni", 357, 9),
         ("Manicotti", 357, 9), ("Lasagna", 357, 9), ("Ravioli", 384, 9), ("Stuffed Shells", 357, 9),
-        ("Macaroni", 357, 9), ("Penne", 357, 9), ("Spaghetti", 357, 9)]
+        ("Macaroni", 357, 9), ("Penne", 357, 9), ("Spaghetti", 357, 9), ("Curry", 40, 10), ("Sauerkraut", 19, 3), ("Ladyfingers", 302, 11), ("Peppers", 40, 10),
+        ("Puff Pastry", 558, 9), ("Chocolate", 546, 11), ("Duck", 337, 7),
+        ("Dough", 200, 9), ("Green curry paste", 125, 1), ("Sponge", 297, 11),
+        ("Flour", 364, 9), ("Corn Tortillas", 218, 9), ("Catfish", 105, 8),
+        ("Pastry", 406, 9), ("Beets", 43, 10), ("Cream Cheese", 342, 6),
+        ("Rice Flour", 366, 9), ("Custard", 122, 11), ("Paneer", 265, 6),
+        ("Lamb", 294, 7), ("Leafy Greens", 23, 10), ("Milk Solids", 502, 6)]
 
 
     query = "INSERT INTO ingredient (title, kcal_per_100, food_group_id) VALUES (%s, %s, %s)"
@@ -236,21 +243,55 @@ def generate_dummy_ingredients(num_ingredients):
         execute_query(conn, query, ingredient_data)
 
 
+def generate_dummy_recipes_from_json(json_file):
+    with open(json_file, 'r') as file:
+        recipes = json.load(file)
+
+    query = """INSERT INTO recipe 
+               (is_dessert, difficulty, title, small_description, tips, preparation_mins, cooking_mins, category, 
+                serving_size_in_grams, servings, episode_count, national_cuisine_id, basic_ingredient_id)
+               VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""  # Adjusted number of placeholders
+
+    for recipe in recipes:
+        is_dessert = recipe.get('is_dessert', False)  # Default to False if not specified
+        difficulty = random.randint(1, 5)
+        title = recipe['name']
+        small_description = recipe.get('description', '')[:300]  # Truncate to fit column limit
+        tips = recipe.get('tips', '')[:400]  # Truncate to fit column limit
+        preparation_mins = random.randint(30, 400)
+        diff = random.randint(5, 15)
+        cooking_mins = preparation_mins - diff
+        category = None  # Ensure category is set correctly or excluded if not used
+        serving_size_in_grams = random.randint(50, 350)
+        servings = random.randint(1, 4)
+        episode_count = 0  # Default to 0
+        national_cuisine_id = int(recipe['national_cuisine'])
+        basic_ingredient_id = int(recipe['main_ingredient'])
+
+        data = (is_dessert, difficulty, title, small_description, tips, preparation_mins, cooking_mins,
+                category, serving_size_in_grams, servings, episode_count, national_cuisine_id, basic_ingredient_id)
+
+        execute_query(conn, query, data)
+
+
 
 
 # Delete existing data and reset auto-increment for all tables
-tables = ["cook", "gear", "ingredient", "food_group", "national_cuisine", "app_user"]
+tables = ["cook", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe"]
 for table in tables:
     delete_existing_data(table)
     reset_auto_increment(table)
+
+
 
 # Generate and insert data
 generate_dummy_cooks(100)  # Generate 100 dummy cooks
 insert_gear_data(gear_data)
 generate_dummy_food_groups(food_group_data)
-generate_dummy_cuisines(28)  # Generate 28 dummy cuisines
+generate_dummy_cuisines(30)  # Generate 29 dummy cuisines
 generate_dummy_users(50)  # Generate 50 dummy users
 generate_dummy_ingredients(100)  # Generate data for about 100 ingredients
+generate_dummy_recipes_from_json('recipes.json')
 
 print("Dummy data inserted successfully into all tables.")
 
