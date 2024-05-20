@@ -372,8 +372,23 @@ def generate_recipe_gear_data(recipe_ids):
             execute_query(conn, query, data)
 
 
+tags = ["Healthy", "High protein", "Cold meal", "Comfort food", "For students", "Quick", "No sugar", "Low carbs", "Finger food", "Air fryer"]
+
+def generate_recipe_tag_data(recipe_ids, tags):
+    query = "INSERT INTO recipe_tag (recipe_id, tag) VALUES (%s, %s)"
+    for recipe_id in recipe_ids:
+        num_tags = random.randint(1, 3)  # Choose a random number of tags (between 1 and 3)
+        chosen_tags = set()  # Set to store chosen tags for uniqueness
+        while len(chosen_tags) < num_tags:
+            tag = random.choice(tags)  # Randomly select a tag
+            if tag not in chosen_tags:
+                chosen_tags.add(tag)
+                data = (recipe_id, tag)
+                execute_query(conn, query, data)
+
+
 # Delete existing data and reset auto-increment for all tables
-tables = ["recipe_gear", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user"]
+tables = ["recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user"]
 
 for table in tables:
     delete_existing_data(table)
@@ -396,7 +411,7 @@ gear_ids = get_gear_ids()
 # Populate the recipe_meal_type table with new data
 generate_recipe_meal_type_data(recipe_ids, meal_types)
 generate_recipe_gear_data(gear_ids)
-
+generate_recipe_tag_data(recipe_ids, tags)
 
 
 print("Dummy data inserted successfully into all tables.")
