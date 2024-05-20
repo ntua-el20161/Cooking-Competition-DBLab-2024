@@ -26,7 +26,7 @@ CREATE TABLE recipe (
     difficulty INT NOT NULL CHECK(difficulty BETWEEN 1 AND 5),
     title VARCHAR(100) NOT NULL UNIQUE,
     small_description VARCHAR(300),
-    tips VARCHAR(200),  -- ena string xwrismeno me komata pou tha exei mexri 3 tips
+    tips VARCHAR(400),  -- ena string xwrismeno me komata pou tha exei mexri 3 tips
     preparation_mins INT UNSIGNED NOT NULL,
     cooking_mins INT UNSIGNED NOT NULL,
     category VARCHAR(50), -- valto NULL giati tha ginei update apo trigger 
@@ -161,7 +161,7 @@ DELIMITER ;
 CREATE TABLE recipe_ingredient(
     recipe_id INT UNSIGNED NOT NULL,
     ingredient_id INT UNSIGNED NOT NULL,
-    quantity VARCHAR(50),       -- posothta pou xrhsimopoieitai apo to sygkekrimeno yliko pou den einai safws orismenh (px ligo aleuri, mia koutalia klp)
+    quantity VARCHAR(50) NOT NULL,       -- posothta pou xrhsimopoieitai apo to sygkekrimeno yliko pou den einai safws orismenh (px ligo aleuri, mia koutalia klp)
     estimated_grams INT UNSIGNED NOT NULL,  -- posa grammaria peripou einai auth h posothta pou xrhsimopoieitai
     PRIMARY KEY (recipe_id, ingredient_id),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -210,7 +210,7 @@ CREATE TABLE recipe_theme (
 CREATE INDEX idx_recipe_theme_title ON recipe_theme(title);
 
 CREATE TABLE recipe_recipe_theme (
-    recipe_theme_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    recipe_theme_id INT UNSIGNED NOT NULL,
     recipe_id INT UNSIGNED NOT NULL,
     PRIMARY KEY(recipe_theme_id, recipe_id),
     CONSTRAINT FOREIGN KEY (recipe_theme_id) REFERENCES recipe_theme(recipe_theme_id) ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -306,9 +306,7 @@ CREATE TABLE rating (
 
 CREATE INDEX idx_rating_rating ON rating(rating_value);
 
-DELIMITER //
-
-CREATE TRIGGER different_cook_judge
+CREATE TRIGGER different_cook_judge AS
 BEFORE INSERT ON rating
 FOR EACH ROW
 BEGIN
@@ -317,8 +315,6 @@ BEGIN
         SET MESSAGE_TEXT = 'Cook and judge cannot be the same person';
     END IF;
 END;
-//
-DELIMITER ;
 
 CREATE TABLE image (
     image_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -636,7 +632,7 @@ END;
 DELIMITER ;
 
 DELIMITER //
-CREATE PROCEDURE episode_assignments (IN episode_no INT, season_no INT) 
+CREATE PROCEDURE episode_assignments (episode_no INT, season_no INT) 
 BEGIN
     DECLARE done INT DEFAULT FALSE;
     DECLARE cur_cook INT; 
@@ -651,10 +647,12 @@ BEGIN
             episode_id INT UNSIGNED NOT NULL
     );
 
-    IF episode_no = 1 THEN 
-    UPDATE national_cuisine SET episode_count = 0;
-    UPDATE cook SET episode_count = 0;
-    UPDATE recipe SET episode_count = 0;
+    IF episode_no = 1
+    THEN (
+        UPDATE national_cuisine SET episode_count = 0;
+        UPDATE cook SET episode_count = 0;
+        UPDATE recipe SET episode_count = 0;
+    )
     END IF;
 
     INSERT INTO temp_cook_national_cuisine(cook_id, national_cuisine_id, episode_id)
@@ -781,4 +779,3 @@ BEGIN
 END //
 
 DELIMITER ;
-
