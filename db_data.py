@@ -354,10 +354,21 @@ def get_recipe_theme_ids():
     result = cursor.fetchall()
     return [row[0] for row in result]
 
+def get_cook_ids():
+    cursor = conn.cursor()
+    cursor.execute("SELECT cook_id FROM cook")
+    result = cursor.fetchall()
+    return [row[0] for row in result]
 
 def get_ingredient_ids():
     cursor = conn.cursor()
     cursor.execute("SELECT ingredient_id FROM ingredient")
+    result = cursor.fetchall()
+    return [row[0] for row in result]
+
+def get_national_cuisine_ids():
+    cursor = conn.cursor()
+    cursor.execute("SELECT national_cuisine_id FROM national_cuisine")
     result = cursor.fetchall()
     return [row[0] for row in result]
 
@@ -454,9 +465,22 @@ def generate_recipe_ingredient_data(recipe_ids):
             execute_query(conn, query, data)
 
 
+def generate_cook_national_cuisine_data():
+    cook_ids = get_cook_ids()
+    cuisine_ids = get_national_cuisine_ids()  # Retrieve national cuisine IDs
+    query = "INSERT INTO cook_national_cuisine (cook_id, national_cuisine_id) VALUES (%s, %s)"
+
+    for cook_id in cook_ids:
+        num_cuisines = random.randint(4, 8)
+        selected_cuisines = random.sample(cuisine_ids, num_cuisines)
+        for cuisine_id in selected_cuisines:
+            data = (cook_id, cuisine_id)
+            execute_query(conn, query, data)
+
+
 
 # Delete existing data and reset auto-increment for all tables
-tables = ["recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme"]
+tables = ["cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme"]
 
 for table in tables:
     delete_existing_data(table)
@@ -483,6 +507,7 @@ generate_recipe_tag_data(recipe_ids, tags)
 generate_recipe_theme_data()
 generate_recipe_recipe_theme_data()
 generate_recipe_ingredient_data(recipe_ids)
+generate_cook_national_cuisine_data()
 
 print("Dummy data inserted successfully into all tables.")
 
