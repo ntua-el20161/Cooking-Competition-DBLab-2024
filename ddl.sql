@@ -12,6 +12,9 @@ USE cooking_show;
 -- episode count se national cuisine, cook, recipe
 -- recipe: serving_size, servings attributes
 
+-- paradoxh: h syntagh pou kaleitai na ektelesei kathe mageiras se ena episodeio einai mia syntagh pou kserei
+-- paradoxh: kathe mageiras sysxetizetai mono me syntages mias ethnikhs kouzinas pou kserei
+
 CREATE TABLE app_user (
     app_user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,  
     app_username VARCHAR(20) NOT NULL UNIQUE,
@@ -177,14 +180,6 @@ CREATE TABLE nutritional_info (
     protein INT NOT NULL CHECK(protein >= 0),
     PRIMARY KEY (nutritional_info_id),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
-CREATE TABLE ingredient_nutritional_info (
-    ingredient_id INT UNSIGNED NOT NULL,
-    nutritional_info_id INT UNSIGNED NOT NULL,
-    PRIMARY KEY(ingredient_id, nutritional_info_id),
-    CONSTRAINT FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT FOREIGN KEY (nutritional_info_id) REFERENCES nutritional_info(nutritional_info_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE national_cuisine(
