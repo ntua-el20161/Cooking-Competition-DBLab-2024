@@ -824,14 +824,6 @@
     "tips": "1. Steam the couscous until fluffy and light., 2. Cook the lamb slowly in the tagine to ensure it becomes tender and flavorful., 3. Garnish with fresh herbs and dried fruits for added flavor and texture."
   },
   {
-    "name": "Ph\u1edf",
-    "description": "Vietnamese noodle soup made with flavorful beef broth, rice noodles, thinly sliced beef or chicken, and a variety of fresh herbs and condiments such as bean sprouts, lime wedges, and chili peppers.",
-    "is_dessert": 0,
-    "national_cuisine": "12",
-    "main_ingredient": "182",
-    "tips": "1. Simmer the beef bones for hours to extract maximum flavor for the broth., 2. Blanch the rice noodles briefly before adding to the soup to prevent them from becoming mushy., 3. Serve with a variety of fresh herbs and condiments for customization."
-  },
-  {
     "name": "Bibimbap",
     "description": "Korean mixed rice dish topped with assorted vegetables, meat (such as beef or chicken), a fried egg, and spicy gochujang (red chili paste), served with a side of kimchi (fermented vegetables) and sometimes seaweed.",
     "is_dessert": 0,
