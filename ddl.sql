@@ -2,18 +2,35 @@ DROP SCHEMA IF EXISTS cooking_show;
 CREATE SCHEMA cooking_show;
 USE cooking_show;
 
+-- TODO:
+-- update query 3.8
+-- add alternative queries for 3.6 and 3.8
+-- ratings table (automata?)
+-- diakyrhksh nikhth apo kathe epeisodio (view?)
+-- images table
+-- steps table
+-- users relationship with cooks?
+
+-- 21/5 UPDATES:
+-- quantity sto recipe gear relationship
+-- total_time = cooking_mins + preparation_mins sto recipe
+
 -- ER UPDATES:
 -- recipe also many to one with ingredient for the basic ingredient relationship
 -- Cook many to many relationship with national cuisine
--- many to many ingredient nutritional info
--- na kanoyme table gia tags h oxi?
+-- many to many ingredient nutritional info (UPDATE 21/5: this table is deleted)
 -- add season attribute to episode
 -- many to many recipe-episode
 -- episode count se national cuisine, cook, recipe
 -- recipe: serving_size, servings attributes
 
--- paradoxh: h syntagh pou kaleitai na ektelesei kathe mageiras se ena episodeio einai mia syntagh pou kserei
--- paradoxh: kathe mageiras sysxetizetai mono me syntages mias ethnikhs kouzinas pou kserei
+-- PARADOXES:
+-- prin apo thn enarksh tou diagwnismou kathe mageiras sysxetizetai hdh me enan arithmo syntagwn
+-- h syntagh pou kaleitai na ektelesei kathe mageiras se ena epeisodio einai mia syntagh pou kserei (dhladh o mageiras sxetizetai me th syntagh sto table cook_recipe)
+-- kathe mageiras sysxetizetai mono me syntages mias ethnikhs kouzinas pou kserei
+-- se kathe epeisodio epilegontai 10 ethnikes kouzines kai gia thn kathe mia enas antiproswpos mageiras (o mageiras prepei na sysxetizetai me thn sygkekrimenh kouzina)
+-- o arithmos synexomenwn symmetoxwn einai enas gia kathe mageira dhladh h symmetoxh metraei ston idio metrhth eite o mageiras symmeteixe san kriths eite san diagwnizomenos
+-- 
 
 CREATE TABLE app_user (
     app_user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,  
@@ -32,6 +49,7 @@ CREATE TABLE recipe (
     tips VARCHAR(400),  -- ena string xwrismeno me komata pou tha exei mexri 3 tips
     preparation_mins INT UNSIGNED NOT NULL,
     cooking_mins INT UNSIGNED NOT NULL,
+    total_time INT UNSIGNED, -- tha ginei update apo trigger
     category VARCHAR(50), -- valto NULL giati tha ginei update apo trigger 
     serving_size_in_grams INT UNSIGNED NOT NULL,    -- posa grammaria einai mia merida (oti noumero thes)
     servings INT UNSIGNED NOT NULL,     -- meta thn ektelesh twn vhmatwn pou leei sthn ekfwnhsh prokyptoun servings (oti noumero thes)
@@ -43,6 +61,16 @@ CREATE TABLE recipe (
 
 CREATE INDEX idx_recipe_title ON recipe(title);
 CREATE INDEX idx_recipe_category ON recipe(servings);
+
+DELIMITER //
+CREATE TRIGGER update_total_time 
+BEFORE INSERT ON recipe
+FOR EACH ROW
+BEGIN
+    SET NEW.total_time = NEW.preparation_mins + NEW.cooking_mins;
+END;
+//
+DELIMITER ;
 
 -- morfh geumatos ths syntaghs (prwino, mesimeriano, bradino, klp)
 CREATE TABLE recipe_meal_type(
@@ -73,6 +101,7 @@ CREATE TABLE gear(
 CREATE TABLE recipe_gear(
     recipe_id INT UNSIGNED NOT NULL,
     gear_id INT UNSIGNED NOT NULL,
+    quantity INT UNSIGNED NOT NULL DEFAULT 1,   
     PRIMARY KEY (recipe_id, gear_id),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (gear_id) REFERENCES gear(gear_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -145,16 +174,18 @@ BEGIN
 
     -- Update the category column based on the food group name
     CASE food_group_name
-        WHEN 'vegetables' THEN SET NEW.category = 'Vegetarian';
-        WHEN 'red meat' THEN SET NEW.category = 'Meat';
-        WHEN 'dairy' THEN SET NEW.category = 'Dairy';
-        WHEN 'grains' THEN SET NEW.category = 'Grains';
-        WHEN 'fruits' THEN SET NEW.category = 'Fruits';
-        WHEN 'legumes' THEN SET NEW.category = 'Vegetarian';
-        WHEN 'seafood' THEN SET NEW.category = 'Seafood';
-        WHEN 'eggs' THEN SET NEW.category = 'Meat';
-        WHEN 'white meat' THEN SET NEW.category = 'Meat';
-        WHEN 'fats, oils, nuts' THEN SET NEW.category = 'Fats/Oils/Nuts';
+        WHEN 'Seasonings and Essential Oils' THEN SET NEW.category = 'Aromatic';
+        WHEN 'Coffee, Tea, and Their Products' THEN SET NEW.category = 'Caffeinated';
+        WHEN 'Preserved Foods' THEN SET NEW.category = 'Canned';
+        WHEN 'Sweetening Substances' THEN SET NEW.category = 'Sweet';
+        WHEN 'Fats and Oils' THEN SET NEW.category = 'Fatty';
+        WHEN 'Milk, Eggs, and Their Products' THEN SET NEW.category = 'Dairy';
+        WHEN 'Meat and Its Products' THEN SET NEW.category = 'Meat-Based';
+        WHEN 'Fish and Their Products' THEN SET NEW.category = 'Seafood';
+        WHEN 'Grains and Their Products' THEN SET NEW.category = 'Grain Based';
+        WHEN 'Various Plant-Based Foods' THEN SET NEW.category = 'Vegetarian';
+        WHEN 'Products with Sweetening Substances' THEN SET NEW.category = 'Sweets';
+        WHEN 'Various Beverages' THEN SET NEW.category = 'Drinks';
         ELSE SET NEW.category = ''; -- Default category if no match
     END CASE;   
 END;
@@ -318,6 +349,24 @@ CREATE TABLE image (
     PRIMARY KEY (image_id)
 );
 
+CREATE TABLE recipe_image (
+    recipe_id INT UNSIGNED NOT NULL,
+    image_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (recipe_id, image_id),
+    CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE cook_image (
+    cook_id INT UNSIGNED NOT NULL,
+    image_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (cook_id, image_id),
+    CONSTRAINT FOREIGN KEY (cook_id) REFERENCES cook(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE 
+
 CREATE VIEW recipe_total_time AS
 SELECT r.recipe_id, r.title, r.preparation_mins + r.cooking_mins AS total_time
 FROM recipe r;
@@ -460,7 +509,7 @@ WHERE (SELECT MAX(episode_count) FROM cook_episode_count) - c.episode_count >= 5
 
 -- 3.8
 CREATE VIEW episode_with_most_gear AS
-SELECT e.episode_id, e.episode_number, e.season_number, COUNT(*) as total_gear
+SELECT e.episode_id, e.episode_number, e.season_number, SUM(rg.quantity) as total_gear
 FROM episode e
 INNER JOIN recipe_assignment ra ON e.episode_id = ra.episode_id
 INNER JOIN recipe_gear rg ON ra.recipe_id = rg.recipe_id
