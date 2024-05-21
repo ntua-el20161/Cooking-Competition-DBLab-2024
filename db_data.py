@@ -372,7 +372,31 @@ def get_national_cuisine_ids():
     result = cursor.fetchall()
     return [row[0] for row in result]
 
-# Generate and insert dummy data for recipe_meal_type table
+
+def get_cook_national_cuisines():
+    cursor = conn.cursor()
+    cursor.execute("SELECT cook_id, national_cuisine_id FROM cook_national_cuisine")
+    result = cursor.fetchall()
+    cook_cuisines = {}
+    for cook_id, cuisine_id in result:
+        if cook_id not in cook_cuisines:
+            cook_cuisines[cook_id] = []
+        cook_cuisines[cook_id].append(cuisine_id)
+    return cook_cuisines
+
+
+def get_recipe_national_cuisines():
+    cursor = conn.cursor()
+    cursor.execute("SELECT recipe_id, national_cuisine_id FROM recipe")
+    result = cursor.fetchall()
+    recipe_cuisines = {}
+    for recipe_id, cuisine_id in result:
+        if cuisine_id not in recipe_cuisines:
+            recipe_cuisines[cuisine_id] = []
+        recipe_cuisines[cuisine_id].append(recipe_id)
+    return recipe_cuisines
+
+
 
 meal_types = ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert", "Brunch", "Supper"]
 def generate_recipe_meal_type_data(recipe_ids, meal_types):
@@ -387,10 +411,10 @@ def generate_recipe_meal_type_data(recipe_ids, meal_types):
 def generate_recipe_gear_data(recipe_ids):
     gear_ids = get_gear_ids()  # Retrieve gear IDs
     query = "INSERT INTO recipe_gear (recipe_id, gear_id) VALUES (%s, %s)"
+
     for recipe_id in recipe_ids:
         num_gears = random.randint(5, 15)
-        random.shuffle(gear_ids)
-        selected_gears = gear_ids[:num_gears]
+        selected_gears = random.sample(gear_ids, num_gears)
         for gear_id in selected_gears:
             data = (recipe_id, gear_id)
             execute_query(conn, query, data)
@@ -479,8 +503,44 @@ def generate_cook_national_cuisine_data():
 
 
 
+def generate_cook_recipe_data():
+    cook_cuisines = get_cook_national_cuisines()
+    recipe_cuisines = get_recipe_national_cuisines()
+    query = "INSERT INTO cook_recipe (cook_id, recipe_id) VALUES (%s, %s)"
+
+    for cook_id, cuisines in cook_cuisines.items():
+        for cuisine_id in cuisines:
+            if cuisine_id in recipe_cuisines:
+                possible_recipes = recipe_cuisines[cuisine_id]
+
+                # Exclude two random recipes for each cuisine
+                excluded_recipes = random.sample(possible_recipes, min(2, len(possible_recipes)))
+
+                # Get the remaining recipes after excluding the two random ones
+                remaining_recipes = [recipe_id for recipe_id in possible_recipes if recipe_id not in excluded_recipes]
+
+                # Randomly select a subset of remaining recipes for the cook
+                if remaining_recipes:
+                    num_recipes = random.randint(1, min(5, len(remaining_recipes)))
+                    selected_recipes = random.sample(remaining_recipes, num_recipes)
+
+                    for recipe_id in selected_recipes:
+                        data = (cook_id, recipe_id)
+                        execute_query(conn, query, data)
+
+
+def generate_episode_data():
+    query = "INSERT INTO episode (episode_number, season_number) VALUES (%s, %s)"
+    for season in range(1, 6):  # Seasons 1 to 5
+        for episode in range(1, 11):  # Episodes 1 to 10
+            data = (episode, season)
+            execute_query(conn, query, data)
+
+
+
+
 # Delete existing data and reset auto-increment for all tables
-tables = ["cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme"]
+tables = ["cook_recipe", "cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme", "episode"]
 
 for table in tables:
     delete_existing_data(table)
@@ -502,12 +562,14 @@ gear_ids = get_gear_ids()
 
 # Populate the recipe_meal_type table with new data
 generate_recipe_meal_type_data(recipe_ids, meal_types)
-generate_recipe_gear_data(gear_ids)
+generate_recipe_gear_data(recipe_ids)
 generate_recipe_tag_data(recipe_ids, tags)
 generate_recipe_theme_data()
 generate_recipe_recipe_theme_data()
 generate_recipe_ingredient_data(recipe_ids)
 generate_cook_national_cuisine_data()
+generate_cook_recipe_data()
+generate_episode_data()
 
 print("Dummy data inserted successfully into all tables.")
 
