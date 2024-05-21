@@ -308,9 +308,9 @@ def generate_dummy_recipes_from_json(json_file):
         recipes = json.load(file)
 
     query = """INSERT INTO recipe 
-               (is_dessert, difficulty, title, small_description, tips, preparation_mins, cooking_mins, category, 
+               (is_dessert, difficulty, title, small_description, tips, preparation_mins, cooking_mins, total_time, category, 
                 serving_size_in_grams, servings, episode_count, national_cuisine_id, basic_ingredient_id)
-               VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""  # Adjusted number of placeholders
+               VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""  # Adjusted number of placeholders
 
     for recipe in recipes:
         is_dessert = recipe.get('is_dessert', False)  # Default to False if not specified
@@ -321,6 +321,7 @@ def generate_dummy_recipes_from_json(json_file):
         preparation_mins = random.randint(30, 400)
         diff = random.randint(5, 15)
         cooking_mins = preparation_mins - diff
+        total_time = None
         category = None  # Ensure category is set correctly or excluded if not used
         serving_size_in_grams = random.randint(50, 350)
         servings = random.randint(1, 4)
@@ -328,13 +329,18 @@ def generate_dummy_recipes_from_json(json_file):
         national_cuisine_id = int(recipe['national_cuisine'])
         basic_ingredient_id = int(recipe['main_ingredient'])
 
-        data = (is_dessert, difficulty, title, small_description, tips, preparation_mins, cooking_mins,
+        data = (is_dessert, difficulty, title, small_description, tips, preparation_mins, cooking_mins, total_time,
                 category, serving_size_in_grams, servings, episode_count, national_cuisine_id, basic_ingredient_id)
 
         execute_query(conn, query, data)
 
 
-# Retrieve existing recipe IDs
+
+
+
+### Start of retrieving methods
+
+
 def get_recipe_ids():
     cursor = conn.cursor()
     cursor.execute("SELECT recipe_id FROM recipe")
@@ -398,6 +404,44 @@ def get_recipe_national_cuisines():
 
 
 
+def get_episode_cooks():
+    cursor = conn.cursor()
+    cursor.execute("SELECT cook_id, episode_id FROM cook_cuisine_assignment")
+    result = cursor.fetchall()
+    episode_cooks = {}
+    for cook_id, episode_id in result:
+        if episode_id not in episode_cooks:
+            episode_cooks[episode_id] = []
+        episode_cooks[episode_id].append(cook_id)
+    return episode_cooks
+
+
+def get_episodes():
+    cursor = conn.cursor()
+    cursor.execute("SELECT episode_id FROM episode")
+    result = cursor.fetchall()
+    return [row[0] for row in result]
+
+
+
+def get_episode_judges():
+    cursor = conn.cursor()
+    cursor.execute("SELECT judge_id, episode_id FROM judge_assignment")
+    result = cursor.fetchall()
+    episode_judges = {}
+    for judge_id, episode_id in result:
+        if episode_id not in episode_judges:
+            episode_judges[episode_id] = []
+        episode_judges[episode_id].append(judge_id)
+    return episode_judges
+
+
+
+### End of retrieving methods
+
+
+
+
 meal_types = ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert", "Brunch", "Supper"]
 def generate_recipe_meal_type_data(recipe_ids, meal_types):
     query = "INSERT INTO recipe_meal_type (recipe_id, meal_type) VALUES (%s, %s)"
@@ -410,13 +454,14 @@ def generate_recipe_meal_type_data(recipe_ids, meal_types):
 
 def generate_recipe_gear_data(recipe_ids):
     gear_ids = get_gear_ids()  # Retrieve gear IDs
-    query = "INSERT INTO recipe_gear (recipe_id, gear_id) VALUES (%s, %s)"
+    query = "INSERT INTO recipe_gear (recipe_id, gear_id, quantity) VALUES (%s, %s, %s)"
 
     for recipe_id in recipe_ids:
         num_gears = random.randint(5, 15)
         selected_gears = random.sample(gear_ids, num_gears)
         for gear_id in selected_gears:
-            data = (recipe_id, gear_id)
+            quantity = random.randint(1,3)
+            data = (recipe_id, gear_id, quantity)
             execute_query(conn, query, data)
 
 
@@ -548,57 +593,32 @@ def generate_nutritional_info_data(recipe_ids):
         data = (recipe_id, fats, carbohydrates, protein)
         execute_query(conn, query, data)
 
-# new
-def get_episode_cooks():
-    cursor = conn.cursor()
-    cursor.execute("SELECT cook_id, episode_id FROM cook_cuisine_assignment")
-    result = cursor.fetchall()
-    episode_cooks = {}
-    for cook_id, episode_id in result:
-        if episode_id not in episode_cooks:
-            episode_cooks[episode_id] = []
-        episode_cooks[episode_id].append(cook_id)
-    return episode_cooks
 
-def get_episode_judges():
-    cursor = conn.cursor()
-    cursor.execute("SELECT judge_id, episode_id FROM judge_assignment")
-    result = cursor.fetchall()
-    episode_judges = {}
-    for judge_id, episode_id in result:
-        if episode_id not in episode_judges:
-            episode_judges[episode_id] = []
-        episode_judges[episode_id].append(judge_id)
-    return episode_judges
-
-def get_episodes():
-    cursor = conn.cursor()
-    cursor.execute("SELECT episode_id FROM episode")
-    result = cursor.fetchall()
-    return [row[0] for row in result]
 
 def generate_rating_data():
-    query = "INSERT INTO rating (rating_id, rating_value, cook_id, judge_id, episode_id) VALUES (%s, %s, %s, %s, %s)"
-    cook_ids = get_episode_cooks()
+    query = "INSERT INTO rating (rating_value, cook_id, judge_id, episode_id) VALUES (%s, %s, %s, %s, %s)"
+    ep_cook_ids = get_episode_cooks()
     judge_ids = get_episode_judges()
     episode_ids = get_episodes()
     for episode_id in episode_ids:
-        cooks = cook_ids[episode_id]
+        cooks = ep_cook_ids[episode_id]
         judges = judge_ids[episode_id]
         for cook in cooks:
             for judge in judges:
-                rating_id = random.randint(1, 1000) # auto increment this
                 rating_value = random.randint(1, 5)
-                data = (rating_id, rating_value, cook, judge, episode_id)
+                data = (rating_value, cook, judge, episode_id)
                 execute_query(conn, query, data)
-# new
+
+
 
 # Delete existing data and reset auto-increment for all tables
-tables = ["nutritional_info", "cook_recipe", "cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme", "episode"]
+tables = ["rating", "nutritional_info", "cook_recipe", "cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme", "episode"]
 
 for table in tables:
     delete_existing_data(table)
     reset_auto_increment(table)
+
+
 
 
 
@@ -625,9 +645,9 @@ generate_cook_national_cuisine_data()
 generate_cook_recipe_data()
 generate_episode_data()
 generate_nutritional_info_data(recipe_ids)
+#generate_rating_data()
 
 print("Dummy data inserted successfully into all tables.")
 
 # Close the connection when done
 conn.close()
-
