@@ -548,6 +548,50 @@ def generate_nutritional_info_data(recipe_ids):
         data = (recipe_id, fats, carbohydrates, protein)
         execute_query(conn, query, data)
 
+# new
+def get_episode_cooks():
+    cursor = conn.cursor()
+    cursor.execute("SELECT cook_id, episode_id FROM cook_cuisine_assignment")
+    result = cursor.fetchall()
+    episode_cooks = {}
+    for cook_id, episode_id in result:
+        if episode_id not in episode_cooks:
+            episode_cooks[episode_id] = []
+        episode_cooks[episode_id].append(cook_id)
+    return episode_cooks
+
+def get_episode_judges():
+    cursor = conn.cursor()
+    cursor.execute("SELECT judge_id, episode_id FROM judge_assignment")
+    result = cursor.fetchall()
+    episode_judges = {}
+    for judge_id, episode_id in result:
+        if episode_id not in episode_judges:
+            episode_judges[episode_id] = []
+        episode_judges[episode_id].append(judge_id)
+    return episode_judges
+
+def get_episodes():
+    cursor = conn.cursor()
+    cursor.execute("SELECT episode_id FROM episode")
+    result = cursor.fetchall()
+    return [row[0] for row in result]
+
+def generate_rating_data():
+    query = "INSERT INTO rating (rating_id, rating_value, cook_id, judge_id, episode_id) VALUES (%s, %s, %s, %s, %s)"
+    cook_ids = get_episode_cooks()
+    judge_ids = get_episode_judges()
+    episode_ids = get_episodes()
+    for episode_id in episode_ids:
+        cooks = cook_ids[episode_id]
+        judges = judge_ids[episode_id]
+        for cook in cooks:
+            for judge in judges:
+                rating_id = random.randint(1, 1000) # auto increment this
+                rating_value = random.randint(1, 5)
+                data = (rating_id, rating_value, cook, judge, episode_id)
+                execute_query(conn, query, data)
+# new
 
 # Delete existing data and reset auto-increment for all tables
 tables = ["nutritional_info", "cook_recipe", "cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme", "episode"]

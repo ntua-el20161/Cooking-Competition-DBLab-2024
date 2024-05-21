@@ -10,6 +10,7 @@ USE cooking_show;
 -- steps table
 -- users relationship with cooks?
 
+
 -- 21/5 UPDATES:
 -- quantity sto recipe_gear relationship
 -- total_time = cooking_mins + preparation_mins sto recipe
