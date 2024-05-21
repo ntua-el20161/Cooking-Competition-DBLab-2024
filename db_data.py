@@ -537,10 +537,20 @@ def generate_episode_data():
             execute_query(conn, query, data)
 
 
+def generate_nutritional_info_data(recipe_ids):
+
+    query = "INSERT INTO nutritional_info (recipe_id, fats, carbohydrates, protein) VALUES (%s, %s, %s, %s)"
+
+    for recipe_id in recipe_ids:
+        fats = random.randint(5, 70)
+        carbohydrates = random.randint(30, 200)
+        protein = random.randint(10, 90)
+        data = (recipe_id, fats, carbohydrates, protein)
+        execute_query(conn, query, data)
 
 
 # Delete existing data and reset auto-increment for all tables
-tables = ["cook_recipe", "cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme", "episode"]
+tables = ["nutritional_info", "cook_recipe", "cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme", "episode"]
 
 for table in tables:
     delete_existing_data(table)
@@ -570,6 +580,7 @@ generate_recipe_ingredient_data(recipe_ids)
 generate_cook_national_cuisine_data()
 generate_cook_recipe_data()
 generate_episode_data()
+generate_nutritional_info_data(recipe_ids)
 
 print("Dummy data inserted successfully into all tables.")
 
