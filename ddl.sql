@@ -3,7 +3,6 @@ CREATE SCHEMA cooking_show;
 USE cooking_show;
 
 -- TODO:
--- update query 3.8
 -- add alternative queries for 3.6 and 3.8
 -- ratings table (automata?)
 -- diakyrhksh nikhth apo kathe epeisodio (view?)
@@ -12,7 +11,7 @@ USE cooking_show;
 -- users relationship with cooks?
 
 -- 21/5 UPDATES:
--- quantity sto recipe gear relationship
+-- quantity sto recipe_gear relationship
 -- total_time = cooking_mins + preparation_mins sto recipe
 
 -- ER UPDATES:
@@ -30,7 +29,6 @@ USE cooking_show;
 -- kathe mageiras sysxetizetai mono me syntages mias ethnikhs kouzinas pou kserei
 -- se kathe epeisodio epilegontai 10 ethnikes kouzines kai gia thn kathe mia enas antiproswpos mageiras (o mageiras prepei na sysxetizetai me thn sygkekrimenh kouzina)
 -- o arithmos synexomenwn symmetoxwn einai enas gia kathe mageira dhladh h symmetoxh metraei ston idio metrhth eite o mageiras symmeteixe san kriths eite san diagwnizomenos
--- 
 
 CREATE TABLE app_user (
     app_user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,  
@@ -332,7 +330,8 @@ CREATE TABLE rating (
 
 CREATE INDEX idx_rating_rating ON rating(rating_value);
 
-CREATE TRIGGER different_cook_judge AS
+DELIMITER //
+CREATE TRIGGER different_cook_judge
 BEFORE INSERT ON rating
 FOR EACH ROW
 BEGIN
@@ -341,6 +340,8 @@ BEGIN
         SET MESSAGE_TEXT = 'Cook and judge cannot be the same person';
     END IF;
 END;
+//
+DELIMITER ;
 
 CREATE TABLE image (
     image_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -364,12 +365,6 @@ CREATE TABLE cook_image (
     CONSTRAINT FOREIGN KEY (cook_id) REFERENCES cook(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
-
-CREATE TABLE 
-
-CREATE VIEW recipe_total_time AS
-SELECT r.recipe_id, r.title, r.preparation_mins + r.cooking_mins AS total_time
-FROM recipe r;
 
 CREATE VIEW total_nutritional_info AS
 SELECT r.recipe_id, SUM(ri.estimated_grams*i.kcal_per_100/100)/r.servings AS calories, ni.fats, ni.carbohydrates, ni.protein
@@ -692,11 +687,10 @@ BEGIN
     );
 
     IF episode_no = 1
-    THEN (
-        UPDATE national_cuisine SET episode_count = 0;
-        UPDATE cook SET episode_count = 0;
-        UPDATE recipe SET episode_count = 0;
-    )
+    THEN 
+    UPDATE national_cuisine SET episode_count = 0;
+    UPDATE cook SET episode_count = 0;
+    UPDATE recipe SET episode_count = 0;    
     END IF;
 
     INSERT INTO temp_cook_national_cuisine(cook_id, national_cuisine_id, episode_id)
