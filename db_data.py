@@ -387,10 +387,10 @@ def generate_recipe_meal_type_data(recipe_ids, meal_types):
 def generate_recipe_gear_data(recipe_ids):
     gear_ids = get_gear_ids()  # Retrieve gear IDs
     query = "INSERT INTO recipe_gear (recipe_id, gear_id) VALUES (%s, %s)"
+
     for recipe_id in recipe_ids:
         num_gears = random.randint(5, 15)
-        random.shuffle(gear_ids)
-        selected_gears = gear_ids[:num_gears]
+        selected_gears = random.sample(gear_ids, num_gears)
         for gear_id in selected_gears:
             data = (recipe_id, gear_id)
             execute_query(conn, query, data)
@@ -502,7 +502,7 @@ gear_ids = get_gear_ids()
 
 # Populate the recipe_meal_type table with new data
 generate_recipe_meal_type_data(recipe_ids, meal_types)
-generate_recipe_gear_data(gear_ids)
+generate_recipe_gear_data(recipe_ids)
 generate_recipe_tag_data(recipe_ids, tags)
 generate_recipe_theme_data()
 generate_recipe_recipe_theme_data()
