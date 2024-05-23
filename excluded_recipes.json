@@ -1,0 +1,810 @@
+[
+ {
+    "name": "Empanadas",
+    "description": "Argentinian pastry filled with a variety of ingredients such as beef, chicken, ham and cheese, or vegetables, then baked or fried until golden brown.",
+    "is_dessert": 0,
+    "national_cuisine": "22",
+    "main_ingredient": "218"
+ },
+ {
+    "name": "Nasi Lemak",
+    "description": "Malaysian national dish made with fragrant rice cooked in coconut milk, served with anchovies, peanuts, hard-boiled eggs, cucumber slices, and spicy sambal sauce.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "107"
+  },
+  {
+    "name": "Asado",
+    "description": "Argentinian barbecue featuring various cuts of beef, pork, and sausages grilled over an open flame, often served with chimichurri sauce and grilled vegetables.",
+    "is_dessert": 0,
+    "national_cuisine": "22",
+    "main_ingredient": "24"
+  },
+  {
+    "name": "Milhojas",
+    "description": "Argentinian dessert made with layers of puff pastry filled with dulce de leche and pastry cream, topped with powdered sugar or a caramel glaze.",
+    "is_dessert": 1,
+    "national_cuisine": "22",
+    "main_ingredient": "215",
+    "tips": "1. Use high-quality puff pastry for the flakiest layers., 2. Make sure the pastry cream is completely cooled before assembling the milhojas., 3. Dust with powdered sugar just before serving for a beautiful presentation."
+  },
+  {
+    "name": "Kuih Lapis",
+    "description": "Malaysian layered steamed cake made with rice flour, coconut milk, and pandan leaves, creating a colorful and fragrant dessert often served during festive occasions.",
+    "is_dessert": 1,
+    "national_cuisine": "24",
+    "main_ingredient": "227",
+    "tips": "1. Steam each layer of kuih lapis until set before adding the next layer for neat and distinct layers., 2. Use pandan extract for a vibrant green color and fragrant flavor., 3. Allow the kuih lapis to cool completely before slicing for clean edges."
+  },
+  {
+    "name": "Cendol",
+    "description": "Malaysian dessert consisting of shaved ice topped with green rice flour jelly strands, coconut milk, palm sugar syrup, and red beans.",
+    "is_dessert": 1,
+    "national_cuisine": "24",
+    "main_ingredient": "122"
+  },
+  {
+    "name": "Poutine",
+    "description": "Canadian comfort food made with French fries topped with cheese curds and smothered in gravy, creating a rich and savory dish.",
+    "is_dessert": 0,
+    "national_cuisine": "29",
+    "main_ingredient": "21"
+  },
+  {
+    "name": "Butter Tarts",
+    "description": "Canadian dessert consisting of a flaky pastry shell filled with a sweet mixture of butter, sugar, syrup, and sometimes raisins or pecans.",
+    "is_dessert": 1,
+    "national_cuisine": "29",
+    "main_ingredient": "172"
+  },
+  {
+    "name": "Nanaimo Bars",
+    "description": "Canadian dessert bars consisting of three layers: a crumbly chocolate base, a custard-flavored middle layer, and a chocolate ganache topping.",
+    "is_dessert": 1,
+    "national_cuisine": "29",
+    "main_ingredient": "216"
+  },
+  {
+    "name": "Bannock",
+    "description": "Canadian bread made from flour, baking powder, and water or milk, often fried or baked and served as a simple and versatile staple food.",
+    "is_dessert": 0,
+    "national_cuisine": "29",
+    "main_ingredient": "221"
+  },
+  {
+    "name": "Pierogi",
+    "description": "Polish dumplings filled with various ingredients such as mashed potatoes, cheese, meat, or sauerkraut, boiled or fried and served with sour cream or butter.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "218"
+  },
+  {
+    "name": "Lamingtons",
+    "description": "Australian dessert consisting of squares of sponge cake coated in a layer of chocolate sauce and desiccated coconut, often served with tea or coffee.",
+    "is_dessert": 1,
+    "national_cuisine": "27",
+    "main_ingredient": "220"
+  },
+  {
+    "name": "Meat Pie",
+    "description": "Australian savory pie filled with minced meat (usually beef), gravy, and sometimes onions or mushrooms, encased in a flaky pastry crust.",
+    "is_dessert": 0,
+    "national_cuisine": "27",
+    "main_ingredient": "10"
+  },
+  {
+    "name": "Bigos",
+    "description": "Polish hunter's stew made with sauerkraut, fresh cabbage, various meats (such as pork, beef, and sausage), mushrooms, and spices, simmered until flavorful.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "212"
+  },
+  {
+    "name": "P\u0105czki",
+    "description": "Polish filled doughnuts made with enriched dough, filled with jam or custard, deep-fried until golden, and dusted with powdered sugar.",
+    "is_dessert": 1,
+    "national_cuisine": "26",
+    "main_ingredient": "218"
+  },
+  {
+    "name": "Anzac Biscuits",
+    "description": "Australian sweet biscuits made with rolled oats, coconut, golden syrup, flour, sugar, and butter, with a chewy texture and a hint of caramel flavor.",
+    "is_dessert": 1,
+    "national_cuisine": "27",
+    "main_ingredient": "34",
+    "tips": "1. Use desiccated coconut for a more uniform texture., 2. Bake until golden brown for a crunchy exterior and chewy interior., 3. Let cool on the baking sheet to firm up before transferring to a wire rack."
+  },
+  {
+    "name": "Tim Tam",
+    "description": "Australian chocolate biscuit made from two layers of chocolate malted biscuit separated by a light chocolate cream filling, coated in chocolate.",
+    "is_dessert": 1,
+    "national_cuisine": "27",
+    "main_ingredient": "216",
+    "tips": "1. Chill biscuits before dipping in chocolate for cleaner lines., 2. Use a fork to lift the biscuits from the chocolate to avoid messy fingers., 3. Allow chocolate coating to set completely before serving for best texture."
+  },
+  {
+    "name": "K\u00f6ttbullar",
+    "description": "Swedish meatballs made with ground meat (usually a mix of beef and pork), onions, breadcrumbs, and spices, served with lingonberry sauce and mashed potatoes.",
+    "is_dessert": 0,
+    "national_cuisine": "25",
+    "main_ingredient": "10",
+    "tips": "1. Mix meatball ingredients gently to avoid tough texture., 2. Fry meatballs in batches for even browning., 3. Simmer meatballs in sauce to infuse flavor and keep them moist."
+  },
+  {
+    "name": "Gravlax",
+    "description": "Swedish dish of thinly sliced raw salmon cured with salt, sugar, and dill, traditionally served as an appetizer with mustard-dill sauce on dark bread.",
+    "is_dessert": 0,
+    "national_cuisine": "25",
+    "main_ingredient": "15",
+    "tips": "1. Use fresh, high-quality salmon for best results., 2. Press the salmon with weights during curing for a denser texture., 3. Slice thinly at a diagonal for an elegant presentation."
+  },
+  {
+    "name": "Bunny Chow",
+    "description": "South African dish consisting of a hollowed-out loaf of bread filled with curry (usually chicken or mutton), originating from the Indian community in Durban.",
+    "is_dessert": 0,
+    "national_cuisine": "28",
+    "main_ingredient": "211",
+    "tips": "1. Choose a sturdy bread loaf to hold the curry filling., 2. Seal the edges of the bread with extra curry sauce to prevent leakage., 3. Garnish with fresh cilantro or chopped chilies for added flavor and color."
+  },
+  {
+    "name": "Fish and Chips",
+    "description": "British dish consisting of deep-fried fish (usually cod or haddock) served with thick-cut chips (French fries) and mushy peas, often accompanied by tartar sauce and malt vinegar.",
+    "is_dessert": 0,
+    "national_cuisine": "21",
+    "main_ingredient": "16"
+  },
+  {
+    "name": "Shepherd's Pie",
+    "description": "British savory pie made with minced meat (traditionally lamb or mutton) cooked with vegetables and gravy, topped with mashed potatoes and baked until golden brown.",
+    "is_dessert": 0,
+    "national_cuisine": "21",
+    "main_ingredient": "10"
+  },
+  {
+    "name": "Hamburger",
+    "description": "Classic American sandwich consisting of a grilled or fried beef patty served on a bun, often topped with lettuce, tomato, onion, pickles, cheese, and condiments like ketchup and mustard.",
+    "is_dessert": 0,
+    "national_cuisine": "30",
+    "main_ingredient": "24",
+    "tips": "1. Choose high-quality ground beef for juicier burgers., 2. Season the patties generously with salt and pepper before cooking., 3. Toast the burger buns for added texture and flavor."
+  },
+  {
+    "name": "Macaroni and Cheese",
+    "description": "Comfort food dish made with cooked macaroni pasta and a creamy cheese sauce, baked until bubbly and golden on top.",
+    "is_dessert": 0,
+    "national_cuisine": "30",
+    "main_ingredient": "208",
+    "tips": "1. Use a combination of cheeses for a more complex flavor profile., 2. Cook the pasta until al dente to prevent mushy mac and cheese., 3. Customize with add-ins like bacon, broccoli, or jalapenos for variation."
+  },
+  {
+    "name": "Apple Pie",
+    "description": "Iconic American dessert made with a flaky pastry crust filled with sliced apples, sugar, cinnamon, and sometimes other spices, baked until the apples are tender and the crust is golden brown.",
+    "is_dessert": 1,
+    "national_cuisine": "30",
+    "main_ingredient": "1",
+    "tips": "1. Choose a mix of sweet and tart apples for a balanced flavor., 2. Pre-cook the apple filling slightly to ensure even baking and avoid a soggy crust., 3. Serve warm with vanilla ice cream for a classic pairing."
+  },
+  {
+    "name": "BBQ Ribs",
+    "description": "American barbecue dish featuring pork or beef ribs coated in a flavorful dry rub or barbecue sauce, slow-cooked until tender and smoky.",
+    "is_dessert": 0,
+    "national_cuisine": "30",
+    "main_ingredient": "13",
+    "tips": "1. Remove the membrane from the underside of the ribs for better seasoning penetration., 2. Cook low and slow over indirect heat for tender ribs., 3. Baste with barbecue sauce during the last 30 minutes of cooking for a sticky glaze."
+  },
+  {
+    "name": "Pecan Pie",
+    "description": "Southern American dessert made with a filling of pecans, sugar, eggs, butter, and sometimes bourbon or molasses, baked in a pie crust until set.",
+    "is_dessert": 1,
+    "national_cuisine": "30",
+    "main_ingredient": "87"
+  },
+  {
+    "name": "Buffalo Wings",
+    "description": "American appetizer made with chicken wings coated in a spicy sauce made from hot sauce, butter, and other seasonings, typically served with celery sticks and blue cheese dressing.",
+    "is_dessert": 0,
+    "national_cuisine": "30",
+    "main_ingredient": "14",
+    "tips": "1. Fry the wings twice for extra crispiness., 2. Toss the wings in the sauce just before serving to maintain crispiness., 3. Serve with celery sticks and blue cheese dressing for a classic accompaniment."
+  },
+  {
+    "name": "Fried Chicken",
+    "description": "Southern American dish of chicken pieces coated in seasoned flour or batter and deep-fried until crispy and golden brown.",
+    "is_dessert": 0,
+    "national_cuisine": "30",
+    "main_ingredient": "9",
+    "tips": "1. Marinate the chicken in buttermilk before coating for extra tenderness., 2. Use a cast-iron skillet for frying for even heat distribution., 3. Drain the fried chicken on a wire rack to maintain crispiness."
+  },
+  {
+    "name": "New York Cheesecake",
+    "description": "Rich and creamy dessert made with a dense, smooth mixture of cream cheese, sugar, eggs, and vanilla, baked in a graham cracker crust and often topped with fruit or sour cream.",
+    "is_dessert": 1,
+    "national_cuisine": "30",
+    "main_ingredient": "226",
+    "tips": "1. Bring all ingredients to room temperature before mixing for a smooth batter., 2. Bake the cheesecake in a water bath to prevent cracking., 3. Chill the cheesecake for several hours before serving for the best texture."
+  },
+  {
+    "name": "Clam Chowder",
+    "description": "Classic American soup made with clams, potatoes, onions, celery, and sometimes bacon, cooked in a creamy broth flavored with herbs and spices.",
+    "is_dessert": 0,
+    "national_cuisine": "30",
+    "main_ingredient": "17",
+    "tips": "1. Use fresh clams for the best flavor., 2. Add the clam juice for extra seafood essence., 3. Serve with crusty bread for dipping."
+  },
+  {
+    "name": "Chocolate Chip Cookies",
+    "description": "Popular American dessert made with a dough of butter, sugar, flour, eggs, and chocolate chips, baked until soft and chewy or crisp and crunchy, depending on preference.",
+    "is_dessert": 1,
+    "national_cuisine": "30",
+    "main_ingredient": "216",
+    "tips": "1. Chill the cookie dough before baking for thicker cookies., 2. Use a mix of milk and dark chocolate chips for depth of flavor., 3. Bake until the edges are golden brown for the perfect texture."
+  },
+  {
+    "name": "Southern Fried Catfish",
+    "description": "Southern American dish of catfish fillets coated in seasoned cornmeal or flour and deep-fried until crispy and golden brown, often served with hush puppies and coleslaw.",
+    "is_dessert": 0,
+    "national_cuisine": "30",
+    "main_ingredient": "223",
+    "tips": "1. Soak the catfish fillets in buttermilk before dredging for tender and flavorful fish., 2. Fry the catfish in batches to maintain oil temperature., 3. Serve with lemon wedges and tartar sauce for extra flavor."
+  },
+  {
+    "name": "Key Lime Pie",
+    "description": "Florida specialty dessert made with a tangy filling of key lime juice, sweetened condensed milk, and egg yolks, baked in a graham cracker crust and topped with whipped cream or meringue.",
+    "is_dessert": 1,
+    "national_cuisine": "30",
+    "main_ingredient": "38",
+    "tips": "1. Use freshly squeezed key lime juice for the best flavor., 2. Bake the pie until the filling is set but still slightly wobbly in the center., 3. Chill the pie thoroughly before serving for a refreshing dessert."
+  },
+  {
+    "name": "Beef Wellington",
+    "description": "British dish consisting of a fillet steak coated with pâté and duxelles, which is then wrapped in puff pastry and baked.",
+    "is_dessert": 0,
+    "national_cuisine": "21",
+    "main_ingredient": "24",
+    "tips": "1. Use high-quality beef fillet for the best results., 2. Ensure the puff pastry is sealed properly to prevent leakage., 3. Rest the Wellington before slicing to keep the juices in."
+  },
+  {
+    "name": "Yorkshire Pudding",
+    "description": "British side dish made from a batter of eggs, flour, and milk or water, typically served with roast beef.",
+    "is_dessert": 0,
+    "national_cuisine": "21",
+    "main_ingredient": "221",
+    "tips": "1. Preheat the oil in the tin until it's very hot before adding the batter., 2. Do not open the oven door during baking., 3. Serve immediately for the best texture."
+  },
+  {
+    "name": "Cornish Pasty",
+    "description": "Traditional British baked pastry filled with beef, potatoes, turnip, and onions, seasoned with salt and pepper.",
+    "is_dessert": 0,
+    "national_cuisine": "21",
+    "main_ingredient": "24",
+    "tips": "1. Crimp the edges of the pasty tightly to seal in the filling., 2. Use a combination of meat and vegetables for a balanced filling., 3. Bake until the pastry is golden brown and crispy."
+  },
+  {
+    "name": "Sticky Toffee Pudding",
+    "description": "Rich British dessert consisting of a moist sponge cake made with finely chopped dates, covered in a toffee sauce and often served with vanilla ice cream or custard.",
+    "is_dessert": 1,
+    "national_cuisine": "21",
+    "main_ingredient": "220",
+    "tips": "1. Soak the dates in hot water to soften them before adding to the batter., 2. Pour the toffee sauce over the pudding while it's still warm., 3. Serve with a scoop of vanilla ice cream or a dollop of custard."
+  },
+  {
+    "name": "Eton Mess",
+    "description": "Classic British dessert made from a mixture of strawberries, meringue, and whipped cream.",
+    "is_dessert": 1,
+    "national_cuisine": "21",
+    "main_ingredient": "40",
+    "tips": "1. Use fresh, ripe strawberries for the best flavor., 2. Crush the meringues lightly to retain some texture., 3. Fold the ingredients together gently to avoid breaking down the meringue too much."
+  },
+  {
+    "name": "Bangers and Mash",
+    "description": "Traditional British dish consisting of sausages served with mashed potatoes and onion gravy.",
+    "is_dessert": 0,
+    "national_cuisine": "21",
+    "main_ingredient": "236",
+    "tips": "1. Use high-quality sausages for the best flavor., 2. Make sure the mashed potatoes are creamy and smooth., 3. Serve with a rich, flavorful onion gravy."
+  },
+  {
+    "name": "Ploughman's Lunch",
+    "description": "Traditional British cold meal typically consisting of cheese, bread, pickles, and salad.",
+    "is_dessert": 0,
+    "national_cuisine": "21",
+    "main_ingredient": "8",
+    "tips": "1. Use a variety of cheeses for different flavors., 2. Include a mix of fresh and pickled vegetables., 3. Serve with crusty bread and a good quality pickle."
+  },
+  {
+    "name": "Victoria Sponge Cake",
+    "description": "Classic British cake made with two layers of sponge cake sandwiched together with jam and whipped cream.",
+    "is_dessert": 1,
+    "national_cuisine": "21",
+    "main_ingredient": "220",
+    "tips": "1. Ensure the butter and sugar are creamed well to incorporate air., 2. Use good quality jam for the filling., 3. Dust the top with icing sugar before serving."
+  },
+  {
+    "name": "Biltong",
+    "description": "South African dried, cured meat similar to jerky, traditionally made from beef or game meats.",
+    "is_dessert": 0,
+    "national_cuisine": "28",
+    "main_ingredient": "24",
+    "tips": "1. Use high-quality cuts of meat for the best results., 2. Marinate the meat in vinegar and spices for a rich flavor., 3. Dry the meat in a well-ventilated area to prevent mold."
+  },
+  {
+    "name": "Melktert",
+    "description": "Traditional South African dessert consisting of a sweet pastry crust filled with a creamy, milk-based custard.",
+    "is_dessert": 1,
+    "national_cuisine": "28",
+    "main_ingredient": "7",
+    "tips": "1. Use full-fat milk for a richer custard., 2. Allow the tart to cool completely before slicing., 3. Dust with cinnamon before serving."
+  },
+  {
+    "name": "Boerewors",
+    "description": "Traditional South African sausage made from minced beef and pork, seasoned with spices and herbs.",
+    "is_dessert": 0,
+    "national_cuisine": "28",
+    "main_ingredient": "13",
+    "tips": "1. Grill the sausage over medium heat to prevent burning., 2. Use fresh spices for the best flavor., 3. Serve with pap and tomato sauce for a traditional meal."
+  },
+  {
+    "name": "Chakalaka",
+    "description": "Spicy South African vegetable relish traditionally served with bread, pap, or meats.",
+    "is_dessert": 0,
+    "national_cuisine": "28",
+    "main_ingredient": "54",
+    "tips": "1. Sauté the vegetables until tender but still crisp., 2. Adjust the spiciness to your preference., 3. Let the relish sit for a while to allow the flavors to meld."
+  },
+  {
+    "name": "Pap",
+    "description": "Traditional South African porridge made from maize meal, often served as a side dish.",
+    "is_dessert": 0,
+    "national_cuisine": "28",
+    "main_ingredient": "221",
+    "tips": "1. Cook the pap slowly, stirring frequently to prevent lumps., 2. Add a pinch of salt for better flavor., 3. Serve with a stew or sauce for added taste."
+  },
+  {
+    "name": "Cape Malay Curry",
+    "description": "Flavorful South African curry with Malay influences, made with a variety of spices and often containing fruit like apricots or raisins.",
+    "is_dessert": 0,
+    "national_cuisine": "28",
+    "main_ingredient": "9",
+    "tips": "1. Marinate the chicken in spices for a richer flavor., 2. Add dried fruit for a sweet contrast., 3. Simmer the curry slowly to develop the flavors."
+  },
+  {
+    "name": "Koeksisters",
+    "description": "Sweet South African pastry, twisted or braided and fried, then dipped in syrup.",
+    "is_dessert": 1,
+    "national_cuisine": "28",
+    "main_ingredient": "221",
+    "tips": "1. Ensure the syrup is cold before dipping the hot koeksisters., 2. Fry until golden brown and crisp., 3. Let the koeksisters soak in the syrup for a few minutes for better absorption."
+  },
+  {
+    "name": "Prinsesstårta",
+    "description": "Traditional Swedish layer cake covered in marzipan and filled with layers of sponge cake, pastry cream, and whipped cream.",
+    "is_dessert": 1,
+    "national_cuisine": "25",
+    "main_ingredient": "81",
+    "tips": "1. Roll the marzipan thinly to cover the cake smoothly., 2. Allow the cake to chill in the refrigerator before serving., 3. Decorate with a marzipan rose for an authentic touch."
+  },
+  {
+    "name": "Raggmunk",
+    "description": "Swedish potato pancakes, typically served with fried pork and lingonberries.",
+    "is_dessert": 0,
+    "national_cuisine": "25",
+    "main_ingredient": "21",
+    "tips": "1. Grate the potatoes just before cooking to prevent them from turning brown., 2. Fry until the pancakes are golden and crispy., 3. Serve with fried pork and lingonberries for a traditional meal."
+  },
+  {
+    "name": "Semlor",
+    "description": "Swedish sweet buns filled with almond paste and whipped cream, traditionally eaten before Lent.",
+    "is_dessert": 1,
+    "national_cuisine": "25",
+    "main_ingredient": "221",
+    "tips": "1. Allow the dough to rise properly for light, fluffy buns., 2. Use fresh, high-quality almond paste for the filling., 3. Dust with powdered sugar before serving."
+  },
+  {
+    "name": "Smörgåstårta",
+    "description": "Swedish sandwich cake made from layers of bread, creamy fillings, and various toppings like seafood, vegetables, and cold cuts.",
+    "is_dessert": 0,
+    "national_cuisine": "25",
+    "main_ingredient": "6",
+    "tips": "1. Use a variety of fillings for different flavors and textures., 2. Chill the sandwich cake before serving to let the flavors meld., 3. Decorate with colorful toppings for an appealing presentation."
+  },
+  {
+    "name": "Knäckebröd",
+    "description": "Traditional Swedish crispbread made from rye flour, known for its long shelf life and crisp texture.",
+    "is_dessert": 0,
+    "national_cuisine": "25",
+    "main_ingredient": "221",
+    "tips": "1. Roll the dough thinly for a crispier texture., 2. Bake until the bread is golden brown and crisp., 3. Store in an airtight container to maintain freshness."
+  },
+  {
+    "name": "Zurek",
+    "description": "Traditional Polish sour rye soup made with fermented rye flour, often served with sausage, boiled egg, and potatoes.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "221",
+    "tips": "1. Start with a good-quality sourdough starter or sour rye flour for authentic flavor., 2. Add sausage and boiled egg for protein and texture., 3. Serve with a dollop of sour cream and fresh herbs for garnish."
+  },
+  {
+    "name": "Kotlet Schabowy",
+    "description": "Polish breaded pork cutlet, similar to Wiener Schnitzel, typically served with mashed potatoes and cabbage salad.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "13",
+    "tips": "1. Pound the pork cutlets thinly for even cooking and tenderness., 2. Coat the cutlets in flour, beaten egg, and breadcrumbs for a crispy crust., 3. Fry until golden brown and serve immediately with lemon wedges."
+  },
+  {
+    "name": "Placki Ziemniaczane",
+    "description": "Polish potato pancakes made from grated potatoes mixed with flour, eggs, and seasonings, pan-fried until golden and crispy.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "21",
+    "tips": "1. Grate the potatoes finely and squeeze out excess moisture for crispy pancakes., 2. Season the batter with salt and pepper to taste., 3. Serve with sour cream, applesauce, or sugar for a sweet option."
+  },
+  {
+    "name": "Golabki",
+    "description": "Traditional Polish cabbage rolls stuffed with a mixture of ground meat, rice, and seasonings, baked in a tomato sauce.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "35",
+    "tips": "1. Soften the cabbage leaves by blanching them in hot water before stuffing., 2. Use a mixture of beef and pork for the filling for flavor and texture., 3. Bake covered until the cabbage rolls are tender and the sauce is bubbly."
+  },
+  {
+    "name": "Kielbasa",
+    "description": "Traditional Polish sausage made from pork, seasoned with garlic, salt, pepper, and other spices, often smoked and served grilled or boiled.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "13",
+    "tips": "1. Use high-quality pork and a good blend of spices for authentic flavor., 2. Smoke the sausage for extra depth of flavor., 3. Serve with mustard, horseradish, or sauerkraut for a classic accompaniment."
+  },
+  {
+    "name": "Polskie Nalesniki",
+    "description": "Polish crepes, similar to French crêpes, filled with various sweet or savory fillings such as fruit preserves, cheese, or mushrooms.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "221",
+    "tips": "1. Thin the batter with milk or water for delicate, lacy crepes., 2. Cook the crepes on a well-greased skillet over medium heat., 3. Serve with a sprinkle of powdered sugar or a dollop of sour cream."
+  },
+  {
+    "name": "Laksa",
+    "description": "Spicy noodle soup popular in Malaysian cuisine, made with either a coconut milk or sour asam (tamarind or gelugur) base, with prawns, chicken, or fish.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "122",
+    "tips": "1. Customize the spice level to your taste by adjusting the amount of chili paste or fresh chili used., 2. Use fresh seafood and herbs for the best flavor., 3. Serve hot with a side of lime wedges and shrimp paste."
+  },
+  {
+    "name": "Satay",
+    "description": "Malaysian skewered and grilled meat, served with a dipping sauce, typically made from ground roasted peanuts, coconut milk, soy sauce, and chili.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "10",
+    "tips": "1. Marinate the meat overnight for maximum flavor., 2. Soak the skewers in water beforehand to prevent burning., 3. Grill over charcoal for an authentic smoky flavor."
+  },
+  {
+    "name": "Rendang",
+    "description": "A spicy meat dish originating from the Minangkabau region in West Sumatra, Indonesia, but also popular in Malaysia, cooked in coconut milk and a mixture of lemongrass, galangal, garlic, turmeric, ginger, and chilies.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "10",
+    "tips": "1. Choose tougher cuts of meat like beef or mutton for the best texture., 2. Cook the rendang slowly over low heat to allow the flavors to develop and the sauce to thicken., 3. Serve with steamed rice or ketupat (rice cakes)."
+  },
+  {
+    "name": "Roti Canai",
+    "description": "Malaysian flatbread with Indian influences, made from dough composed of flour, water, and ghee, often served with dal or other types of curry.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "221",
+    "tips": "1. Stretch and fold the dough to create flaky layers in the finished roti., 2. Use ghee or clarified butter for a richer flavor., 3. Serve hot with a side of curry or dal for dipping."
+  },
+  {
+    "name": "Mee Goreng",
+    "description": "Spicy fried noodles common in Malaysia and Indonesia, cooked with a mix of shallots, garlic, chili, prawn, chicken, egg, and vegetables.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "185",
+    "tips": "1. Use fresh noodles for the best texture., 2. Stir-fry over high heat to achieve a smoky flavor., 3. Garnish with fried shallots and sliced green onions before serving."
+  },
+  {
+    "name": "Laksa",
+    "description": "Spicy noodle soup popular in Malaysian cuisine, made with either a coconut milk or sour asam (tamarind or gelugur) base, with prawns, chicken, or fish.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "122",
+    "tips": "1. Customize the spice level to your taste by adjusting the amount of chili paste or fresh chili used., 2. Use fresh seafood and herbs for the best flavor., 3. Serve hot with a side of lime wedges and shrimp paste."
+  },
+  {
+    "name": "Satay",
+    "description": "Malaysian skewered and grilled meat, served with a dipping sauce, typically made from ground roasted peanuts, coconut milk, soy sauce, and chili.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "10",
+    "tips": "1. Marinate the meat overnight for maximum flavor., 2. Soak the skewers in water beforehand to prevent burning., 3. Grill over charcoal for an authentic smoky flavor."
+  },
+  {
+    "name": "Rendang",
+    "description": "A spicy meat dish originating from the Minangkabau region in West Sumatra, Indonesia, but also popular in Malaysia, cooked in coconut milk and a mixture of lemongrass, galangal, garlic, turmeric, ginger, and chilies.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "10",
+    "tips": "1. Choose tougher cuts of meat like beef or mutton for the best texture., 2. Cook the rendang slowly over low heat to allow the flavors to develop and the sauce to thicken., 3. Serve with steamed rice or ketupat (rice cakes)."
+  },
+  {
+    "name": "Roti Canai",
+    "description": "Malaysian flatbread with Indian influences, made from dough composed of flour, water, and ghee, often served with dal or other types of curry.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "221",
+    "tips": "1. Stretch and fold the dough to create flaky layers in the finished roti., 2. Use ghee or clarified butter for a richer flavor., 3. Serve hot with a side of curry or dal for dipping."
+  },
+  {
+    "name": "Mee Goreng",
+    "description": "Spicy fried noodles common in Malaysia and Indonesia, cooked with a mix of shallots, garlic, chili, prawn, chicken, egg, and vegetables.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "185",
+    "tips": "1. Use fresh noodles for the best texture., 2. Stir-fry over high heat to achieve a smoky flavor., 3. Garnish with fried shallots and sliced green onions before serving."
+  },
+  {
+    "name": "Pavlova",
+    "description": "Australian dessert consisting of a meringue base topped with whipped cream and fresh fruit, such as strawberries, kiwifruit, and passionfruit.",
+    "is_dessert": 1,
+    "national_cuisine": "27",
+    "main_ingredient": "40",
+    "tips": "1. Whip the egg whites until stiff peaks form for a stable meringue base., 2. Bake at a low temperature to ensure the meringue cooks through without browning., 3. Top with whipped cream and fruit just before serving for freshness."
+  },
+  {
+    "name": "Vegemite Toast",
+    "description": "Australian breakfast staple consisting of toast spread with Vegemite, a savory yeast extract spread, often served with butter or margarine.",
+    "is_dessert": 0,
+    "national_cuisine": "27",
+    "main_ingredient": "6",
+    "tips": "1. Spread a thin layer of Vegemite on buttered toast for a balanced flavor., 2. Customize to taste by adding avocado, cheese, or tomato slices., 3. Serve with a cup of tea or coffee for the perfect morning pick-me-up."
+  },
+  {
+    "name": "Fairy Bread",
+    "description": "Australian party treat made from buttered white bread slices sprinkled with colored hundreds and thousands (sprinkles), often served at children's birthday parties.",
+    "is_dessert": 1,
+    "national_cuisine": "27",
+    "main_ingredient": "6",
+    "tips": "1. Use fresh white bread for the best texture., 2. Spread the butter evenly to ensure the sprinkles stick., 3. Cut the bread into triangles or rectangles for a fun presentation."
+  },
+  {
+    "name": "Maple Syrup Pie",
+    "description": "Canadian pie made with a filling of maple syrup, eggs, and butter, baked until set and served with whipped cream or ice cream.",
+    "is_dessert": 1,
+    "national_cuisine": "29",
+    "main_ingredient": "237",
+    "tips": "1. Use real maple syrup for the best flavor., 2. Beat the filling mixture until smooth and well combined., 3. Bake until the filling is set but still slightly jiggly in the center."
+  },
+  {
+    "name": "BeaverTails",
+    "description": "Canadian fried dough pastry stretched to resemble a beaver's tail, topped with various sweet toppings like cinnamon sugar, chocolate hazelnut spread, or fruit preserves.",
+    "is_dessert": 1,
+    "national_cuisine": "29",
+    "main_ingredient": "218",
+    "tips": "1. Stretch the dough thinly to achieve the characteristic shape of a BeaverTail., 2. Fry until golden brown and crispy on the outside., 3. Top with your favorite sweet toppings before serving."
+  },
+  {
+    "name": "Canadian Bacon Sandwich",
+    "description": "Classic Canadian sandwich made with slices of Canadian bacon (back bacon), lettuce, tomato, and mayonnaise, served between slices of bread or in a bun.",
+    "is_dessert": 0,
+    "national_cuisine": "29",
+    "main_ingredient": "238",
+    "tips": "1. Cook the Canadian bacon until crispy on the outside and juicy on the inside., 2. Toast the bread for added texture and flavor., 3. Layer the sandwich with fresh lettuce, tomato slices, and a generous spread of mayonnaise."
+  },
+  {
+    "name": "Sweet and Sour Pork",
+    "description": "A popular dish featuring crispy fried pork in a sweet and tangy sauce made with pineapple, bell peppers, and onions.",
+    "is_dessert": 0,
+    "national_cuisine": "2",
+    "main_ingredient": "13",
+    "tips": "1. Coat the pork pieces with cornstarch before frying for extra crunch., 2. Balance the sweetness and sourness by adjusting the sugar and vinegar., 3. Serve immediately to maintain the pork's crispiness."
+  },
+  {
+    "name": "Hot and Sour Soup",
+    "description": "A flavorful Chinese soup with a balanced taste of spiciness and sourness, featuring ingredients like tofu, mushrooms, and bamboo shoots.",
+    "is_dessert": 0,
+    "national_cuisine": "2",
+    "main_ingredient": "116",
+    "tips": "1. Use a good quality black vinegar for the sour element., 2. Adjust the spiciness with white pepper or chili oil., 3. Add whisked egg at the end for a silky texture."
+  },
+  {
+    "name": "Egg Fried Rice",
+    "description": "A simple yet flavorful dish made with cooked rice, eggs, and vegetables, stir-fried with soy sauce and other seasonings.",
+    "is_dessert": 0,
+    "national_cuisine": "2",
+    "main_ingredient": "23",
+    "tips": "1. Use day-old rice for the best texture., 2. Scramble the eggs first and set aside before frying the rice., 3. Add green onions and sesame oil for extra flavor."
+  },
+  {
+    "name": "Char Siu (Chinese BBQ Pork)",
+    "description": "Sweet and savory Cantonese-style barbecued pork, typically marinated in hoisin sauce, soy sauce, and Chinese five-spice powder.",
+    "is_dessert": 0,
+    "national_cuisine": "2",
+    "main_ingredient": "13",
+    "tips": "1. Marinate the pork overnight for maximum flavor., 2. Baste the pork with the marinade during roasting., 3. Let the meat rest before slicing."
+  },
+  {
+    "name": "Szechuan Shrimp",
+    "description": "Spicy and flavorful shrimp dish stir-fried with Szechuan peppercorns, garlic, ginger, and chili paste.",
+    "is_dessert": 0,
+    "national_cuisine": "2",
+    "main_ingredient": "25",
+    "tips": "1. Marinate the shrimp briefly with a bit of cornstarch., 2. Use a high heat for quick stir-frying., 3. Adjust the amount of chili paste to control the spiciness."
+  },
+  {
+    "name": "Guacamole",
+    "description": "A classic Mexican dip made from mashed avocados, lime juice, onions, tomatoes, and cilantro.",
+    "is_dessert": 0,
+    "national_cuisine": "4",
+    "main_ingredient": "32",
+    "tips": "1. Use ripe avocados for the best texture., 2. Add diced jalapeños for a bit of heat., 3. Serve immediately to prevent browning."
+  },
+  {
+    "name": "Pozole",
+    "description": "A traditional Mexican soup made with hominy, pork, and red chilies, often garnished with radishes, lettuce, and lime.",
+    "is_dessert": 0,
+    "national_cuisine": "4",
+    "main_ingredient": "13",
+    "tips": "1. Simmer the soup slowly to develop deep flavors., 2. Use dried chilies for an authentic taste., 3. Serve with a variety of toppings for added texture and flavor."
+  },
+  {
+    "name": "Chiles Rellenos",
+    "description": "Poblano peppers stuffed with cheese or meat, dipped in egg batter, and fried until golden.",
+    "is_dessert": 0,
+    "national_cuisine": "4",
+    "main_ingredient": "214",
+    "tips": "1. Roast and peel the peppers for a smoky flavor., 2. Use a light batter for a crispy exterior., 3. Serve with tomato sauce and rice."
+  },
+  {
+    "name": "Palak Paneer",
+    "description": "A vegetarian dish consisting of paneer (Indian cottage cheese) in a spiced spinach sauce.",
+    "is_dessert": 0,
+    "national_cuisine": "5",
+    "main_ingredient": "8",
+    "tips": "1. Blanch the spinach before pureeing to retain its green color., 2. Fry the paneer cubes lightly for a firmer texture., 3. Add a splash of lemon juice for a fresh taste."
+  },
+  {
+    "name": "Samosa",
+    "description": "A popular Indian snack made of crispy pastry filled with a spiced potato and pea mixture.",
+    "is_dessert": 0,
+    "national_cuisine": "5",
+    "main_ingredient": "21",
+    "tips": "1. Use a stiff dough for the pastry to ensure it holds its shape., 2. Seal the edges of the samosa properly to prevent the filling from leaking., 3. Fry on medium heat for an even, golden crust."
+  },
+  {
+    "name": "Rogan Josh",
+    "description": "A fragrant and flavorful curry made with tender pieces of lamb cooked in a rich, spiced yogurt sauce.",
+    "is_dessert": 0,
+    "national_cuisine": "5",
+    "main_ingredient": "230",
+    "tips": "1. Use good quality lamb for the best results., 2. Slow-cook the curry to allow the flavors to develop., 3. Serve with basmati rice or naan."
+  },
+  {
+    "name": "Chole (Chickpea Curry)",
+    "description": "A popular North Indian dish made with chickpeas cooked in a spicy tomato and onion sauce.",
+    "is_dessert": 0,
+    "national_cuisine": "5",
+    "main_ingredient": "113",
+    "tips": "1. Soak the chickpeas overnight for a softer texture., 2. Add a pinch of baking soda while cooking the chickpeas for quicker cooking., 3. Garnish with chopped onions and coriander leaves."
+  },
+  {
+    "name": "Aloo Gobi",
+    "description": "A classic vegetarian dish made with potatoes and cauliflower cooked with spices and herbs.",
+    "is_dessert": 0,
+    "national_cuisine": "5",
+    "main_ingredient": "21",
+    "tips": "1. Cut the potatoes and cauliflower into similar-sized pieces for even cooking., 2. Add a squeeze of lemon juice for a fresh finish., 3. Serve with roti or paratha."
+  },
+  {
+    "name": "Massaman Curry",
+    "description": "A rich and mildly spiced Thai curry made with beef, coconut milk, potatoes, and peanuts.",
+    "is_dessert": 0,
+    "national_cuisine": "7",
+    "main_ingredient": "24",
+    "tips": "1. Slow-cook the beef until it is tender., 2. Use roasted peanuts for added texture and flavor., 3. Serve with steamed jasmine rice."
+  },
+  {
+    "name": "Som Tum (Green Papaya Salad)",
+    "description": "A refreshing Thai salad made with shredded green papaya, tomatoes, green beans, and peanuts, dressed in a tangy lime and fish sauce.",
+    "is_dessert": 0,
+    "national_cuisine": "7",
+    "main_ingredient": "19",
+    "tips": "1. Use a mortar and pestle to combine the ingredients for the best texture., 2. Adjust the amount of chili to control the spiciness., 3. Serve immediately to retain the crispiness of the papaya."
+  },
+  {
+    "name": "Larb Gai (Chicken Salad)",
+    "description": "A flavorful Thai salad made with minced chicken, lime juice, fish sauce, mint leaves, and roasted rice powder.",
+    "is_dessert": 0,
+    "national_cuisine": "7",
+    "main_ingredient": "9",
+    "tips": "1. Toast and grind rice to make your own roasted rice powder., 2. Adjust the amount of chili to control the heat., 3. Serve with fresh lettuce leaves or cabbage."
+  },
+  {
+    "name": "Thai Fish Cakes",
+    "description": "Savory fish cakes made with white fish, red curry paste, green beans, and kaffir lime leaves, often served with a sweet chili dipping sauce.",
+    "is_dessert": 0,
+    "national_cuisine": "7",
+    "main_ingredient": "16",
+    "tips": "1. Use a food processor to blend the fish mixture until smooth., 2. Fry the fish cakes in hot oil until golden and crispy., 3. Serve with cucumber relish or sweet chili sauce."
+  },
+  {
+    "name": "Moroccan Lamb Stew",
+    "description": "A hearty stew made with tender lamb, chickpeas, tomatoes, and a variety of spices including cumin, coriander, and cinnamon.",
+    "is_dessert": 0,
+    "national_cuisine": "11",
+    "main_ingredient": "230",
+    "tips": "1. Slow-cook the stew to allow the flavors to develop fully., 2. Add dried apricots or prunes for a touch of sweetness., 3. Serve with crusty bread or couscous."
+  },
+  {
+    "name": "Harira Soup",
+    "description": "A traditional Moroccan soup made with tomatoes, lentils, chickpeas, and lamb, seasoned with a mix of herbs and spices.",
+    "is_dessert": 0,
+    "national_cuisine": "11",
+    "main_ingredient": "19",
+    "tips": "1. Use fresh herbs like cilantro and parsley for added flavor., 2. Simmer the soup slowly to blend the flavors together., 3. Serve with lemon wedges and dates."
+  },
+  {
+    "name": "Chicken Tagine with Preserved Lemons and Olives",
+    "description": "A classic Moroccan dish featuring chicken slow-cooked with preserved lemons, olives, and a blend of spices in a tagine.",
+    "is_dessert": 0,
+    "national_cuisine": "11",
+    "main_ingredient": "9",
+    "tips": "1. Use bone-in chicken for more flavor., 2. Marinate the chicken with spices overnight for the best results., 3. Serve with couscous to soak up the flavorful sauce."
+  },
+  {
+    "name": "Moroccan Chicken Bastilla",
+    "description": "A savory-sweet Moroccan pie made with layers of flaky phyllo dough, shredded chicken, eggs, almonds, and a blend of spices.",
+    "is_dessert": 0,
+    "national_cuisine": "11",
+    "main_ingredient": "9",
+    "tips": "1. Slow-cook the chicken with onions, garlic, and spices until tender., 2. Layer the chicken filling between sheets of buttered phyllo dough., 3. Dust with powdered sugar and cinnamon before serving."
+  },
+  {
+    "name": "Kefta Tagine",
+    "description": "A flavorful Moroccan dish made with spiced ground meatballs cooked in a rich tomato-based sauce with onions, garlic, and herbs.",
+    "is_dessert": 0,
+    "national_cuisine": "11",
+    "main_ingredient": "24",
+    "tips": "1. Season the ground meat generously with Moroccan spices like cumin, paprika, and cinnamon., 2. Allow the meatballs to simmer in the sauce to absorb the flavors., 3. Serve with crusty bread or couscous."
+  },
+  {
+    "name": "Wiener Schnitzel",
+    "description": "A classic Austrian and German dish consisting of breaded and fried veal or pork cutlets, served with lemon wedges.",
+    "is_dessert": 0,
+    "national_cuisine": "20",
+    "main_ingredient": "13",
+    "tips": "1. Pound the meat thinly for even cooking., 2. Use fine breadcrumbs for a crispier crust., 3. Serve with potato salad or parsley potatoes."
+  },
+  {
+    "name": "Sauerbraten",
+    "description": "A traditional German pot roast made with marinated beef, typically served with red cabbage and potato dumplings.",
+    "is_dessert": 0,
+    "national_cuisine": "20",
+    "main_ingredient": "24",
+    "tips": "1. Marinate the beef for at least 2 days for maximum flavor., 2. Use a mix of vinegar, spices, and aromatics for the marinade., 3. Serve with a dollop of sour cream on top."
+  },
+  {
+    "name": "Bratwurst with Sauerkraut",
+    "description": "Grilled or pan-fried German sausages made from pork, beef, or veal, served with tangy sauerkraut and mustard.",
+    "is_dessert": 0,
+    "national_cuisine": "20",
+    "main_ingredient": "13",
+    "tips": "1. Grill or fry the sausages until golden and crispy., 2. Simmer the sauerkraut with onions and apples for extra flavor., 3. Serve with crusty bread or pretzels."
+  },
+  {
+    "name": "Käsespätzle",
+    "description": "A German comfort food dish similar to macaroni and cheese, made with egg noodles, melted cheese, onions, and topped with crispy fried onions.",
+    "is_dessert": 0,
+    "national_cuisine": "20",
+    "main_ingredient": "185",
+    "tips": "1. Make homemade spätzle for the best texture., 2. Use a mix of Emmental and Gruyère cheese for a rich flavor., 3. Top with chives or parsley before serving."
+  },
+  {
+    "name": "Apfelstrudel",
+    "description": "A traditional German dessert pastry made with thinly sliced apples, raisins, cinnamon, and sugar, wrapped in layers of flaky pastry dough.",
+    "is_dessert": 1,
+    "national_cuisine": "20",
+    "main_ingredient": "1",
+    "tips": "1. Roll out the pastry dough thinly for a delicate strudel., 2. Brush with melted butter before baking for a golden crust., 3. Serve warm with vanilla sauce or whipped cream."
+  }
+]

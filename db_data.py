@@ -213,7 +213,7 @@ cuisine_names = [
     "Italian", "Chinese", "Japanese", "Mexican", "Indian", "French",
     "Thai", "Spanish", "Greek", "Turkish", "Moroccan", "Vietnamese",
     "Korean", "Brazilian", "Peruvian", "Ethiopian", "Lebanese", "Russian",
-    "Caribbean", "German", "British", "Argentinian", "Indonesian",
+    "Caribbean", "German","British", "Argentinian", "Indonesian",
     "Malaysian", "Swedish", "Polish", "Australian", "South African", "Canadian", "American"
 ]
 
@@ -547,7 +547,6 @@ def generate_cook_national_cuisine_data():
             execute_query(conn, query, data)
 
 
-
 def generate_cook_recipe_data():
     cook_cuisines = get_cook_national_cuisines()
     recipe_cuisines = get_recipe_national_cuisines()
@@ -559,15 +558,15 @@ def generate_cook_recipe_data():
                 possible_recipes = recipe_cuisines[cuisine_id]
 
                 # Exclude two random recipes for each cuisine
-                excluded_recipes = random.sample(possible_recipes, min(2, len(possible_recipes)))
+                # excluded_recipes = random.sample(possible_recipes, min(2, len(possible_recipes)))
 
                 # Get the remaining recipes after excluding the two random ones
-                remaining_recipes = [recipe_id for recipe_id in possible_recipes if recipe_id not in excluded_recipes]
+                # remaining_recipes = [recipe_id for recipe_id in possible_recipes]
 
                 # Randomly select a subset of remaining recipes for the cook
-                if remaining_recipes:
-                    num_recipes = random.randint(1, min(5, len(remaining_recipes)))
-                    selected_recipes = random.sample(remaining_recipes, num_recipes)
+                if possible_recipes:
+                    num_recipes = random.randint(4, min(8, len(possible_recipes)))
+                    selected_recipes = random.sample(possible_recipes, num_recipes)
 
                     for recipe_id in selected_recipes:
                         data = (cook_id, recipe_id)
@@ -601,7 +600,7 @@ def assignments():
             execute_query(conn, query, data) 
 
 def generate_rating_data():
-    query = "INSERT INTO rating (rating_value, cook_id, judge_id, episode_id) VALUES (%s, %s, %s, %s, %s)"
+    query = "INSERT INTO rating (rating_value, cook_id, judge_id, episode_id) VALUES (%s, %s, %s, %s)"
     ep_cook_ids = get_episode_cooks()
     judge_ids = get_episode_judges()
     episode_ids = get_episodes()
@@ -627,10 +626,10 @@ for table in tables:
 
 
 # Generate and insert data
-generate_dummy_cooks(100)  # Generate 100 dummy cooks
+generate_dummy_cooks(50)  # Generate 100 dummy cooks
 insert_gear_data(gear_data)
 generate_dummy_food_groups(food_group_data)
-generate_dummy_cuisines(30)  # Generate 29 dummy cuisines
+generate_dummy_cuisines(20)  # Generate 29 dummy cuisines
 generate_dummy_users(50)  # Generate 50 dummy users
 generate_dummy_ingredients(100)  # Generate data for about 100 ingredients
 generate_dummy_recipes_from_json('recipes.json')
@@ -650,7 +649,7 @@ generate_cook_recipe_data()
 generate_episode_data()
 generate_nutritional_info_data(recipe_ids)
 assignments()
-#generate_rating_data()
+generate_rating_data()
 
 print("Dummy data inserted successfully into all tables.")
 

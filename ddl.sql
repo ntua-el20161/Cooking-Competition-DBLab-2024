@@ -357,11 +357,51 @@ CREATE TABLE recipe_image (
     CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+CREATE TABLE gear_image (
+    gear_id INT UNSIGNED NOT NULL,
+    image_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (gear_id, image_id),
+    CONSTRAINT FOREIGN KEY (gear_id) REFERENCES gear(gear_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE food_group_image (
+    food_group_id INT UNSIGNED NOT NULL,
+    image_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (food_group_id, image_id),
+    CONSTRAINT FOREIGN KEY (food_group_id) REFERENCES food_group(food_group_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE ingredient_image (
+    ingredient_id INT UNSIGNED NOT NULL,
+    image_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (ingredient_id, image_id),
+    CONSTRAINT FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE recipe_theme_image (
+    recipe_theme_id INT UNSIGNED NOT NULL,
+    image_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (recipe_theme_id, image_id),
+    CONSTRAINT FOREIGN KEY (recipe_theme_id) REFERENCES recipe_theme(recipe_theme_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
 CREATE TABLE cook_image (
     cook_id INT UNSIGNED NOT NULL,
     image_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (cook_id, image_id),
     CONSTRAINT FOREIGN KEY (cook_id) REFERENCES cook(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE episode_image (
+    episode_id INT UNSIGNED NOT NULL,
+    image_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (episode_id, image_id),
+    CONSTRAINT FOREIGN KEY (episode_id) REFERENCES episode(episode_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -372,6 +412,14 @@ FROM cook c
 INNER JOIN rating r ON c.cook_id = r.cook_id
 GROUP BY c.first_name, c.last_name;
 
+-- total rating for each cook in each episode
+CREATE VIEW episode_cook_rating AS
+SELECT e.season_number, e.episode_number, c.first_name, c.last_name, SUM(r.rating_value) as total_rating
+FROM episode e
+INNER JOIN rating r ON e.episode_id = r.episode_id
+INNER JOIN cook c ON r.cook_id = c.cook_id
+GROUP BY e.season_number, e.episode_number, c.first_name, c.last_name;
+
 -- dynamically calculating the calories for each recipe 
 CREATE VIEW total_nutritional_info AS
 SELECT r.recipe_id, SUM(ri.estimated_grams*i.kcal_per_100/100)/r.servings AS calories, ni.fats, ni.carbohydrates, ni.protein
@@ -379,6 +427,7 @@ FROM recipe r
 INNER JOIN nutritional_info ni ON r.recipe_id = ni.recipe_id
 INNER JOIN recipe_ingredient ri ON r.recipe_id = ri.recipe_id
 INNER JOIN ingredient i ON ri.ingredient_id = i.ingredient_id;
+GROUP BY r.recipe_id, ni.fats, ni.carbohydrates, ni.protein;
 
 -- total episode participations for each cook
 CREATE VIEW cook_episode_count AS
@@ -515,7 +564,7 @@ LIMIT 3;
 CREATE VIEW five_less_than_the_most AS
 SELECT c.cook_id, c.first_name, c.last_name, c.episode_count
 FROM cook_episode_count c
-WHERE (SELECT MAX(episode_count) FROM cook_episode_count) - c.episode_count >= 5;
+WHERE (SELECT MAX(episode_count) FROM cook_episode_count) - c.episode_count <= 5;
 
 -- 3.8
 CREATE VIEW episode_with_most_gear AS
@@ -561,9 +610,8 @@ GROUP BY nc.cuisine_name, e.season_number
 HAVING COUNT(*) > 3
 ORDER BY episode_count DESC;
 
--- TODO: fix
 CREATE VIEW cuisine_two_year_participations AS
-SELECT cyp1.cuisine_name, COUNT(*) as episode_count
+SELECT cyp1.cuisine_name, cyp1.season_number AS season_number_1, cyp2.season_number AS season_number_2, (cyp1.episode_count+cyp2.episode_count) as episode_count
 FROM cuisine_yearly_participations cyp1
 INNER JOIN cuisine_yearly_participations cyp2 ON cyp1.cuisine_name = cyp2.cuisine_name
 WHERE cyp1.season_number = cyp2.season_number - 1
@@ -609,7 +657,7 @@ FROM (
     INNER JOIN cook j ON ja.cook_id = j.cook_id
     INNER JOIN cook_rank_numeric jrn ON j.cook_id = jrn.cook_id
 ) AS combined_assignments
-GROUP BY episode_id
+GROUP BY episode_id, episode_number, season_number
 ORDER BY total_rank ASC
 LIMIT 1;
 
@@ -618,7 +666,8 @@ CREATE VIEW theme_with_most_appearances AS
 SELECT rt.recipe_theme_id, rt.title, COUNT(*) as appearance_count
 FROM recipe_theme rt
 INNER JOIN recipe_recipe_theme rrt ON rt.recipe_theme_id = rrt.recipe_theme_id
-INNER JOIN recipe_assignment ra ON rrt.recipe_id = ra.recipe_id;
+INNER JOIN recipe_assignment ra ON rrt.recipe_id = ra.recipe_id
+GROUP BY rt.recipe_theme_id, rt.title;
 
 -- 3.15
 CREATE VIEW never_used_food_groups AS
@@ -632,7 +681,7 @@ WHERE food_group_id NOT IN (
     INNER JOIN food_group fd ON i.food_group_id = fd.food_group_id
 );
 
--- This is a procedure that will be used to increment the episode count for the national cuisine used in episode number episode_no
+-- This is a procedure that will be used to increment the episode count for the national cuisines used in a specific episode
 -- and reset the episode count for the rest of the national cuisines
 DELIMITER //
 CREATE PROCEDURE national_cuisine_episode_count (episode_no INT, season_no INT)
@@ -653,6 +702,8 @@ END;
 //
 DELIMITER ;
 
+-- This is a procedure that will be used to increment the episode count for the cooks used in a specific episode
+-- and reset the episode count for the rest of the cooks
 DELIMITER //
 CREATE PROCEDURE cook_episode_count (episode_no INT, season_no INT)
 BEGIN
@@ -672,6 +723,8 @@ END;
 //
 DELIMITER ;
 
+-- This is a procedure that will be used to increment the episode count for the recipes used in a specific episode
+-- and reset the episode count for the rest of the recipes
 DELIMITER //
 CREATE PROCEDURE recipe_episode_count (episode_no INT, season_no INT)
 BEGIN
@@ -793,6 +846,28 @@ BEGIN
         ) AS cca ON r.national_cuisine_id = cca.national_cuisine_id AND cr.cook_id = cca.cook_id
     ) as cra
     WHERE cra.row_num = 1;
+
+
+    -- the cook must now know the recipe he is assigned in the episode 
+    -- so we insert the recipe into the cook_recipe table
+    /* INSERT INTO cook_recipe (cook_id, recipe_id)
+    SELECT cca.cook_id, ra.recipe_id
+    FROM (
+        SELECT cca.cook_id, cca.national_cuisine_id
+        FROM cook_cuisine_assignment cca
+        WHERE cca.episode_id = exact_episode_id
+    ) AS cca 
+    INNER JOIN (
+        SELECT r.recipe_id, r.national_cuisine_id
+        FROM recipe r
+        INNER JOIN recipe_assignment ra ON r.recipe_id = ra.recipe_id
+        WHERE ra.episode_id = exact_episode_id
+    ) AS ra ON cca.national_cuisine_id = ra.national_cuisine_id
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM cook_recipe cr
+        WHERE cr.cook_id = cca.cook_id AND cr.recipe_id = ra.recipe_id
+    ); */
 
     INSERT INTO judge_assignment(cook_id, episode_id)
     SELECT c.cook_id, exact_episode_id
