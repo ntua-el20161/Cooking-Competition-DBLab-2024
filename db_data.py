@@ -295,7 +295,10 @@ def generate_dummy_ingredients(num_ingredients):
         ("Flour", 364, 9), ("Corn Tortillas", 218, 9), ("Catfish", 105, 8),
         ("Pastry", 406, 9), ("Beets", 43, 10), ("Cream Cheese", 342, 6),
         ("Rice Flour", 366, 9), ("Custard", 122, 11), ("Paneer", 265, 6),
-        ("Lamb", 294, 7), ("Leafy Greens", 23, 10), ("Milk Solids", 502, 6)]
+        ("Lamb", 294, 7), ("Leafy Greens", 23, 10), ("Milk Solids", 502, 6),
+        ("Octopus", 207, 8), ("Squid", 150, 8), ("Tea Powder", 73 , 10), ("Sausage", 450, 7),
+        ("Maple Syrup", 140, 10), ("Bacon", 320, 7), ("Sugar", 387, 10)
+    ]
 
 
     query = "INSERT INTO ingredient (title, kcal_per_100, food_group_id) VALUES (%s, %s, %s)"
