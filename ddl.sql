@@ -4,16 +4,13 @@ USE cooking_show;
 
 -- TODO:
 -- add alternative queries for 3.6 and 3.8
--- ratings table (automata?)
 -- diakyrhksh nikhth apo kathe epeisodio (view?)
 -- images table
 -- steps table
 -- users relationship with cooks?
 
-
--- 21/5 UPDATES:
--- quantity sto recipe_gear relationship
--- total_time = cooking_mins + preparation_mins sto recipe
+-- dependencies:
+-- pip3 install mysql-connector-python
 
 -- ER UPDATES:
 -- recipe also many to one with ingredient for the basic ingredient relationship
@@ -30,6 +27,8 @@ USE cooking_show;
 -- kathe mageiras sysxetizetai mono me syntages mias ethnikhs kouzinas pou kserei
 -- se kathe epeisodio epilegontai 10 ethnikes kouzines kai gia thn kathe mia enas antiproswpos mageiras (o mageiras prepei na sysxetizetai me thn sygkekrimenh kouzina)
 -- o arithmos synexomenwn symmetoxwn einai enas gia kathe mageira dhladh h symmetoxh metraei ston idio metrhth eite o mageiras symmeteixe san kriths eite san diagwnizomenos
+-- sthn arxh kathe sezon ginetai reset to episode count gia kathe ethnikh kouzina, mageira kai syntagh dhladh einai dynato enas mageiras na exei symmetasxei sta 3 teleutaia epeisodia mias sezon kai na symmetasxei sto 1o ths epomenhs
+-- o kathe kriths vathmologei ton mageira apo 1-5 kai o telikos vathmos einai to athroisma twn 3 vathmologiwn tou
 
 CREATE TABLE app_user (
     app_user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,  
@@ -316,7 +315,6 @@ CREATE TABLE judge_assignment (
     FOREIGN KEY (episode_id) REFERENCES episode(episode_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
--- asto pros to parwn
 CREATE TABLE rating (
     rating_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     rating_value INT NOT NULL CHECK (rating_value BETWEEN 1 AND 5),
@@ -367,6 +365,14 @@ CREATE TABLE cook_image (
     CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+-- total rating for each cook for all episodes
+CREATE VIEW total_cook_rating AS
+SELECT c.first_name, c.last_name, SUM(r.rating_value) as total_rating
+FROM cook c
+INNER JOIN rating r ON c.cook_id = r.cook_id
+GROUP BY c.first_name, c.last_name;
+
+-- dynamically calculating the calories for each recipe 
 CREATE VIEW total_nutritional_info AS
 SELECT r.recipe_id, SUM(ri.estimated_grams*i.kcal_per_100/100)/r.servings AS calories, ni.fats, ni.carbohydrates, ni.protein
 FROM recipe r
@@ -374,11 +380,14 @@ INNER JOIN nutritional_info ni ON r.recipe_id = ni.recipe_id
 INNER JOIN recipe_ingredient ri ON r.recipe_id = ri.recipe_id
 INNER JOIN ingredient i ON ri.ingredient_id = i.ingredient_id;
 
+-- total episode participations for each cook
 CREATE VIEW cook_episode_count AS
 SELECT c.cook_id, c.first_name, c.last_name, COUNT(*) as episode_count
 FROM cook c
-INNER JOIN cook_cuisine_assignment cca ON c.cook_id = cca.cook_id;
+INNER JOIN cook_cuisine_assignment cca ON c.cook_id = cca.cook_id
+GROUP BY c.cook_id;
 
+-- Assigning a numeric value to the cook rank
 -- this is created for 3.13 query
 CREATE VIEW cook_rank_numeric AS
 SELECT cook_id, cook_rank,
@@ -407,22 +416,25 @@ INNER JOIN episode e ON cca.episode_id = e.episode_id
 INNER JOIN rating r ON cca.cook_id = r.cook_id AND r.episode_id = e.episode_id
 GROUP BY nc.cuisine_name;
 
--- 3.2 review
+-- 3.2 
 DELIMITER //
 CREATE PROCEDURE cuisine_year_cook_participations (IN season_no INT, IN cuisine_name VARCHAR(30))
 BEGIN
+    -- we create a temporary table to store the cook_id, national_cuisine_id, and a flag to indicate if the cook has participated in the episode
     CREATE TEMPORARY TABLE temp (
         cook_id INT UNSIGNED NOT NULL,
         national_cuisine_id INT UNSIGNED NOT NULL,
         participated INT DEFAULT 0
     );
 
+    -- insert into the temporary table the cook_id and national_cuisine_id of all the cooks that are associated with the national cuisine
     INSERT INTO temp(cook_id, national_cuisine_id)
-    SELECT c.cook_id, nc.national_cuisine_id
+    SELECT cnc.cook_id, nc.national_cuisine_id
     FROM national_cuisine nc
     INNER JOIN cook_national_cuisine cnc ON nc.national_cuisine_id = cnc.national_cuisine_id
     WHERE nc.cuisine_name = cuisine_name;
 
+    -- update the participated flag for the cooks that have participated in any episode of the season
     UPDATE temp
     SET participated = 1
     WHERE cook_id IN (
@@ -434,13 +446,13 @@ BEGIN
             WHERE e.season_number = season_no
         ) AS e ON cca.episode_id = e.episode_id
         INNER JOIN (
-            SELECT national_cuisine_id
-            FROM national_cuisine
-            WHERE cuisine_name = cuisine_name
+            SELECT nc.national_cuisine_id
+            FROM national_cuisine nc
+            WHERE nc.cuisine_name = cuisine_name
         )AS nc ON cca.national_cuisine_id = nc.national_cuisine_id    
     );
 
-    SELECT cuisine_name, season_no, c.cook_first_name, c.cook_last_name, t.participated
+    SELECT cuisine_name, season_no, c.first_name, c.last_name, t.participated
     FROM temp t
     INNER JOIN cook c ON t.cook_id = c.cook_id;
 
@@ -455,6 +467,7 @@ SELECT c.cook_id, c.first_name, c.last_name, COUNT(*) as recipe_count
 FROM cook c
 INNER JOIN cook_recipe cr ON c.cook_id = cr.cook_id
 WHERE c.age < 30
+GROUP BY c.cook_id
 ORDER BY recipe_count DESC
 LIMIT 10;
 
@@ -473,7 +486,7 @@ SELECT j.cook_id, j.first_name, j.last_name, e.season_number, COUNT(*) as episod
 FROM judge_assignment ja
 INNER JOIN episode e ON ja.episode_id = e.episode_id
 INNER JOIN cook j ON ja.cook_id = j.cook_id
-GROUP BY ja.cook_id, e.season_number
+GROUP BY j.cook_id, e.season_number
 HAVING COUNT(*) > 3
 ORDER BY episode_count DESC;
 
@@ -497,7 +510,8 @@ ORDER BY appearance_count DESC
 LIMIT 3;
 */
 
--- 3.7
+-- TODO: review this query
+-- 3.7 
 CREATE VIEW five_less_than_the_most AS
 SELECT c.cook_id, c.first_name, c.last_name, c.episode_count
 FROM cook_episode_count c
@@ -533,6 +547,11 @@ INNER JOIN episode e ON ra.episode_id = e.episode_id
 GROUP BY e.season_number;
 
 -- 3.10
+-- we want to find which national cuisine have the same number of participations the span of two consecutive seasons
+-- for this query we will create two views
+-- the first view will contain the number of participations for each national cuisine in each season and it will work as a helper view
+-- the second view will contain the national cuisines that have the same number of participations in two consecutive seasons
+
 CREATE VIEW cuisine_yearly_participations AS
 SELECT nc.cuisine_name, e.season_number, COUNT(*) as episode_count
 FROM national_cuisine nc
@@ -542,6 +561,7 @@ GROUP BY nc.cuisine_name, e.season_number
 HAVING COUNT(*) > 3
 ORDER BY episode_count DESC;
 
+-- TODO: fix
 CREATE VIEW cuisine_two_year_participations AS
 SELECT cyp1.cuisine_name, COUNT(*) as episode_count
 FROM cuisine_yearly_participations cyp1
@@ -660,7 +680,7 @@ BEGIN
     CASE 
     WHEN recipe_id IN (
         SELECT cra.recipe_id
-        FROM cook_recipe_assignment cra
+        FROM recipe_assignment cra
         INNER JOIN episode e ON cra.episode_id = e.episode_id
         WHERE e.episode_number = episode_no AND e.season_number = season_no
     )
@@ -671,22 +691,33 @@ END;
 //
 DELIMITER ;
 
+-- This is a procedure that will be used to assign cooks, national cuisines, recipes, and judges to an episode
 DELIMITER //
 CREATE PROCEDURE episode_assignments (episode_no INT, season_no INT) 
 BEGIN
     DECLARE done INT DEFAULT FALSE;
+    DECLARE exact_episode_id INT UNSIGNED;
     DECLARE cur_cook INT; 
     DECLARE cur_nc INT;
     DECLARE cur_episode INT;
     DECLARE cursor_list CURSOR FOR SELECT cook_id, national_cuisine_id, episode_id FROM temp_cook_national_cuisine;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
+    -- this table will contain 10 randomly selected national cuisines that have not been used in more than 3 episodes
+    -- and all the cooks that have not participated in more than 3 episodes and are associated with the selected national cuisines
     CREATE TEMPORARY TABLE temp_cook_national_cuisine (
             cook_id INT UNSIGNED NOT NULL,
             national_cuisine_id INT UNSIGNED NOT NULL,
             episode_id INT UNSIGNED NOT NULL
     );
 
+    SET exact_episode_id = (
+        SELECT episode_id
+        FROM episode
+        WHERE episode_number = episode_no AND season_number = season_no
+    );
+
+    -- if it is the first episode of the season, reset the episode count for national cuisines, cooks, and recipes
     IF episode_no = 1
     THEN 
     UPDATE national_cuisine SET episode_count = 0;
@@ -695,32 +726,28 @@ BEGIN
     END IF;
 
     INSERT INTO temp_cook_national_cuisine(cook_id, national_cuisine_id, episode_id)
-    SELECT cnc.cook_id, nc.national_cuisine_id, e.episode_id
+    SELECT cnc.cook_id, nc.national_cuisine_id, exact_episode_id
     FROM (
-        SELECT episode_id
-        FROM episode
-        WHERE episode_number = episode_no AND season_number = season_no
-    ) AS e
-    CROSS JOIN (
         -- we randomly select 10 national cuisines that have not been used in more than 3 episodes
         SELECT nc_temp.national_cuisine_id
         FROM national_cuisine nc_temp
-        WHERE nc_temp.episode_count <= 3
+        WHERE nc_temp.episode_count < 3
         ORDER BY RAND()
         LIMIT 10
     ) as nc
     INNER JOIN (
         SELECT cnc.cook_id, cnc.national_cuisine_id
         FROM (
-            -- first we filter out the cooks that have participated in more than 3 episodes
+            -- we filter out the cooks that have participated in more than 3 episodes
             SELECT cnc_temp.cook_id, cnc_temp.national_cuisine_id
             FROM cook_national_cuisine cnc_temp
             INNER JOIN cook c ON c.cook_id = cnc_temp.cook_id
-            WHERE c.episode_count <= 3
+            WHERE c.episode_count < 3
         ) AS cnc
-    ) AS cnc ON cnc.national_cuisine_id = nc.national_cuisine_id;
+    ) AS cnc ON cnc.national_cuisine_id = nc.national_cuisine_id
+    ORDER BY RAND();
 
-
+    -- insert into cook_cuisine_assignment table 
     OPEN cursor_list;
     a_loop: LOOP 
         FETCH cursor_list INTO cur_cook, cur_nc, cur_episode;
@@ -747,48 +774,39 @@ BEGIN
     END LOOP;
     CLOSE cursor_list;
 
-    INSERT INTO cook_recipe_assignment (recipe_id, episode_id) 
-    SELECT cra.recipe_id, e.episode_id
+    -- populate recipe_assignment table
+    INSERT INTO recipe_assignment (recipe_id, episode_id) 
+    SELECT cra.recipe_id, exact_episode_id
     FROM (
-        SELECT episode_id
-        FROM episode
-        WHERE episode_number = episode_no AND season_number = season_no
-    ) AS e
-    CROSS JOIN (
         SELECT cr.cook_id, r.recipe_id, ROW_NUMBER() OVER (PARTITION BY cr.cook_id ORDER BY RAND()) AS row_num
         FROM (
             -- filter out the recipes that have been used in more than 3 episodes
-            SELECT r.recipe_id
+            SELECT r.recipe_id, r.national_cuisine_id
             FROM recipe r
-            WHERE r.episode_count <= 3 
+            WHERE r.episode_count < 3 
         ) AS r
-        INNER JOIN cook_recipe cr ON cr.recipe_id = r.recipe_id
+        INNER JOIN cook_recipe cr ON cr.recipe_id = r.recipe_id -- if we decide that its not necessary for a cook to be assigned a recipe he knows we can remove this join
         INNER JOIN (
             SELECT cook_id, national_cuisine_id
             FROM cook_cuisine_assignment
-            WHERE episode_id = e.episode_id
+            WHERE episode_id = exact_episode_id
         ) AS cca ON r.national_cuisine_id = cca.national_cuisine_id AND cr.cook_id = cca.cook_id
     ) as cra
     WHERE cra.row_num = 1;
 
     INSERT INTO judge_assignment(cook_id, episode_id)
-    SELECT c.cook_id, episode_id
+    SELECT c.cook_id, exact_episode_id
     FROM (
-        SELECT episode_id
-        FROM episode
-        WHERE episode_number = episode_no AND season_number = season_no
-    ) AS e
-    CROSS JOIN (
         SELECT cook_id
         FROM cook
-        WHERE episode_count <= 3
-        ORDER BY RAND()
+        WHERE episode_count < 3
     ) as c
     WHERE c.cook_id NOT IN (
         SELECT cook_id
         FROM cook_cuisine_assignment
-        WHERE episode_id = e.episode_id
+        WHERE episode_id = exact_episode_id
     )
+    ORDER BY RAND()
     LIMIT 3;
 
     CALL national_cuisine_episode_count(episode_no, season_no);

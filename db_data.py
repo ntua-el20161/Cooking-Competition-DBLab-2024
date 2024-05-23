@@ -18,7 +18,7 @@ def execute_query(connection, query, data=None):
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
-    port="8887",  # Adjust the port if necessary
+    port="3306",  # Adjust the port if necessary
     password="root",
     database="cooking_show"
 )
@@ -402,8 +402,6 @@ def get_recipe_national_cuisines():
         recipe_cuisines[cuisine_id].append(recipe_id)
     return recipe_cuisines
 
-
-
 def get_episode_cooks():
     cursor = conn.cursor()
     cursor.execute("SELECT cook_id, episode_id FROM cook_cuisine_assignment")
@@ -423,16 +421,15 @@ def get_episodes():
     return [row[0] for row in result]
 
 
-
 def get_episode_judges():
     cursor = conn.cursor()
-    cursor.execute("SELECT judge_id, episode_id FROM judge_assignment")
+    cursor.execute("SELECT cook_id, episode_id FROM judge_assignment")
     result = cursor.fetchall()
     episode_judges = {}
-    for judge_id, episode_id in result:
+    for cook_id, episode_id in result:
         if episode_id not in episode_judges:
             episode_judges[episode_id] = []
-        episode_judges[episode_id].append(judge_id)
+        episode_judges[episode_id].append(cook_id)
     return episode_judges
 
 
@@ -593,7 +590,12 @@ def generate_nutritional_info_data(recipe_ids):
         data = (recipe_id, fats, carbohydrates, protein)
         execute_query(conn, query, data)
 
-
+def assignments():
+    for season_number in range(1, 6):
+        for episode_number in range(1, 11):
+            query = "CALL episode_assignments(%s, %s)"
+            data = (episode_number, season_number)
+            execute_query(conn, query, data) 
 
 def generate_rating_data():
     query = "INSERT INTO rating (rating_value, cook_id, judge_id, episode_id) VALUES (%s, %s, %s, %s, %s)"
@@ -621,7 +623,6 @@ for table in tables:
 
 
 
-
 # Generate and insert data
 generate_dummy_cooks(100)  # Generate 100 dummy cooks
 insert_gear_data(gear_data)
@@ -645,6 +646,7 @@ generate_cook_national_cuisine_data()
 generate_cook_recipe_data()
 generate_episode_data()
 generate_nutritional_info_data(recipe_ids)
+assignments()
 #generate_rating_data()
 
 print("Dummy data inserted successfully into all tables.")
