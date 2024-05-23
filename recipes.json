@@ -838,5 +838,855 @@
     "national_cuisine": "15",
     "main_ingredient": "16",
     "tips": "1. Use fresh, high-quality fish for the best ceviche., 2. Marinate the fish in citrus juices for at least 20 minutes to ensure it's properly 'cooked' by the acid., 3. Serve the ceviche immediately after marinating for the freshest flavor and texture."
+  },
+  {
+    "name": "Kitfo",
+    "description": "Ethiopian dish made from raw minced beef, seasoned with mitmita (a chili powder-based spice blend) and niter kibbeh (clarified butter infused with spices).",
+    "is_dessert": 0,
+    "national_cuisine": "16",
+    "main_ingredient": "24",
+    "tips": "1. For an authentic experience, serve kitfo with injera and a side of ayib (Ethiopian cottage cheese)., 2. Ensure the beef is of the highest quality as it is served raw."
+  },
+  {
+    "name": "Shiro Wat",
+    "description": "Ethiopian stew made from powdered chickpeas or broad bean meal, slow-cooked with onions, garlic, and berbere spice blend.",
+    "is_dessert": 0,
+    "national_cuisine": "16",
+    "main_ingredient": "113",
+    "tips": "1. Shiro Wat pairs wonderfully with injera., 2. To enhance the flavor, use homemade niter kibbeh and let the stew simmer on low heat for an extended period."
+  },
+  {
+    "name": "Tibs",
+    "description": "Ethiopian stir-fry dish typically made with beef or lamb, cooked with onions, peppers, and a variety of spices, often served with injera.",
+    "is_dessert": 0,
+    "national_cuisine": "16",
+    "main_ingredient": "24",
+    "tips": "1. For the best flavor, marinate the meat in spices for a few hours before cooking., 2. Serve hot with injera and a side of fresh salad or gomen."
+  },
+  {
+    "name": "Misir Wat",
+    "description": "Ethiopian lentil stew made with red lentils cooked in a spicy berbere sauce with onions, garlic, and niter kibbeh.",
+    "is_dessert": 0,
+    "national_cuisine": "16",
+    "main_ingredient": "112",
+    "tips": "1. Use red lentils for their quick cooking time and creamy texture., 2. Let the lentils simmer until they are fully softened and infused with the spices."
+  },
+  {
+    "name": "Gomen",
+    "description": "Ethiopian dish made from collard greens sautéed with onions, garlic, and ginger, often flavored with niter kibbeh.",
+    "is_dessert": 0,
+    "national_cuisine": "16",
+    "main_ingredient": "69",
+    "tips": "1. Ensure the collard greens are finely chopped for even cooking., 2. If niter kibbeh is unavailable, substitute with ghee or clarified butter for a similar flavor."
+  },
+  {
+    "name": "Awaze Tibs",
+    "description": "Ethiopian spicy sautéed meat dish, usually beef, lamb, or goat, marinated and cooked with awaze paste (a mix of berbere and other spices).",
+    "is_dessert": 0,
+    "national_cuisine": "16",
+    "main_ingredient": "24",
+    "tips": "1. Marinate the meat in awaze paste for at least an hour before cooking to enhance the flavor., 2. Serve with injera and a side of fresh vegetables or gomen."
+  },
+  {
+    "name": "Miso Soup",
+    "description": "Traditional Japanese soup consisting of a stock called 'dashi' into which softened miso paste is mixed. Various ingredients like tofu, seaweed, and green onions are often added.",
+    "is_dessert": 0,
+    "national_cuisine": "3",
+    "main_ingredient": "116",
+    "tips": "1. Dissolve the miso paste in a small amount of dashi before adding it to the soup to avoid clumping., 2. Do not boil the soup after adding the miso to preserve its delicate flavors."
+  },
+
+  {
+    "name": "Sukiyaki",
+    "description": "Japanese hot pot dish that consists of thinly sliced beef, vegetables, tofu, and noodles simmered in a mixture of soy sauce, sugar, and mirin.",
+    "is_dessert": 0,
+    "national_cuisine": "3",
+    "main_ingredient": "24",
+    "tips": "1. Use well-marbled beef for the best flavor., 2. Cook the beef and vegetables in batches to avoid overcrowding the pot and ensure even cooking."
+  },
+  {
+    "name": "Takoyaki",
+    "description": "Japanese snack made of a wheat flour-based batter and cooked in a special molded pan, filled with diced octopus, tempura scraps, pickled ginger, and green onions.",
+    "is_dessert": 0,
+    "national_cuisine": "3",
+    "main_ingredient": "233",
+    "tips": "1. Use a takoyaki pan for the best results., 2. Rotate the balls frequently as they cook to achieve a perfectly round shape and even browning."
+  },
+  {
+    "name": "Gyudon",
+    "description": "Japanese rice bowl dish consisting of beef and onions simmered in a mildly sweet sauce flavored with dashi, soy sauce, and mirin, served over steamed rice.",
+    "is_dessert": 0,
+    "national_cuisine": "3",
+    "main_ingredient": "24",
+    "tips": "1. Thinly slice the beef for quick cooking., 2. Simmer the beef and onions in the sauce until they are tender and flavorful, then serve immediately over hot rice."
+  },
+  { 
+    "name": "Matcha Ice Cream",
+    "description": "Japanese ice cream flavored with matcha (green tea) powder, known for its vibrant green color and distinct, slightly bitter taste.",
+    "is_dessert": 1,
+    "national_cuisine": "3",
+    "main_ingredient": "235",
+    "tips": "1. Use high-quality matcha powder for the best flavor and color., 2. Whisk the matcha with a small amount of hot water to dissolve it completely before adding it to the ice cream base."
+  },
+  {
+    "name": "Patatas Bravas",
+    "description": "Popular Spanish tapa consisting of fried potatoes served with a spicy tomato sauce or aioli.",
+    "is_dessert": 0,
+    "national_cuisine": "3",
+    "main_ingredient": "21",
+    "tips": "1. Fry the potatoes twice for extra crispiness., 2. Serve the sauce separately or drizzle over the potatoes just before serving to keep them crispy."
+  },
+  {
+    "name": "Fabada Asturiana",
+    "description": "Hearty bean stew from the Asturias region, made with large white beans, chorizo, morcilla (blood sausage), and pork.",
+    "is_dessert": 0,
+    "national_cuisine": "3",
+    "main_ingredient": "109",
+    "tips": "1. Soak the beans overnight for a creamy texture., 2. Simmer the stew slowly to allow the flavors to meld together, and remove excess fat from the surface before serving."
+  },
+  {
+    "name": "Pimientos de Padrón",
+    "description": "Small green peppers from the Padrón region, typically fried in olive oil and sprinkled with sea salt. Some are mild, while others can be quite spicy.",
+    "is_dessert": 0,
+    "national_cuisine": "3",
+    "main_ingredient": "214",
+    "tips": "1. Fry the peppers in hot olive oil until blistered and slightly charred., 2. Sprinkle generously with sea salt and serve immediately as a tapa."
+  },
+  {
+    "name": "Crema Catalana",
+    "description": "Traditional Spanish dessert similar to crème brûlée, made with a rich custard base flavored with lemon or orange zest and topped with a hard caramel crust.",
+    "is_dessert": 1,
+    "national_cuisine": "3",
+    "main_ingredient": "7",
+    "tips": "1. Use a kitchen torch to caramelize the sugar for a crisp, even crust., 2. Chill the custard thoroughly before adding the sugar and caramelizing to keep it firm."
+  },
+  {
+    "name": "Pulpo a la Gallega",
+    "description": "Galician-style octopus dish, where the octopus is cooked until tender, sliced, and seasoned with olive oil, paprika, and coarse sea salt, typically served with boiled potatoes.",
+    "is_dessert": 0,
+    "national_cuisine": "3",
+    "main_ingredient": "233",
+    "tips": "1. Tenderize the octopus by freezing it before cooking or by giving it a few firm whacks., 2. Boil until tender, then slice and season just before serving for the best texture."
+  },
+  {
+    "name": "Pa amb Tomàquet",
+    "description": "Catalan dish consisting of rustic bread rubbed with ripe tomatoes and drizzled with olive oil, often topped with garlic and salt.",
+    "is_dessert": 0,
+    "national_cuisine": "3",
+    "main_ingredient": "6",
+    "tips": "1. Use ripe, juicy tomatoes and rustic, crusty bread for the best results., 2. Rub the garlic directly on the bread for a more intense flavor before adding the tomato."
+  },
+  {
+    "name": "Kimchi",
+    "description": "Traditional Korean side dish made from fermented vegetables, typically napa cabbage and Korean radishes, with a variety of seasonings including chili powder, garlic, ginger, and salted seafood.",
+    "is_dessert": 0,
+    "national_cuisine": "13",
+    "main_ingredient": "35",
+    "tips": "1. Ensure all the cabbage leaves are well salted and let them sit for a few hours to draw out the moisture. This helps in the fermentation process., 2. Adjust the spice level to your preference."
+  },
+  {
+    "name": "Bulgogi",
+    "description": "Korean BBQ dish made from thinly sliced marinated beef, typically grilled or stir-fried.",
+    "is_dessert": 0,
+    "national_cuisine": "13",
+    "main_ingredient": "24",
+    "tips": "1. Marinate the beef for at least an hour to enhance the flavors., 2. Cook quickly over high heat to keep the meat tender and juicy."
+  },
+  {
+    "name": "Japchae",
+    "description": "Korean stir-fried glass noodles with vegetables, and often mixed with beef or other proteins.",
+    "is_dessert": 0,
+    "national_cuisine": "13",
+    "main_ingredient": "184",
+    "tips": "1. Cook the noodles until just tender and rinse under cold water to stop further cooking., 2. Toss the noodles with a little sesame oil to prevent sticking."
+  },
+  {
+    "name": "Samgyeopsal",
+    "description": "Korean grilled pork belly served with various accompaniments like garlic, green chili peppers, and ssamjang (a thick, spicy paste).",
+    "is_dessert": 0,
+    "national_cuisine": "13",
+    "main_ingredient": "13",
+    "tips": "1. Grill the pork belly until crispy on the outside., 2. Serve with fresh lettuce leaves and various condiments for wrapping and eating."
+  },
+  {
+    "name": "Sundubu Jjigae",
+    "description": "Korean spicy stew made with uncurdled tofu (sundubu), vegetables, sometimes mushrooms, onions, optional seafood (such as oysters, clams, and shrimp), and gochujang (chili paste).",
+    "is_dessert": 0,
+    "national_cuisine": "13",
+    "main_ingredient": "116",
+    "tips": "1. Add the tofu at the end of cooking to keep its soft texture., 2. Serve the stew piping hot, often with a raw egg cracked into it just before eating."
+  },
+  {
+    "name": "Hotteok",
+    "description": "Korean filled pancake, usually stuffed with brown sugar, honey, chopped peanuts, and cinnamon, often enjoyed as a street food.",
+    "is_dessert": 1,
+    "national_cuisine": "13",
+    "main_ingredient": "221",
+    "tips": "1. Let the dough rise adequately for a soft texture., 2. Cook over medium heat to ensure the filling melts and the pancake is cooked through without burning."
+  },
+  {
+    "name": "Haemul Pajeon",
+    "description": "Korean savory pancake made with green onions (pa) and seafood (haemul), typically served with a dipping sauce.",
+    "is_dessert": 0,
+    "national_cuisine": "13",
+    "main_ingredient": "59",
+    "tips": "1. Use a combination of different seafood for a more complex flavor., 2. Fry until both sides are crispy and golden brown., 3. Serve with a soy-vinegar dipping sauce."
+  },
+  {
+    "name": "Beef Wellington",
+    "description": "British dish consisting of a fillet steak coated with pâté and duxelles, which is then wrapped in puff pastry and baked.",
+    "is_dessert": 0,
+    "national_cuisine": "21",
+    "main_ingredient": "24",
+    "tips": "1. Use high-quality beef fillet for the best results., 2. Ensure the puff pastry is sealed properly to prevent leakage., 3. Rest the Wellington before slicing to keep the juices in."
+  },
+  {
+    "name": "Yorkshire Pudding",
+    "description": "British side dish made from a batter of eggs, flour, and milk or water, typically served with roast beef.",
+    "is_dessert": 0,
+    "national_cuisine": "21",
+    "main_ingredient": "221",
+    "tips": "1. Preheat the oil in the tin until it's very hot before adding the batter., 2. Do not open the oven door during baking., 3. Serve immediately for the best texture."
+  },
+  {
+    "name": "Cornish Pasty",
+    "description": "Traditional British baked pastry filled with beef, potatoes, turnip, and onions, seasoned with salt and pepper.",
+    "is_dessert": 0,
+    "national_cuisine": "21",
+    "main_ingredient": "24",
+    "tips": "1. Crimp the edges of the pasty tightly to seal in the filling., 2. Use a combination of meat and vegetables for a balanced filling., 3. Bake until the pastry is golden brown and crispy."
+  },
+  {
+    "name": "Sticky Toffee Pudding",
+    "description": "Rich British dessert consisting of a moist sponge cake made with finely chopped dates, covered in a toffee sauce and often served with vanilla ice cream or custard.",
+    "is_dessert": 1,
+    "national_cuisine": "21",
+    "main_ingredient": "220",
+    "tips": "1. Soak the dates in hot water to soften them before adding to the batter., 2. Pour the toffee sauce over the pudding while it's still warm., 3. Serve with a scoop of vanilla ice cream or a dollop of custard."
+  },
+  {
+    "name": "Eton Mess",
+    "description": "Classic British dessert made from a mixture of strawberries, meringue, and whipped cream.",
+    "is_dessert": 1,
+    "national_cuisine": "21",
+    "main_ingredient": "40",
+    "tips": "1. Use fresh, ripe strawberries for the best flavor., 2. Crush the meringues lightly to retain some texture., 3. Fold the ingredients together gently to avoid breaking down the meringue too much."
+  },
+  {
+    "name": "Bangers and Mash",
+    "description": "Traditional British dish consisting of sausages served with mashed potatoes and onion gravy.",
+    "is_dessert": 0,
+    "national_cuisine": "21",
+    "main_ingredient": "236",
+    "tips": "1. Use high-quality sausages for the best flavor., 2. Make sure the mashed potatoes are creamy and smooth., 3. Serve with a rich, flavorful onion gravy."
+  },
+  {
+    "name": "Ploughman's Lunch",
+    "description": "Traditional British cold meal typically consisting of cheese, bread, pickles, and salad.",
+    "is_dessert": 0,
+    "national_cuisine": "21",
+    "main_ingredient": "8",
+    "tips": "1. Use a variety of cheeses for different flavors., 2. Include a mix of fresh and pickled vegetables., 3. Serve with crusty bread and a good quality pickle."
+  },
+  {
+    "name": "Victoria Sponge Cake",
+    "description": "Classic British cake made with two layers of sponge cake sandwiched together with jam and whipped cream.",
+    "is_dessert": 1,
+    "national_cuisine": "21",
+    "main_ingredient": "220",
+    "tips": "1. Ensure the butter and sugar are creamed well to incorporate air., 2. Use good quality jam for the filling., 3. Dust the top with icing sugar before serving."
+  },
+  {
+    "name": "Biltong",
+    "description": "South African dried, cured meat similar to jerky, traditionally made from beef or game meats.",
+    "is_dessert": 0,
+    "national_cuisine": "28",
+    "main_ingredient": "24",
+    "tips": "1. Use high-quality cuts of meat for the best results., 2. Marinate the meat in vinegar and spices for a rich flavor., 3. Dry the meat in a well-ventilated area to prevent mold."
+  },
+  {
+    "name": "Melktert",
+    "description": "Traditional South African dessert consisting of a sweet pastry crust filled with a creamy, milk-based custard.",
+    "is_dessert": 1,
+    "national_cuisine": "28",
+    "main_ingredient": "7",
+    "tips": "1. Use full-fat milk for a richer custard., 2. Allow the tart to cool completely before slicing., 3. Dust with cinnamon before serving."
+  },
+  {
+    "name": "Boerewors",
+    "description": "Traditional South African sausage made from minced beef and pork, seasoned with spices and herbs.",
+    "is_dessert": 0,
+    "national_cuisine": "28",
+    "main_ingredient": "13",
+    "tips": "1. Grill the sausage over medium heat to prevent burning., 2. Use fresh spices for the best flavor., 3. Serve with pap and tomato sauce for a traditional meal."
+  },
+  {
+    "name": "Chakalaka",
+    "description": "Spicy South African vegetable relish traditionally served with bread, pap, or meats.",
+    "is_dessert": 0,
+    "national_cuisine": "28",
+    "main_ingredient": "54",
+    "tips": "1. Sauté the vegetables until tender but still crisp., 2. Adjust the spiciness to your preference., 3. Let the relish sit for a while to allow the flavors to meld."
+  },
+  {
+    "name": "Pap",
+    "description": "Traditional South African porridge made from maize meal, often served as a side dish.",
+    "is_dessert": 0,
+    "national_cuisine": "28",
+    "main_ingredient": "221",
+    "tips": "1. Cook the pap slowly, stirring frequently to prevent lumps., 2. Add a pinch of salt for better flavor., 3. Serve with a stew or sauce for added taste."
+  },
+  {
+    "name": "Cape Malay Curry",
+    "description": "Flavorful South African curry with Malay influences, made with a variety of spices and often containing fruit like apricots or raisins.",
+    "is_dessert": 0,
+    "national_cuisine": "28",
+    "main_ingredient": "9",
+    "tips": "1. Marinate the chicken in spices for a richer flavor., 2. Add dried fruit for a sweet contrast., 3. Simmer the curry slowly to develop the flavors."
+  },
+  {
+    "name": "Koeksisters",
+    "description": "Sweet South African pastry, twisted or braided and fried, then dipped in syrup.",
+    "is_dessert": 1,
+    "national_cuisine": "28",
+    "main_ingredient": "221",
+    "tips": "1. Ensure the syrup is cold before dipping the hot koeksisters., 2. Fry until golden brown and crisp., 3. Let the koeksisters soak in the syrup for a few minutes for better absorption."
+  },
+  {
+    "name": "Prinsesstårta",
+    "description": "Traditional Swedish layer cake covered in marzipan and filled with layers of sponge cake, pastry cream, and whipped cream.",
+    "is_dessert": 1,
+    "national_cuisine": "25",
+    "main_ingredient": "81",
+    "tips": "1. Roll the marzipan thinly to cover the cake smoothly., 2. Allow the cake to chill in the refrigerator before serving., 3. Decorate with a marzipan rose for an authentic touch."
+  },
+  {
+    "name": "Raggmunk",
+    "description": "Swedish potato pancakes, typically served with fried pork and lingonberries.",
+    "is_dessert": 0,
+    "national_cuisine": "25",
+    "main_ingredient": "21",
+    "tips": "1. Grate the potatoes just before cooking to prevent them from turning brown., 2. Fry until the pancakes are golden and crispy., 3. Serve with fried pork and lingonberries for a traditional meal."
+  },
+  {
+    "name": "Semlor",
+    "description": "Swedish sweet buns filled with almond paste and whipped cream, traditionally eaten before Lent.",
+    "is_dessert": 1,
+    "national_cuisine": "25",
+    "main_ingredient": "221",
+    "tips": "1. Allow the dough to rise properly for light, fluffy buns., 2. Use fresh, high-quality almond paste for the filling., 3. Dust with powdered sugar before serving."
+  },
+  {
+    "name": "Smörgåstårta",
+    "description": "Swedish sandwich cake made from layers of bread, creamy fillings, and various toppings like seafood, vegetables, and cold cuts.",
+    "is_dessert": 0,
+    "national_cuisine": "25",
+    "main_ingredient": "6",
+    "tips": "1. Use a variety of fillings for different flavors and textures., 2. Chill the sandwich cake before serving to let the flavors meld., 3. Decorate with colorful toppings for an appealing presentation."
+  },
+  {
+    "name": "Knäckebröd",
+    "description": "Traditional Swedish crispbread made from rye flour, known for its long shelf life and crisp texture.",
+    "is_dessert": 0,
+    "national_cuisine": "25",
+    "main_ingredient": "221",
+    "tips": "1. Roll the dough thinly for a crispier texture., 2. Bake until the bread is golden brown and crisp., 3. Store in an airtight container to maintain freshness."
+  },
+  {
+    "name": "Ají de Gallina",
+    "description": "Traditional Peruvian dish made with shredded chicken in a spicy, creamy sauce made from ají amarillo peppers, milk, bread, and cheese.",
+    "is_dessert": 0,
+    "national_cuisine": "15",
+    "main_ingredient": "9",
+    "tips": "1. Use ají amarillo paste for authentic flavor., 2. Simmer the sauce gently to prevent curdling., 3. Serve over boiled potatoes and garnish with olives and hard-boiled eggs."
+  },
+  {
+    "name": "Anticuchos",
+    "description": "Popular Peruvian street food consisting of marinated beef heart skewers, grilled to perfection and often served with boiled potatoes and corn.",
+    "is_dessert": 0,
+    "national_cuisine": "15",
+    "main_ingredient": "24",
+    "tips": "1. Marinate the beef heart in a mixture of vinegar, garlic, and spices for at least 2 hours., 2. Grill over high heat to achieve a smoky flavor., 3. Serve with boiled potatoes and corn."
+  },
+  {
+    "name": "Papa a la Huancaína",
+    "description": "Peruvian appetizer made with boiled potatoes covered in a creamy, spicy sauce made from ají amarillo peppers, cheese, and milk.",
+    "is_dessert": 0,
+    "national_cuisine": "15",
+    "main_ingredient": "21",
+    "tips": "1. Use yellow potatoes for a creamier texture., 2. Blend the sauce until smooth and creamy., 3. Serve chilled, garnished with hard-boiled eggs and olives."
+  },
+  {
+    "name": "Pollo a la Brasa",
+    "description": "Peruvian rotisserie chicken marinated in a blend of spices and roasted until crispy and flavorful, typically served with fries and salad.",
+    "is_dessert": 0,
+    "national_cuisine": "15",
+    "main_ingredient": "9",
+    "tips": "1. Marinate the chicken for at least 24 hours for maximum flavor., 2. Roast the chicken at a high temperature to achieve crispy skin., 3. Serve with a side of fries and a fresh salad."
+  },
+  {
+    "name": "Causa Limeña",
+    "description": "Peruvian layered dish made with mashed yellow potatoes, avocado, and a filling of tuna, chicken, or seafood, seasoned with lime and ají amarillo.",
+    "is_dessert": 0,
+    "national_cuisine": "15",
+    "main_ingredient": "21",
+    "tips": "1. Use yellow potatoes for a traditional texture and flavor., 2. Layer the ingredients neatly for a visually appealing presentation., 3. Serve chilled with a drizzle of lime juice."
+  },
+  {
+    "name": "Rocoto Relleno",
+    "description": "Spicy Peruvian dish made with rocoto peppers stuffed with a mixture of ground beef, onions, peanuts, and spices, baked with a cheesy topping.",
+    "is_dessert": 0,
+    "national_cuisine": "15",
+    "main_ingredient": "214",
+    "tips": "1. Blanch the rocoto peppers to reduce their spiciness., 2. Fill the peppers generously with the beef mixture., 3. Bake until the peppers are tender and the cheese is golden brown."
+  },
+  {
+    "name": "Arroz con Pollo",
+    "description": "Peruvian version of chicken and rice, cooked with cilantro, peas, and carrots for a flavorful and colorful dish.",
+    "is_dessert": 0,
+    "national_cuisine": "15",
+    "main_ingredient": "9",
+    "tips": "1. Blend cilantro with broth to enhance the green color of the rice., 2. Cook the rice with the chicken for even flavor distribution., 3. Serve with a wedge of lime for added freshness."
+  },
+  {
+    "name": "Mazamorra Morada",
+    "description": "Traditional Peruvian dessert made from purple corn, pineapple, and spices, cooked into a thick, sweet pudding.",
+    "is_dessert": 1,
+    "national_cuisine": "15",
+    "main_ingredient": "51",
+    "tips": "1. Use fresh pineapple for a more vibrant flavor., 2. Stir continuously to prevent lumps from forming., 3. Serve chilled, topped with cinnamon."
+  },
+  {
+    "name": "Tabbouleh",
+    "description": "Lebanese salad made with finely chopped parsley, tomatoes, mint, onion, bulgur, and seasoned with olive oil, lemon juice, and salt.",
+    "is_dessert": 0,
+    "national_cuisine": "17",
+    "main_ingredient": "19",
+    "tips": "1. Use fresh, flat-leaf parsley for the best flavor and texture., 2. Soak bulgur in hot water until tender, then drain well before using., 3. Serve chilled for a refreshing side dish."
+  },
+  {
+    "name": "Falafel",
+    "description": "Deep-fried Lebanese patties made from ground chickpeas, fava beans, or both, mixed with onions, garlic, and various spices.",
+    "is_dessert": 0,
+    "national_cuisine": "17",
+    "main_ingredient": "113",
+    "tips": "1. Soak dried chickpeas overnight for the best texture., 2. Blend the mixture until it's finely ground but still slightly coarse., 3. Fry until golden brown and crispy on the outside, but soft on the inside."
+  },
+  {
+    "name": "Baba Ghanoush",
+    "description": "Lebanese dip made from roasted eggplant mixed with tahini, garlic, lemon juice, and olive oil.",
+    "is_dessert": 0,
+    "national_cuisine": "17",
+    "main_ingredient": "58",
+    "tips": "1. Char the eggplant over an open flame or grill for a smoky flavor., 2. Allow the eggplant to cool before peeling and mashing., 3. Adjust the amount of tahini and lemon juice to taste."
+  },
+  {
+    "name": "Kafta",
+    "description": "Lebanese dish made with seasoned ground meat, typically lamb or beef, mixed with onions, parsley, and spices, then grilled or baked.",
+    "is_dessert": 0,
+    "national_cuisine": "17",
+    "main_ingredient": "10",
+    "tips": "1. Use a mix of ground lamb and beef for the best flavor., 2. Mix the meat mixture well to ensure even seasoning., 3. Grill or bake until cooked through but still juicy."
+  },
+  {
+    "name": "Labneh",
+    "description": "Lebanese strained yogurt cheese, often served as a spread or dip, flavored with olive oil, herbs, and spices.",
+    "is_dessert": 0,
+    "national_cuisine": "17",
+    "main_ingredient": "33",
+    "tips": "1. Use full-fat yogurt for a creamier texture., 2. Strain the yogurt in cheesecloth overnight to remove excess moisture., 3. Serve drizzled with olive oil and sprinkled with herbs."
+  },
+  {
+    "name": "Lebanese eggplant",
+    "description": "Lebanese eggplant casserole, consisting of layers of fried eggplant, spiced ground meat, and tomatoes, topped with béchamel sauce and cheese.",
+    "is_dessert": 0,
+    "national_cuisine": "17",
+    "main_ingredient": "58",
+    "tips": "1. Salt the eggplant slices to remove excess moisture and bitterness before frying., 2. Layer the ingredients evenly for a balanced flavor., 3. Bake until the top is golden and bubbly."
+  },
+  {
+    "name": "Kibbeh",
+    "description": "Lebanese dish made from bulgur, minced onions, and ground meat, typically lamb or beef, mixed with Middle Eastern spices, then formed into balls or patties and fried or baked.",
+    "is_dessert": 0,
+    "national_cuisine": "17",
+    "main_ingredient": "95",
+    "tips": "1. Use fine bulgur for a smoother texture., 2. Chill the mixture before shaping to make it easier to handle., 3. Fry until golden brown and crispy on the outside, but still tender on the inside."
+  },
+  {
+    "name": "Goi Cuon",
+    "description": "Vietnamese fresh spring rolls filled with shrimp, pork, rice vermicelli, and vegetables, wrapped in rice paper and served with a dipping sauce.",
+    "is_dessert": 0,
+    "national_cuisine": "12",
+    "main_ingredient": "25",
+    "tips": "1. Use fresh, high-quality ingredients for the best flavor., 2. Dip the rice paper in warm water for a few seconds to soften before rolling., 3. Serve immediately with a side of peanut or hoisin dipping sauce."
+  },
+  {
+    "name": "Bun Cha",
+    "description": "Vietnamese dish of grilled pork served with rice noodles, fresh herbs, and dipping sauce, often accompanied by pickled vegetables.",
+    "is_dessert": 0,
+    "national_cuisine": "12",
+    "main_ingredient": "13",
+    "tips": "1. Marinate the pork in a mixture of fish sauce, garlic, and sugar for several hours for maximum flavor., 2. Grill the pork over charcoal for a smoky aroma and charred edges., 3. Serve with a side of nuoc cham dipping sauce and plenty of fresh herbs."
+  },
+  {
+    "name": "Ca Kho To",
+    "description": "Vietnamese caramelized fish cooked in a clay pot with a savory-sweet sauce made from fish sauce, sugar, and caramelized shallots.",
+    "is_dessert": 0,
+    "national_cuisine": "12",
+    "main_ingredient": "16",
+    "tips": "1. Use a firm, white-fleshed fish such as catfish or tilapia for best results., 2. Allow the fish to marinate in the sauce for at least 30 minutes before cooking., 3. Simmer gently until the fish is cooked through and the sauce has thickened."
+  },
+  {
+    "name": "Com Ga",
+    "description": "Vietnamese chicken rice, consisting of poached chicken served with seasoned rice, accompanied by cucumber slices, fresh herbs, and dipping sauce.",
+    "is_dessert": 0,
+    "national_cuisine": "12",
+    "main_ingredient": "9",
+    "tips": "1. Poach the chicken with aromatics such as ginger and lemongrass for added flavor., 2. Use jasmine rice cooked with chicken broth for fragrant and flavorful rice., 3. Serve with a side of nuoc cham dipping sauce and pickled vegetables."
+  },
+  {
+    "name": "Cha Gio",
+    "description": "Vietnamese fried spring rolls filled with ground pork, shrimp, vegetables, and vermicelli noodles, wrapped in rice paper and deep-fried until crispy.",
+    "is_dessert": 0,
+    "national_cuisine": "12",
+    "main_ingredient": "25",
+    "tips": "1. Use a mixture of ground pork and shrimp for a flavorful filling., 2. Roll the spring rolls tightly to prevent them from falling apart during frying., 3. Serve immediately with a side of nuoc cham dipping sauce."
+  },
+  {
+    "name": "Bun Thit Nuong",
+    "description": "Vietnamese vermicelli noodle salad topped with grilled marinated pork, fresh herbs, pickled vegetables, and crushed peanuts, served with a side of nuoc cham sauce.",
+    "is_dessert": 0,
+    "national_cuisine": "12",
+    "main_ingredient": "13",
+    "tips": "1. Marinate the pork in a mixture of fish sauce, garlic, sugar, and lemongrass for several hours for maximum flavor., 2. Grill the pork over high heat until charred and cooked through., 3. Serve with a generous amount of fresh herbs and vegetables for a refreshing salad."
+  },
+  {
+    "name": "Bo Kho",
+    "description": "Vietnamese beef stew flavored with lemongrass, star anise, and fish sauce, served with baguette or rice noodles.",
+    "is_dessert": 0,
+    "national_cuisine": "12",
+    "main_ingredient": "24",
+    "tips": "1. Brown the beef cubes before simmering to enhance the flavor and color of the stew., 2. Slow-cook the stew until the beef is tender and the flavors have melded together., 3. Serve with a side of baguette or rice noodles and garnish with fresh herbs and lime wedges."
+  },
+  {
+    "name": "Goi Ga",
+    "description": "Vietnamese chicken salad made with shredded poached chicken, cabbage, carrots, onions, and fresh herbs, dressed with a tangy lime fish sauce dressing.",
+    "is_dessert": 0,
+    "national_cuisine": "12",
+    "main_ingredient": "9",
+    "tips": "1. Poach the chicken with aromatics such as ginger and lemongrass for added flavor., 2. Shred the chicken finely for a more delicate texture."
+  },
+  {
+    "name": "Zurek",
+    "description": "Traditional Polish sour rye soup made with fermented rye flour, often served with sausage, boiled egg, and potatoes.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "221",
+    "tips": "1. Start with a good-quality sourdough starter or sour rye flour for authentic flavor., 2. Add sausage and boiled egg for protein and texture., 3. Serve with a dollop of sour cream and fresh herbs for garnish."
+  },
+  {
+    "name": "Kotlet Schabowy",
+    "description": "Polish breaded pork cutlet, similar to Wiener Schnitzel, typically served with mashed potatoes and cabbage salad.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "13",
+    "tips": "1. Pound the pork cutlets thinly for even cooking and tenderness., 2. Coat the cutlets in flour, beaten egg, and breadcrumbs for a crispy crust., 3. Fry until golden brown and serve immediately with lemon wedges."
+  },
+  {
+    "name": "Placki Ziemniaczane",
+    "description": "Polish potato pancakes made from grated potatoes mixed with flour, eggs, and seasonings, pan-fried until golden and crispy.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "21",
+    "tips": "1. Grate the potatoes finely and squeeze out excess moisture for crispy pancakes., 2. Season the batter with salt and pepper to taste., 3. Serve with sour cream, applesauce, or sugar for a sweet option."
+  },
+  {
+    "name": "Golabki",
+    "description": "Traditional Polish cabbage rolls stuffed with a mixture of ground meat, rice, and seasonings, baked in a tomato sauce.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "35",
+    "tips": "1. Soften the cabbage leaves by blanching them in hot water before stuffing., 2. Use a mixture of beef and pork for the filling for flavor and texture., 3. Bake covered until the cabbage rolls are tender and the sauce is bubbly."
+  },
+  {
+    "name": "Kielbasa",
+    "description": "Traditional Polish sausage made from pork, seasoned with garlic, salt, pepper, and other spices, often smoked and served grilled or boiled.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "13",
+    "tips": "1. Use high-quality pork and a good blend of spices for authentic flavor., 2. Smoke the sausage for extra depth of flavor., 3. Serve with mustard, horseradish, or sauerkraut for a classic accompaniment."
+  },
+  {
+    "name": "Polskie Nalesniki",
+    "description": "Polish crepes, similar to French crêpes, filled with various sweet or savory fillings such as fruit preserves, cheese, or mushrooms.",
+    "is_dessert": 0,
+    "national_cuisine": "26",
+    "main_ingredient": "221",
+    "tips": "1. Thin the batter with milk or water for delicate, lacy crepes., 2. Cook the crepes on a well-greased skillet over medium heat., 3. Serve with a sprinkle of powdered sugar or a dollop of sour cream."
+  },
+  {
+    "name": "Beef Stroganoff",
+    "description": "Classic Russian dish made with tender beef strips cooked in a creamy sauce with mushrooms, onions, and sometimes mustard or tomato paste, served over egg noodles or rice.",
+    "is_dessert": 0,
+    "national_cuisine": "18",
+    "main_ingredient": "24",
+    "tips": "1. Use tender cuts of beef such as sirloin or tenderloin for the best texture., 2. Brown the beef strips before simmering to develop flavor., 3. Finish with a swirl of sour cream for richness."
+  },
+  {
+    "name": "Schi",
+    "description": "Russian cabbage soup made with sauerkraut, fresh cabbage, potatoes, carrots, onions, and sometimes meat, flavored with dill and bay leaves.",
+    "is_dessert": 0,
+    "national_cuisine": "18",
+    "main_ingredient": "212",
+    "tips": "1. Start with a good-quality sauerkraut for authentic flavor., 2. Add meat such as beef or pork for a heartier soup., 3. Serve with a dollop of sour cream and a sprinkle of fresh dill."
+  },
+  {
+    "name": "Piroshki",
+    "description": "Russian stuffed buns filled with a variety of savory or sweet fillings, such as meat, potatoes, cabbage, mushrooms, or fruit.",
+    "is_dessert": 0,
+    "national_cuisine": "18",
+    "main_ingredient": "218",
+    "tips": "1. Roll the dough thinly for tender piroshki with a good filling-to-dough ratio., 2. Seal the edges tightly to prevent the filling from leaking out during baking., 3. Serve warm with a side of sour cream or mustard for dipping."
+  },
+  {
+    "name": "Blini",
+    "description": "Russian pancakes made from a thin batter of flour, eggs, milk, and sometimes yeast, typically served with sour cream, caviar, jam, or honey.",
+    "is_dessert": 0,
+    "national_cuisine": "18",
+    "main_ingredient": "221",
+    "tips": "1. Use a hot, well-greased skillet for even cooking and golden-brown blini., 2. Keep the batter thin for light and delicate pancakes., 3. Serve immediately with your choice of toppings."
+  },
+  {
+    "name": "Pirozhki",
+    "description": "Russian baked or fried buns filled with a variety of savory or sweet fillings, such as meat, potatoes, cabbage, mushrooms, or fruit.",
+    "is_dessert": 0,
+    "national_cuisine": "18",
+    "main_ingredient": "218",
+    "tips": "1. Use a rich dough made with butter and eggs for a tender texture., 2. Fill the pirozhki generously, but be careful not to overfill., 3. Bake or fry until golden brown and serve warm."
+  },
+  {
+    "name": "Syrniki",
+    "description": "Russian cottage cheese pancakes made with farmer's cheese (tvorog), eggs, flour, and sugar, often served with sour cream, jam, or honey.",
+    "is_dessert": 1,
+    "national_cuisine": "18",
+    "main_ingredient": "8",
+    "tips": "1. Drain the cottage cheese well to remove excess moisture for a firm texture."
+  },
+  {
+    "name": "Laksa",
+    "description": "Spicy noodle soup popular in Malaysian cuisine, made with either a coconut milk or sour asam (tamarind or gelugur) base, with prawns, chicken, or fish.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "122",
+    "tips": "1. Customize the spice level to your taste by adjusting the amount of chili paste or fresh chili used., 2. Use fresh seafood and herbs for the best flavor., 3. Serve hot with a side of lime wedges and shrimp paste."
+  },
+  {
+    "name": "Satay",
+    "description": "Malaysian skewered and grilled meat, served with a dipping sauce, typically made from ground roasted peanuts, coconut milk, soy sauce, and chili.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "10",
+    "tips": "1. Marinate the meat overnight for maximum flavor., 2. Soak the skewers in water beforehand to prevent burning., 3. Grill over charcoal for an authentic smoky flavor."
+  },
+  {
+    "name": "Rendang",
+    "description": "A spicy meat dish originating from the Minangkabau region in West Sumatra, Indonesia, but also popular in Malaysia, cooked in coconut milk and a mixture of lemongrass, galangal, garlic, turmeric, ginger, and chilies.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "10",
+    "tips": "1. Choose tougher cuts of meat like beef or mutton for the best texture., 2. Cook the rendang slowly over low heat to allow the flavors to develop and the sauce to thicken., 3. Serve with steamed rice or ketupat (rice cakes)."
+  },
+  {
+    "name": "Roti Canai",
+    "description": "Malaysian flatbread with Indian influences, made from dough composed of flour, water, and ghee, often served with dal or other types of curry.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "221",
+    "tips": "1. Stretch and fold the dough to create flaky layers in the finished roti., 2. Use ghee or clarified butter for a richer flavor., 3. Serve hot with a side of curry or dal for dipping."
+  },
+  {
+    "name": "Mee Goreng",
+    "description": "Spicy fried noodles common in Malaysia and Indonesia, cooked with a mix of shallots, garlic, chili, prawn, chicken, egg, and vegetables.",
+    "is_dessert": 0,
+    "national_cuisine": "24",
+    "main_ingredient": "185",
+    "tips": "1. Use fresh noodles for the best texture., 2. Stir-fry over high heat to achieve a smoky flavor., 3. Garnish with fried shallots and sliced green onions before serving."
+  },
+  {
+    "name": "Rice and Peas",
+    "description": "Classic Caribbean dish made with rice cooked in coconut milk and seasoned with garlic, thyme, scallions, and Scotch bonnet peppers, with kidney beans added for texture and protein.",
+    "is_dessert": 0,
+    "national_cuisine": "19",
+    "main_ingredient": "5",
+    "tips": "1. Soak the rice in coconut milk before cooking for extra flavor and richness., 2. Use scotch bonnet peppers sparingly, as they are very spicy., 3. Serve as a side dish with grilled or stewed meats."
+  },
+  {
+    "name": "Roti",
+    "description": "Caribbean flatbread made from wholemeal flour, water, and a little oil, rolled out and cooked on a hot griddle or skillet until lightly browned.",
+    "is_dessert": 0,
+    "national_cuisine": "19",
+    "main_ingredient": "221",
+    "tips": "1. Knead the dough until smooth and elastic for soft roti., 2. Roll the roti thin for a flaky texture., 3. Serve with curries, stews, or fillings of your choice."
+  },
+  {
+    "name": "Conch Fritters",
+    "description": "Popular Caribbean appetizer made from diced conch meat mixed with batter (flour, egg, milk, spices), then deep-fried until golden and crispy.",
+    "is_dessert": 0,
+    "national_cuisine": "19",
+    "main_ingredient": "10",
+    "tips": "1. Use fresh conch meat if available, or rehydrate dried conch before using., 2. Season the batter well with spices like paprika, garlic powder, and onion powder., 3. Serve hot with a dipping sauce such as tartar sauce or hot sauce."
+  },
+  {
+    "name": "Pão de Queijo",
+    "description": "Brazilian cheese bread made from tapioca flour, eggs, oil, and grated cheese, often served warm as a snack or breakfast item.",
+    "is_dessert": 0,
+    "national_cuisine": "14",
+    "main_ingredient": "221",
+    "tips": "1. Use a mix of cheese for the best flavor, such as Parmesan and mozzarella., 2. Beat the dough well to incorporate air and make the bread lighter., 3. Serve warm from the oven for maximum enjoyment."
+  },
+  {
+    "name": "Coxinha",
+    "description": "Brazilian chicken croquette made from shredded chicken, coated in dough, shaped into a teardrop, breaded, and deep-fried until golden brown.",
+    "is_dessert": 0,
+    "national_cuisine": "14",
+    "main_ingredient": "9",
+    "tips": "1. Season the chicken well for flavor before cooking., 2. Make sure the dough is smooth and pliable for easy shaping., 3. Fry until golden brown and crispy for the best texture."
+  },
+  {
+    "name": "Caipirinha",
+    "description": "Traditional Brazilian cocktail made with cachaça (sugarcane rum), lime, sugar, and ice, muddled together and served in a glass.",
+    "is_dessert": 0,
+    "national_cuisine": "14",
+    "main_ingredient": "38",
+    "tips": "1. Use fresh limes and quality cachaça for the best flavor., 2. Muddle the lime and sugar well to release the lime oils., 3. Serve over crushed ice for a refreshing drink."
+  },
+  {
+    "name": "Milanesa",
+    "description": "Breaded and fried meat cutlets, usually made with beef or chicken, served with mashed potatoes, fries, or salad.",
+    "is_dessert": 0,
+    "national_cuisine": "22",
+    "main_ingredient": "24",
+    "tips": "1. Pound the meat thinly for even cooking and tenderness., 2. Coat the cutlets in breadcrumbs mixed with herbs and spices for extra flavor., 3. Fry until golden brown and crispy."
+  },
+  {
+    "name": "Chimichurri Sauce",
+    "description": "Argentinian condiment made from finely chopped parsley, minced garlic, olive oil, vinegar, and red pepper flakes, typically served with grilled meat.",
+    "is_dessert": 0,
+    "national_cuisine": "22",
+    "main_ingredient": "29",
+    "tips": "1. Use fresh parsley and garlic for the best flavor., 2. Let the flavors meld together for at least an hour before serving., 3. Adjust the amount of red pepper flakes to your desired level of heat."
+  },
+  {
+    "name": "Alfajores",
+    "description": "Argentinian sandwich cookies made with two shortbread cookies filled with dulce de leche, then coated in chocolate, powdered sugar, or shredded coconut.",
+    "is_dessert": 1,
+    "national_cuisine": "22",
+    "main_ingredient": "7",
+    "tips": "1. Use a good-quality dulce de leche for the best flavor and texture., 2. Sandwich the cookies with just enough filling to hold them together without oozing out., 3. Chill the cookies before serving to set the filling."
+  },
+  {
+    "name": "Provoleta",
+    "description": "Argentinian grilled provolone cheese, typically seasoned with oregano and chili flakes, served hot and melty as an appetizer or side dish.",
+    "is_dessert": 0,
+    "national_cuisine": "22",
+    "main_ingredient": "8",
+    "tips": "1. Use a firm provolone cheese for grilling., 2. Season with oregano and chili flakes for flavor., 3. Grill until golden brown and bubbly, then serve immediately."
+  },
+  {
+    "name": "Souvlaki",
+    "description": "Greek street food consisting of small skewers of grilled meat (usually pork, chicken, or lamb) served with pita bread, tzatziki sauce, and garnishes.",
+    "is_dessert": 0,
+    "national_cuisine": "9",
+    "main_ingredient": "10",
+    "tips": "1. Marinate the meat in lemon juice, olive oil, garlic, and herbs for maximum flavor., 2. Grill over high heat for a charred exterior and juicy interior., 3. Serve wrapped in warm pita bread with tzatziki sauce, tomatoes, onions, and lettuce."
+  },
+  {
+    "name": "Spanakopita",
+    "description": "Greek spinach and feta pie made with layers of phyllo pastry filled with a mixture of spinach, feta cheese, onions, garlic, and herbs.",
+    "is_dessert": 0,
+    "national_cuisine": "9",
+    "main_ingredient": "4",
+    "tips": "1. Use fresh spinach and crumbled feta cheese for the best flavor and texture., 2. Layer the phyllo pastry with melted butter for a crispy crust., 3. Bake until golden brown and serve warm or at room temperature."
+  },
+  {
+    "name": "Greek Salad",
+    "description": "Traditional Greek salad made with tomatoes, cucumbers, onions, olives, and feta cheese, dressed with olive oil, lemon juice, and oregano.",
+    "is_dessert": 0,
+    "national_cuisine": "9",
+    "main_ingredient": "19",
+    "tips": "1. Use ripe, flavorful tomatoes and cucumbers for the best salad., 2. Use high-quality feta cheese for authentic flavor and texture., 3. Dress the salad just before serving to prevent it from becoming soggy."
+  },
+  {
+    "name": "Galaktoboureko",
+    "description": "Greek dessert consisting of custard filling (made with semolina, milk, eggs, and sugar) encased in crispy phyllo pastry, baked until golden and then soaked in a lemon-scented syrup.",
+    "is_dessert": 1,
+    "national_cuisine": "9",
+    "main_ingredient": "224",
+    "tips": "1. Cook the custard filling until thick and creamy for the best texture., 2. Layer the phyllo pastry sheets with melted butter for crispiness., 3. Pour the syrup over the hot pastry to ensure it soaks in evenly."
+  },
+  {
+    "name": "Pavlova",
+    "description": "Australian dessert consisting of a meringue base topped with whipped cream and fresh fruit, such as strawberries, kiwifruit, and passionfruit.",
+    "is_dessert": 1,
+    "national_cuisine": "27",
+    "main_ingredient": "40",
+    "tips": "1. Whip the egg whites until stiff peaks form for a stable meringue base., 2. Bake at a low temperature to ensure the meringue cooks through without browning., 3. Top with whipped cream and fruit just before serving for freshness."
+  },
+  {
+    "name": "Vegemite Toast",
+    "description": "Australian breakfast staple consisting of toast spread with Vegemite, a savory yeast extract spread, often served with butter or margarine.",
+    "is_dessert": 0,
+    "national_cuisine": "27",
+    "main_ingredient": "6",
+    "tips": "1. Spread a thin layer of Vegemite on buttered toast for a balanced flavor., 2. Customize to taste by adding avocado, cheese, or tomato slices., 3. Serve with a cup of tea or coffee for the perfect morning pick-me-up."
+  },
+  {
+    "name": "Fairy Bread",
+    "description": "Australian party treat made from buttered white bread slices sprinkled with colored hundreds and thousands (sprinkles), often served at children's birthday parties.",
+    "is_dessert": 1,
+    "national_cuisine": "27",
+    "main_ingredient": "6",
+    "tips": "1. Use fresh white bread for the best texture., 2. Spread the butter evenly to ensure the sprinkles stick., 3. Cut the bread into triangles or rectangles for a fun presentation."
+  },
+  {
+    "name": "Maple Syrup Pie",
+    "description": "Canadian pie made with a filling of maple syrup, eggs, and butter, baked until set and served with whipped cream or ice cream.",
+    "is_dessert": 1,
+    "national_cuisine": "29",
+    "main_ingredient": "237",
+    "tips": "1. Use real maple syrup for the best flavor., 2. Beat the filling mixture until smooth and well combined., 3. Bake until the filling is set but still slightly jiggly in the center."
+  },
+  {
+    "name": "BeaverTails",
+    "description": "Canadian fried dough pastry stretched to resemble a beaver's tail, topped with various sweet toppings like cinnamon sugar, chocolate hazelnut spread, or fruit preserves.",
+    "is_dessert": 1,
+    "national_cuisine": "29",
+    "main_ingredient": "218",
+    "tips": "1. Stretch the dough thinly to achieve the characteristic shape of a BeaverTail., 2. Fry until golden brown and crispy on the outside., 3. Top with your favorite sweet toppings before serving."
+  },
+  {
+    "name": "Canadian Bacon Sandwich",
+    "description": "Classic Canadian sandwich made with slices of Canadian bacon (back bacon), lettuce, tomato, and mayonnaise, served between slices of bread or in a bun.",
+    "is_dessert": 0,
+    "national_cuisine": "29",
+    "main_ingredient": "238",
+    "tips": "1. Cook the Canadian bacon until crispy on the outside and juicy on the inside., 2. Toast the bread for added texture and flavor., 3. Layer the sandwich with fresh lettuce, tomato slices, and a generous spread of mayonnaise."
+  },
+  {
+    "name": "Manti",
+    "description": "Turkish dumplings filled with spiced minced meat (usually lamb or beef), served with yogurt sauce and drizzled with garlic-infused butter and chili flakes.",
+    "is_dessert": 0,
+    "national_cuisine": "10",
+    "main_ingredient": "10",
+    "tips": "1. Roll the dough thinly for tender dumplings., 2. Fill each dumpling with a small amount of seasoned meat., 3. Serve with plenty of yogurt sauce and buttery garlic topping."
+  },
+  {
+    "name": "Turkish Delight (Lokum)",
+    "description": "Traditional Turkish confection made of starch and sugar, flavored with rosewater, citrus, or nuts, and often coated in powdered sugar or coconut.",
+    "is_dessert": 1,
+    "national_cuisine": "10",
+    "main_ingredient": "239",
+    "tips": "1. Use high-quality rosewater or citrus flavorings for authentic taste., 2. Add chopped nuts or dried fruits for texture and flavor variation., 3. Dust with powdered sugar or coat in coconut for a finished look."
   }
+
 ]
