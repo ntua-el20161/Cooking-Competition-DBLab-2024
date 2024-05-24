@@ -345,13 +345,13 @@ DELIMITER ;
 CREATE TABLE image (
     image_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     image_url VARCHAR(20) NOT NULL,
-    image_description VARCHAR(200) NOT NULL,
     PRIMARY KEY (image_id)
 );
 
 CREATE TABLE recipe_image (
     recipe_id INT UNSIGNED NOT NULL,
     image_id INT UNSIGNED NOT NULL,
+    image_description VARCHAR(200) NOT NULL,
     PRIMARY KEY (recipe_id, image_id),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -360,6 +360,7 @@ CREATE TABLE recipe_image (
 CREATE TABLE gear_image (
     gear_id INT UNSIGNED NOT NULL,
     image_id INT UNSIGNED NOT NULL,
+    image_description VARCHAR(200) NOT NULL,
     PRIMARY KEY (gear_id, image_id),
     CONSTRAINT FOREIGN KEY (gear_id) REFERENCES gear(gear_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -368,6 +369,7 @@ CREATE TABLE gear_image (
 CREATE TABLE food_group_image (
     food_group_id INT UNSIGNED NOT NULL,
     image_id INT UNSIGNED NOT NULL,
+    image_description VARCHAR(200) NOT NULL,
     PRIMARY KEY (food_group_id, image_id),
     CONSTRAINT FOREIGN KEY (food_group_id) REFERENCES food_group(food_group_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -376,6 +378,7 @@ CREATE TABLE food_group_image (
 CREATE TABLE ingredient_image (
     ingredient_id INT UNSIGNED NOT NULL,
     image_id INT UNSIGNED NOT NULL,
+    image_description VARCHAR(200) NOT NULL,
     PRIMARY KEY (ingredient_id, image_id),
     CONSTRAINT FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -384,6 +387,7 @@ CREATE TABLE ingredient_image (
 CREATE TABLE recipe_theme_image (
     recipe_theme_id INT UNSIGNED NOT NULL,
     image_id INT UNSIGNED NOT NULL,
+    image_description VARCHAR(200) NOT NULL,
     PRIMARY KEY (recipe_theme_id, image_id),
     CONSTRAINT FOREIGN KEY (recipe_theme_id) REFERENCES recipe_theme(recipe_theme_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -392,6 +396,7 @@ CREATE TABLE recipe_theme_image (
 CREATE TABLE cook_image (
     cook_id INT UNSIGNED NOT NULL,
     image_id INT UNSIGNED NOT NULL,
+    image_description VARCHAR(200) NOT NULL,
     PRIMARY KEY (cook_id, image_id),
     CONSTRAINT FOREIGN KEY (cook_id) REFERENCES cook(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -400,6 +405,7 @@ CREATE TABLE cook_image (
 CREATE TABLE episode_image (
     episode_id INT UNSIGNED NOT NULL,
     image_id INT UNSIGNED NOT NULL,
+    image_description VARCHAR(200) NOT NULL,
     PRIMARY KEY (episode_id, image_id),
     CONSTRAINT FOREIGN KEY (episode_id) REFERENCES episode(episode_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
