@@ -426,7 +426,7 @@ SELECT r.recipe_id, SUM(ri.estimated_grams*i.kcal_per_100/100)/r.servings AS cal
 FROM recipe r
 INNER JOIN nutritional_info ni ON r.recipe_id = ni.recipe_id
 INNER JOIN recipe_ingredient ri ON r.recipe_id = ri.recipe_id
-INNER JOIN ingredient i ON ri.ingredient_id = i.ingredient_id;
+INNER JOIN ingredient i ON ri.ingredient_id = i.ingredient_id
 GROUP BY r.recipe_id, ni.fats, ni.carbohydrates, ni.protein;
 
 -- total episode participations for each cook
