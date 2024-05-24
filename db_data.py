@@ -18,7 +18,7 @@ def execute_query(connection, query, data=None):
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
-    port="3306",  # Adjust the port if necessary
+    port="8887",  # Adjust the port if necessary
     password="root",
     database="cooking_show"
 )
@@ -41,6 +41,8 @@ def generate_random_string(length):
     letters = string.ascii_letters + string.digits
     return ''.join(random.choice(letters) for i in range(length))
 
+def generate_random_url():
+    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
 # Function to generate dummy data for app_user table
 def generate_dummy_users(num_users):
     usernames = set()
@@ -597,7 +599,7 @@ def assignments():
         for episode_number in range(1, 11):
             query = "CALL episode_assignments(%s, %s)"
             data = (episode_number, season_number)
-            execute_query(conn, query, data) 
+            execute_query(conn, query, data)
 
 def generate_rating_data():
     query = "INSERT INTO rating (rating_value, cook_id, judge_id, episode_id) VALUES (%s, %s, %s, %s)"
@@ -613,10 +615,125 @@ def generate_rating_data():
                 data = (rating_value, cook, judge, episode_id)
                 execute_query(conn, query, data)
 
+def insert_random_urls():
+    for _ in range (596):
+        url = generate_random_url()
+        query = "INSERT INTO image (image_url) VALUES (%s)"
+        data = [url]
+        execute_query(conn, query, data)
+
+
+def generate_recipe_image_data():
+
+    fetch_query = "SELECT recipe_id, title FROM recipe"
+    cursor = conn.cursor()
+    cursor.execute(fetch_query)
+    recipes = cursor.fetchall()  # Fetch all recipes
+    cursor.close()
+    query = "INSERT INTO recipe_image (recipe_id, image_id, image_description) VALUES (%s, %s, %s)"
+    for recipe_id, title in recipes:
+        image_id = recipe_id
+        image_description = title
+        data = (recipe_id, image_id, image_description)
+        execute_query(conn, query, data)
+
+def generate_gear_image_data():
+
+    fetch_query = "SELECT gear_id, title FROM gear"
+    cursor = conn.cursor()
+    cursor.execute(fetch_query)
+    gears = cursor.fetchall()  # Fetch all recipes
+    cursor.close()
+    query = "INSERT INTO gear_image (gear_id, image_id, image_description) VALUES (%s, %s, %s)"
+    for gear_id, title in gears:
+        image_id = gear_id+147
+        image_description = title
+        data = (gear_id, image_id, image_description)
+        execute_query(conn, query, data)
+
+def generate_food_group_image_data():
+
+    fetch_query = "SELECT food_group_id, title FROM food_group"
+    cursor = conn.cursor()
+    cursor.execute(fetch_query)
+    fdgrps = cursor.fetchall()  # Fetch all recipes
+    cursor.close()
+    query = "INSERT INTO food_group_image (food_group_id, image_id, image_description) VALUES (%s, %s, %s)"
+    for food_group_id, title in fdgrps:
+        image_id = food_group_id+231
+        image_description = title
+        data = (food_group_id, image_id, image_description)
+        execute_query(conn, query, data)
+
+
+def generate_ingredient_image_data():
+
+    fetch_query = "SELECT ingredient_id, title FROM ingredient"
+    cursor = conn.cursor()
+    cursor.execute(fetch_query)
+    ingredients = cursor.fetchall()  # Fetch all recipes
+    cursor.close()
+    query = "INSERT INTO ingredient_image (ingredient_id, image_id, image_description) VALUES (%s, %s, %s)"
+    for ingredient_id, title in ingredients:
+        image_id = ingredient_id+243
+        image_description = title
+        data = (ingredient_id, image_id, image_description)
+        execute_query(conn, query, data)
+
+
+def generate_recipe_theme_image_data():
+
+    fetch_query = "SELECT recipe_theme_id, title FROM recipe_theme"
+    cursor = conn.cursor()
+    cursor.execute(fetch_query)
+    themes = cursor.fetchall()  # Fetch all recipes
+    cursor.close()
+    query = "INSERT INTO recipe_theme_image (recipe_theme_id, image_id, image_description) VALUES (%s, %s, %s)"
+    for recipe_theme_id, title in themes:
+        image_id = recipe_theme_id+482
+        image_description = "A '" + title + "' themed recipe"
+        data = (recipe_theme_id, image_id, image_description)
+        execute_query(conn, query, data)
+
+
+def generate_cook_image_data():
+
+    fetch_query = "SELECT cook_id, first_name, last_name FROM cook"
+    cursor = conn.cursor()
+    cursor.execute(fetch_query)
+    cooks = cursor.fetchall()  # Fetch all recipes
+    cursor.close()
+    query = "INSERT INTO cook_image (cook_id, image_id, image_description) VALUES (%s, %s, %s)"
+    for cook_id, first_name, last_name in cooks:
+        image_id = cook_id+495
+        image_description = first_name + " " + last_name
+        data = (cook_id, image_id, image_description)
+        execute_query(conn, query, data)
+
+def generate_episode_image_data():
+    fetch_query = "SELECT episode_id FROM episode"
+    cursor = conn.cursor()
+    cursor.execute(fetch_query)
+    episodes = cursor.fetchall()
+    cursor.close()
+    query = "INSERT INTO episode_image (episode_id, image_id, image_description) VALUES (%s, %s, %s)"
+
+    for (episode_id,) in episodes:  # Unpack the episode_id directly as an integer
+        image_id = episode_id + 546
+        season_count = (episode_id // 10) + 1
+        episode_count = episode_id % 10
+        if episode_count == 0:
+            season_count -= 1
+            episode_count = 10
+        image_description = f"Season {season_count}, Episode {episode_count}"  # Use f-string for formatting
+        data = (episode_id, image_id, image_description)
+        execute_query(conn, query, data)
+
 
 
 # Delete existing data and reset auto-increment for all tables
-tables = ["rating", "nutritional_info", "cook_recipe", "cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme", "episode"]
+tables = ["episode_image", "cook_image", "recipe_theme_image", "ingredient_image", "food_group_image", "gear_image", "recipe_image",  "rating", "nutritional_info", "cook_recipe", "cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme", "episode", "image"]
+
 
 for table in tables:
     delete_existing_data(table)
@@ -650,6 +767,14 @@ generate_episode_data()
 generate_nutritional_info_data(recipe_ids)
 assignments()
 generate_rating_data()
+insert_random_urls()
+generate_recipe_image_data()
+generate_gear_image_data()
+generate_food_group_image_data()
+generate_ingredient_image_data()
+generate_recipe_theme_image_data()
+generate_cook_image_data()
+generate_episode_image_data()
 
 print("Dummy data inserted successfully into all tables.")
 
