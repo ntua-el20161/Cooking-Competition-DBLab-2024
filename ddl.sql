@@ -4,10 +4,10 @@ USE cooking_show;
 
 -- TODO:
 -- add alternative queries for 3.6 and 3.8
--- diakyrhksh nikhth apo kathe epeisodio (view?)
--- images table
--- steps table
 -- users relationship with cooks?
+-- ER diagram
+-- schema
+-- report
 
 -- dependencies:
 -- pip3 install mysql-connector-python
@@ -20,10 +20,11 @@ USE cooking_show;
 -- many to many recipe-episode
 -- episode count se national cuisine, cook, recipe
 -- recipe: serving_size, servings attributes
+-- episode_winner table
 
 -- PARADOXES:
 -- prin apo thn enarksh tou diagwnismou kathe mageiras sysxetizetai hdh me enan arithmo syntagwn
--- h syntagh pou kaleitai na ektelesei kathe mageiras se ena epeisodio einai mia syntagh pou kserei (dhladh o mageiras sxetizetai me th syntagh sto table cook_recipe)
+-- h syntagh pou kaleitai na ektelesei kathe mageiras se ena epeisodio einai mia syntagh pou den kserei aparaithta (dhladh o mageiras einai pithano na mhn sxetizetai me th syntagh sto table cook_recipe)
 -- kathe mageiras sysxetizetai mono me syntages mias ethnikhs kouzinas pou kserei
 -- se kathe epeisodio epilegontai 10 ethnikes kouzines kai gia thn kathe mia enas antiproswpos mageiras (o mageiras prepei na sysxetizetai me thn sygkekrimenh kouzina)
 -- o arithmos synexomenwn symmetoxwn einai enas gia kathe mageira dhladh h symmetoxh metraei ston idio metrhth eite o mageiras symmeteixe san kriths eite san diagwnizomenos
@@ -411,20 +412,21 @@ CREATE TABLE episode_image (
     CONSTRAINT FOREIGN KEY (image_id) REFERENCES image(image_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+CREATE TABLE episode_winner (
+    episode_id INT UNSIGNED NOT NULL,
+    cook_id INT UNSIGNED NOT NULL,
+    rating INT NOT NULL CHECK(rating BETWEEN 3 AND 15),
+    PRIMARY KEY (episode_id, cook_id),
+    CONSTRAINT FOREIGN KEY (episode_id) REFERENCES episode(episode_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY (cook_id) REFERENCES cook(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
 -- total rating for each cook for all episodes
 CREATE VIEW total_cook_rating AS
-SELECT c.first_name, c.last_name, SUM(r.rating_value) as total_rating
+SELECT c.cook_id, c.first_name, c.last_name, SUM(r.rating_value) as total_rating
 FROM cook c
 INNER JOIN rating r ON c.cook_id = r.cook_id
-GROUP BY c.first_name, c.last_name;
-
--- total rating for each cook in each episode
-CREATE VIEW episode_cook_rating AS
-SELECT e.season_number, e.episode_number, c.first_name, c.last_name, SUM(r.rating_value) as total_rating
-FROM episode e
-INNER JOIN rating r ON e.episode_id = r.episode_id
-INNER JOIN cook c ON r.cook_id = c.cook_id
-GROUP BY e.season_number, e.episode_number, c.first_name, c.last_name;
+GROUP BY c.cook_id, c.first_name, c.last_name;
 
 -- dynamically calculating the calories for each recipe 
 CREATE VIEW total_nutritional_info AS
@@ -455,21 +457,29 @@ SELECT cook_id, cook_rank,
     END AS rank_numeric
 FROM cook;
     
+-- total rating for each cook in each episode
+CREATE VIEW episode_cook_rating AS
+SELECT r.episode_id, r.cook_id, cr.rank_numeric, SUM(r.rating_value) as total_rating
+FROM rating r 
+INNER JOIN cook_rank_numeric cr ON r.cook_id = cr.cook_id
+GROUP BY r.episode_id, r.cook_id, cr.rank_numeric
+ORDER BY r.episode_id, total_rating DESC;
+
 -- 3.1: mesos oros aksiologhsewn ana mageira
 CREATE VIEW cook_mean_rating AS
-SELECT c.first_name, c.last_name, AVG(r.rating_value) as mean_rating
+SELECT c.cook_id, c.first_name, c.last_name, AVG(r.rating_value) as mean_rating
 FROM cook c
 INNER JOIN rating r ON c.cook_id = r.cook_id
-GROUP BY c.first_name, c.last_name;
+GROUP BY c.cook_id, c.first_name, c.last_name;
 
 -- 3.1: mesos oros aksiologhsewn ana ethnikh kouzina
 CREATE VIEW national_cuisine_mean_rating AS
-SELECT nc.cuisine_name, AVG(r.rating_value) as mean_rating
+SELECT nc.national_cuisine_id, nc.cuisine_name, AVG(r.rating_value) as mean_rating
 FROM national_cuisine nc
 INNER JOIN cook_cuisine_assignment cca ON nc.national_cuisine_id = cca.national_cuisine_id
 INNER JOIN episode e ON cca.episode_id = e.episode_id
 INNER JOIN rating r ON cca.cook_id = r.cook_id AND r.episode_id = e.episode_id
-GROUP BY nc.cuisine_name;
+GROUP BY nc.national_cuisine_id, nc.cuisine_name;
 
 -- 3.2 
 DELIMITER //
@@ -536,7 +546,8 @@ WHERE c.cook_id NOT IN (
 );
 
 -- 3.5
-CREATE VIEW judges_with_equal_episodes AS
+-- first we create a view that contains the episode count for each judge in each season
+CREATE VIEW judges_episode_count_per_year AS
 SELECT j.cook_id, j.first_name, j.last_name, e.season_number, COUNT(*) as episode_count
 FROM judge_assignment ja
 INNER JOIN episode e ON ja.episode_id = e.episode_id
@@ -544,6 +555,12 @@ INNER JOIN cook j ON ja.cook_id = j.cook_id
 GROUP BY j.cook_id, e.season_number
 HAVING COUNT(*) > 3
 ORDER BY episode_count DESC;
+
+CREATE VIEW judges_with_equal_episode_count AS 
+SELECT j1.cook_id AS judge_id_1, j1.first_name AS judge_first_name_1, j1.last_name AS judge_last_name_1, j2.cook_id AS judge_id_2, j2.first_name AS judge_first_name_2, j2.last_name AS judge_last_name_2, j1.episode_count AS judge_1_episode_count, j2.episode_count AS judge_2_episode_count
+FROM judges_episode_count_per_year j1
+INNER JOIN judges_episode_count_per_year j2 ON j1.cook_id < j2.cook_id AND j1.episode_count = j2.episode_count
+ORDER BY j1.episode_count DESC;
 
 -- 3.6
 CREATE VIEW most_used_tag_combinations AS 
@@ -622,7 +639,13 @@ FROM cuisine_yearly_participations cyp1
 INNER JOIN cuisine_yearly_participations cyp2 ON cyp1.cuisine_name = cyp2.cuisine_name
 WHERE cyp1.season_number = cyp2.season_number - 1
 GROUP BY cyp1.cuisine_name, cyp1.season_number, cyp2.season_number
-ORDER BY episode_count DESC;    
+ORDER BY episode_count DESC;
+
+CREATE VIEW cuisine_equal_two_year_participations AS
+SELECT cyp1.cuisine_name AS cuisine_1, cyp2.cuisine_name AS cuisine_2, cyp1.episode_count
+FROM cuisine_two_year_participations cyp1
+INNER JOIN cuisine_two_year_participations cyp2 ON cyp1.cuisine_name < cyp2.cuisine_name AND cyp1.episode_count = cyp2.episode_count
+ORDER BY cyp1.episode_count DESC;
 
 -- 3.11 
 CREATE VIEW top_rating_judges AS
@@ -837,26 +860,26 @@ BEGIN
     INSERT INTO recipe_assignment (recipe_id, episode_id) 
     SELECT cra.recipe_id, exact_episode_id
     FROM (
-        SELECT cr.cook_id, r.recipe_id, ROW_NUMBER() OVER (PARTITION BY cr.cook_id ORDER BY RAND()) AS row_num
+        SELECT cca.national_cuisine_id, r.recipe_id, ROW_NUMBER() OVER (PARTITION BY cca.national_cuisine_id ORDER BY RAND()) AS row_num
         FROM (
             -- filter out the recipes that have been used in more than 3 episodes
             SELECT r.recipe_id, r.national_cuisine_id
             FROM recipe r
             WHERE r.episode_count < 3 
         ) AS r
-        INNER JOIN cook_recipe cr ON cr.recipe_id = r.recipe_id -- if we decide that its not necessary for a cook to be assigned a recipe he knows we can remove this join
+        -- INNER JOIN cook_recipe cr ON cr.recipe_id = r.recipe_id -- if we decide that its not necessary for a cook to be assigned a recipe he knows we can remove this join
         INNER JOIN (
             SELECT cook_id, national_cuisine_id
             FROM cook_cuisine_assignment
             WHERE episode_id = exact_episode_id
-        ) AS cca ON r.national_cuisine_id = cca.national_cuisine_id AND cr.cook_id = cca.cook_id
+        ) AS cca ON r.national_cuisine_id = cca.national_cuisine_id
     ) as cra
     WHERE cra.row_num = 1;
 
 
     -- the cook must now know the recipe he is assigned in the episode 
     -- so we insert the recipe into the cook_recipe table
-    /* INSERT INTO cook_recipe (cook_id, recipe_id)
+    INSERT INTO cook_recipe (cook_id, recipe_id)
     SELECT cca.cook_id, ra.recipe_id
     FROM (
         SELECT cca.cook_id, cca.national_cuisine_id
@@ -873,7 +896,7 @@ BEGIN
         SELECT 1
         FROM cook_recipe cr
         WHERE cr.cook_id = cca.cook_id AND cr.recipe_id = ra.recipe_id
-    ); */
+    ); 
 
     INSERT INTO judge_assignment(cook_id, episode_id)
     SELECT c.cook_id, exact_episode_id
@@ -899,21 +922,49 @@ END;
 //
 DELIMITER ;
 
-
--- First attempt at a procedure to find cooks under 30 with the most recipes
--- todo: check if this is correct
 DELIMITER //
 
-
-CREATE PROCEDURE find_cooks_with_most_recipes_under_30()
+CREATE PROCEDURE declare_winners()
 BEGIN
-    -- Select cook information along with recipe count
-    SELECT c.cook_id, c.first_name, c.last_name, c.age, COUNT(r.recipe_id) AS recipe_count
-    FROM cook c
-    LEFT JOIN recipe r ON c.cook_id = r.cook_id
-    WHERE c.age < 30
-    GROUP BY c.cook_id, c.first_name, c.last_name, c.age
-    ORDER BY recipe_count DESC; -- Order by recipe count in descending order
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE currect_episode_id INT;
+    DECLARE cook_cursor CURSOR FOR 
+        SELECT DISTINCT episode_id 
+        FROM episode_cook_rating;
+    
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    
+    OPEN cook_cursor;
+    
+    read_loop: LOOP
+        FETCH cook_cursor INTO currect_episode_id;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+        
+        -- Create a temporary table to hold the cooks for the current episode
+        CREATE TEMPORARY TABLE temp_episode_cooks AS
+        SELECT cook_id, total_rating, rank_numeric
+        FROM episode_cook_rating
+        WHERE episode_id = currect_episode_id;
+
+        -- Find the cook with the highest rating
+        -- ORDER BY first sorts by total rating and if there is a tie, it sorts by expertise, and if there is still a tie, it sorts randomly
+        SELECT cook_id, total_rating, rank_numeric 
+        INTO @cook_id, @max_rating, @max_expertise
+        FROM temp_episode_cooks
+        ORDER BY total_rating DESC, rank_numeric DESC, RAND()
+        LIMIT 1;
+
+        -- Insert the winner into the episode_winner table
+        INSERT INTO episode_winner (episode_id, cook_id, rating)
+        VALUES (currect_episode_id, @cook_id, @max_rating);
+
+        -- Drop the temporary table
+        DROP TEMPORARY TABLE temp_episode_cooks;
+    END LOOP;
+    
+    CLOSE cook_cursor;
 END //
 
 DELIMITER ;

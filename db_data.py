@@ -18,7 +18,7 @@ def execute_query(connection, query, data=None):
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
-    port="8887",  # Adjust the port if necessary
+    port="3306",  # Adjust the port if necessary
     password="root",
     database="cooking_show"
 )
@@ -567,7 +567,7 @@ def generate_cook_recipe_data():
 
                 # Randomly select a subset of remaining recipes for the cook
                 if possible_recipes:
-                    num_recipes = random.randint(4, min(8, len(possible_recipes)))
+                    num_recipes = random.randint(1, min(3, len(possible_recipes)))
                     selected_recipes = random.sample(possible_recipes, num_recipes)
 
                     for recipe_id in selected_recipes:
@@ -729,7 +729,9 @@ def generate_episode_image_data():
         data = (episode_id, image_id, image_description)
         execute_query(conn, query, data)
 
-
+def determine_winners():
+    query = "CALL declare_winners()"
+    execute_query(conn, query)
 
 # Delete existing data and reset auto-increment for all tables
 tables = ["episode_image", "cook_image", "recipe_theme_image", "ingredient_image", "food_group_image", "gear_image", "recipe_image",  "rating", "nutritional_info", "cook_recipe", "cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme", "episode", "image"]
@@ -775,6 +777,7 @@ generate_ingredient_image_data()
 generate_recipe_theme_image_data()
 generate_cook_image_data()
 generate_episode_image_data()
+determine_winners()
 
 print("Dummy data inserted successfully into all tables.")
 
