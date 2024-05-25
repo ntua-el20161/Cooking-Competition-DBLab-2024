@@ -108,7 +108,7 @@ CREATE TABLE recipe_gear(
 
 CREATE TABLE step (
     step_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    small_description VARCHAR(200) NOT NULL,
+    small_description VARCHAR(300) NOT NULL,
     ordering INT UNSIGNED DEFAULT 0, -- vale times analoga me thn seira twn vhmatwn (1o vhma 1, 2o vhma 2, klp) alla ta xeirizetai kai trigger an apla ta valeis insert me th seira kai valeis null auto to pedio
     recipe_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (step_id),
