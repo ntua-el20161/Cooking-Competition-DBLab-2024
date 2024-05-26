@@ -20,7 +20,7 @@ conn = mysql.connector.connect(
     user="root",
     port="3306",  # Adjust the port if necessary
     password="root",
-    database="cooking_show"
+    database="cooking_show" 
 )
 
 if conn.is_connected():
@@ -43,36 +43,6 @@ def generate_random_string(length):
 
 def generate_random_url():
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
-# Function to generate dummy data for app_user table
-'''
- def generate_dummy_users(num_users):
-    usernames = set()
-    roles = ['cook', 'admin']
-
-    # Ensure at least one admin
-    admin_generated = False
-
-    query = "INSERT INTO app_user (app_username, password, role) VALUES (%s, %s, %s)"
-
-    for i in range(num_users):
-        while True:
-            username = generate_random_string(8)
-            if username not in usernames:
-                usernames.add(username)
-                break
-
-        password = generate_random_string(10)
-
-        # Ensure only one admin
-        if not admin_generated:
-            role = random.choice(roles)
-            if(role == 'admin'): admin_generated = True
-        else:
-            role = 'cook'
-
-        data = (username, password, role)
-        execute_query(conn, query, data) 
-'''
 
 # Function to generate dummy data for cook table
 def generate_dummy_cooks(num_cooks):
