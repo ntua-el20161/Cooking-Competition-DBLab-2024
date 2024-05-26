@@ -996,7 +996,7 @@ def generate_step_data(recipe_ids):
         # Select steps for this recipe
         chosen_steps = random.choices(steps, k=num_steps)
 
-        ordering = 0
+        #ordering = 0
 
         # Insert steps for this recipe
         query = "INSERT INTO step (small_description, recipe_id) VALUES (%s, %s)"
@@ -1007,10 +1007,11 @@ def generate_step_data(recipe_ids):
 
 
 
-
+'''
 def determine_winners():
     query = "CALL declare_winners()"
     execute_query(conn, query)
+'''
 
 # Delete existing data and reset auto-increment for all tables
 tables = ["step", "episode_image", "cook_image", "recipe_theme_image", "ingredient_image", "food_group_image", "gear_image", "recipe_image",  "rating", "nutritional_info", "cook_recipe", "cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "recipe_theme", "episode", "image"]
@@ -1057,7 +1058,7 @@ generate_recipe_theme_image_data()
 generate_cook_image_data()
 generate_episode_image_data()
 generate_step_data(recipe_ids)
-determine_winners()
+#determine_winners()
 
 print("Dummy data inserted successfully into all tables.")
 
