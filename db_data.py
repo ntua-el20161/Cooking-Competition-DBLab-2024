@@ -44,7 +44,8 @@ def generate_random_string(length):
 def generate_random_url():
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
 # Function to generate dummy data for app_user table
-def generate_dummy_users(num_users):
+'''
+ def generate_dummy_users(num_users):
     usernames = set()
     roles = ['cook', 'admin']
 
@@ -70,7 +71,8 @@ def generate_dummy_users(num_users):
             role = 'cook'
 
         data = (username, password, role)
-        execute_query(conn, query, data)
+        execute_query(conn, query, data) 
+'''
 
 # Function to generate dummy data for cook table
 def generate_dummy_cooks(num_cooks):
@@ -994,9 +996,12 @@ def generate_step_data(recipe_ids):
         # Select steps for this recipe
         chosen_steps = random.choices(steps, k=num_steps)
 
+        ordering = 0
+
         # Insert steps for this recipe
         query = "INSERT INTO step (small_description, recipe_id) VALUES (%s, %s)"
         for step_description in chosen_steps:
+
             data = (step_description, recipe_id)
             execute_query(conn, query, data)
 
@@ -1008,7 +1013,7 @@ def determine_winners():
     execute_query(conn, query)
 
 # Delete existing data and reset auto-increment for all tables
-tables = ["step", "episode_image", "cook_image", "recipe_theme_image", "ingredient_image", "food_group_image", "gear_image", "recipe_image",  "rating", "nutritional_info", "cook_recipe", "cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "app_user", "recipe_theme", "episode", "image"]
+tables = ["step", "episode_image", "cook_image", "recipe_theme_image", "ingredient_image", "food_group_image", "gear_image", "recipe_image",  "rating", "nutritional_info", "cook_recipe", "cook_national_cuisine", "recipe_ingredient", "recipe_recipe_theme", "recipe_gear", "recipe_tag", "recipe_meal_type", "cook", "recipe", "gear", "ingredient", "food_group", "national_cuisine", "recipe_theme", "episode", "image"]
 
 
 for table in tables:
@@ -1023,7 +1028,7 @@ generate_dummy_cooks(50)  # Generate 100 dummy cooks
 insert_gear_data(gear_data)
 generate_dummy_food_groups(food_group_data)
 generate_dummy_cuisines(20)  # Generate 29 dummy cuisines
-generate_dummy_users(50)  # Generate 50 dummy users
+#generate_dummy_users(50)  # Generate 50 dummy users
 generate_dummy_ingredients(100)  # Generate data for about 100 ingredients
 generate_dummy_recipes_from_json('recipes.json')
 # Retrieve existing recipe IDs

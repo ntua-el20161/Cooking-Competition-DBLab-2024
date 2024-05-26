@@ -1,11 +1,12 @@
 DROP SCHEMA IF EXISTS cooking_show;
+DROP USER IF EXISTS 'cook'@'localhost';
+DROP USER IF EXISTS 'admin'@'localhost';
 CREATE SCHEMA cooking_show;
 USE cooking_show;
 
+SET optimizer_trace = 'enabled=on';
 -- TODO:
 -- add alternative queries for 3.6 and 3.8
--- users relationship with cooks?
--- ER diagram
 -- schema
 -- report
 
@@ -31,13 +32,10 @@ USE cooking_show;
 -- sthn arxh kathe sezon ginetai reset to episode count gia kathe ethnikh kouzina, mageira kai syntagh dhladh einai dynato enas mageiras na exei symmetasxei sta 3 teleutaia epeisodia mias sezon kai na symmetasxei sto 1o ths epomenhs
 -- o kathe kriths vathmologei ton mageira apo 1-5 kai o telikos vathmos einai to athroisma twn 3 vathmologiwn tou
 
-CREATE TABLE app_user (
-    app_user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,  
-    app_username VARCHAR(20) NOT NULL UNIQUE,
-    password VARCHAR(20) NOT NULL,
-    role VARCHAR(20) NOT NULL CHECK (role in ('cook', 'admin')),
-    PRIMARY KEY (app_user_id)
-);
+-- to login as a user: mysql -u 'username' -p
+-- the granted privileges are found at the end of the script
+CREATE USER 'cook'@'localhost' IDENTIFIED BY 'cook';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
 
 CREATE TABLE recipe (
     recipe_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -100,7 +98,7 @@ CREATE TABLE gear(
 CREATE TABLE recipe_gear(
     recipe_id INT UNSIGNED NOT NULL,
     gear_id INT UNSIGNED NOT NULL,
-    quantity INT UNSIGNED NOT NULL DEFAULT 1,   
+    quantity INT UNSIGNED NOT NULL DEFAULT 1,
     PRIMARY KEY (recipe_id, gear_id),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY (gear_id) REFERENCES gear(gear_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -109,12 +107,13 @@ CREATE TABLE recipe_gear(
 CREATE TABLE step (
     step_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     small_description VARCHAR(300) NOT NULL,
-    ordering INT UNSIGNED DEFAULT 0, -- vale times analoga me thn seira twn vhmatwn (1o vhma 1, 2o vhma 2, klp) alla ta xeirizetai kai trigger an apla ta valeis insert me th seira kai valeis null auto to pedio
+    ordering INT UNSIGNED NOT NULL DEFAULT 0,
     recipe_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (step_id),
     CONSTRAINT FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+-- TODO: fix the trigger
 -- trigger to automatically assign ordering for the recipe steps
 -- ensuring the ordering of the steps is consecutive
 DELIMITER //
@@ -126,14 +125,18 @@ BEGIN
 
     SET max_order = 0;
 
+    IF NEW.ordering IS NOT NULL AND NEW.recipe_id IN (SELECT recipe_id FROM step WHERE recipe_id = NEW.recipe_id) 
+    THEN
     SELECT MAX(ordering) INTO max_order
     FROM step
     WHERE recipe_id = NEW.recipe_id;
+    END IF;
 
     SET NEW.ordering = max_order + 1;
 END;
 //
 DELIMITER ;
+
 
 CREATE TABLE food_group(
     food_group_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -421,6 +424,50 @@ CREATE TABLE episode_winner (
     CONSTRAINT FOREIGN KEY (cook_id) REFERENCES cook(cook_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+-- Views for the cook_user (he is the cook with cook_id = 1)
+-- this user can alter or insert on all these views
+CREATE VIEW cook_user_info AS 
+SELECT c.cook_id, c.first_name, c.last_name, c.phone_number, c.birthdate, c.age, c.yrs_of_exp, c.episode_count, c.cook_rank
+FROM cook c
+WHERE c.cook_id = 1;
+
+CREATE VIEW cook_user_recipes AS
+SELECT r.recipe_id, r.title, r.preparation_mins, r.cooking_mins, r.total_time, r.category, r.serving_size_in_grams, r.servings, r.episode_count, r.national_cuisine_id, r.basic_ingredient_id
+FROM recipe r
+INNER JOIN cook_recipe cr ON r.recipe_id = cr.recipe_id
+WHERE cr.cook_id = 1;
+
+CREATE VIEW cook_user_steps AS  
+SELECT s.step_id, s.small_description, s.ordering, s.recipe_id
+FROM step s
+INNER JOIN recipe r ON s.recipe_id = r.recipe_id
+INNER JOIN cook_recipe cr ON r.recipe_id = cr.recipe_id
+WHERE cr.cook_id = 1;
+
+CREATE VIEW cook_user_ingredients AS
+SELECT i.ingredient_id, i.title, i.kcal_per_100, i.food_group_id, ri.quantity, ri.estimated_grams, r.recipe_id
+FROM ingredient i
+INNER JOIN recipe_ingredient ri ON i.ingredient_id = ri.ingredient_id
+INNER JOIN recipe r ON ri.recipe_id = r.recipe_id
+INNER JOIN cook_recipe cr ON r.recipe_id = cr.recipe_id
+WHERE cr.cook_id = 1;
+
+CREATE VIEW cook_user_gear AS
+SELECT g.gear_id, g.title, g.instructions, r.recipe_id, rg.quantity
+FROM gear g
+INNER JOIN recipe_gear rg ON g.gear_id = rg.gear_id
+INNER JOIN recipe r ON rg.recipe_id = r.recipe_id
+INNER JOIN cook_recipe cr ON r.recipe_id = cr.recipe_id
+WHERE cr.cook_id = 1;
+
+GRANT INSERT, UPDATE, SELECT ON cooking_show.cook_user_recipes TO 'cook'@'localhost';
+GRANT INSERT, UPDATE, SELECT ON cooking_show.cook_user_steps TO 'cook'@'localhost';
+GRANT INSERT, UPDATE, SELECT ON cooking_show.cook_user_ingredients TO 'cook'@'localhost';
+GRANT INSERT, UPDATE, SELECT ON cooking_show.cook_user_gear TO 'cook'@'localhost';
+GRANT UPDATE, SELECT ON cooking_show.cook_user_info TO 'cook'@'localhost';
+GRANT INSERT, SELECT ON cooking_show.recipe TO 'cook'@'localhost';
+GRANT ALL PRIVILEGES ON cooking_show.* TO 'admin'@'localhost';
+
 -- total rating for each cook for all episodes
 CREATE VIEW total_cook_rating AS
 SELECT c.cook_id, c.first_name, c.last_name, SUM(r.rating_value) as total_rating
@@ -572,17 +619,15 @@ ORDER BY appearance_count DESC
 LIMIT 3;
 
 -- 3.6 alternative with force index
-/*
 CREATE VIEW most_used_tag_combinations_alt AS
 SELECT rt1.tag AS tag_1, rt2.tag AS tag_2, COUNT(*) AS appearance_count
-FROM recipe_tag rt1
-JOIN recipe_tag rt2 ON rt1.recipe_id = rt2.recipe_id AND rt1.tag < rt2.tag
-FORCE INDEX FOR GROUP BY rt1.tag, rt2.tag
+FROM recipe_tag rt1 FORCE INDEX (idx_recipe_tag_tag)
+JOIN recipe_tag rt2 FORCE INDEX (idx_recipe_tag_tag)
+ON rt1.recipe_id = rt2.recipe_id AND rt1.tag < rt2.tag
+GROUP BY rt1.tag, rt2.tag 
 ORDER BY appearance_count DESC
 LIMIT 3;
-*/
 
--- TODO: review this query
 -- 3.7 
 CREATE VIEW five_less_than_the_most AS
 SELECT c.cook_id, c.first_name, c.last_name, c.episode_count
@@ -968,3 +1013,11 @@ BEGIN
 END //
 
 DELIMITER ;
+
+GRANT INSERT, UPDATE, SELECT ON cooking_show.cook_user_recipes TO 'cook'@'localhost';
+GRANT INSERT, UPDATE, SELECT ON cooking_show.cook_user_steps TO 'cook'@'localhost';
+GRANT INSERT, UPDATE, SELECT ON cooking_show.cook_user_ingredients TO 'cook'@'localhost';
+GRANT INSERT, UPDATE, SELECT ON cooking_show.cook_user_gear TO 'cook'@'localhost';
+GRANT UPDATE, SELECT ON cooking_show.cook_user_info TO 'cook'@'localhost';
+GRANT INSERT, SELECT ON cooking_show.recipe TO 'cook'@'localhost';
+GRANT ALL PRIVILEGES ON cooking_show.* TO 'admin'@'localhost';
